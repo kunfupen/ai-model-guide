@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Model Guide
 
-## Getting Started
+A curated catalog of popular AI models — specs, availability, and distilled
+guidance from the people who build them. Built so developers can compare GPT,
+Claude, Gemini, and Llama variants in one place instead of hunting across four
+provider sites and X.
 
-First, run the development server:
+## Stack
+
+- [Next.js 16](https://nextjs.org) (App Router) — SSG for the catalog and every model page
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote) — content lives in
+  `content/models/*.mdx`, rendered server-side
+- [Zod](https://zod.dev) — validates model frontmatter at build time; bad data
+  fails the build
+- [react-tweet](https://react-tweet.vercel.app) — static tweet embeds, no X API
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Authoring a new model
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create a new file in `content/models/`, named `<provider>-<model-slug>.mdx`
+   (e.g. `openai-gpt-5.mdx`).
+2. Fill in the frontmatter. The single source of truth is
+   [`lib/schemas.ts`](lib/schemas.ts):
 
-## Learn More
+   ```yaml
+   ---
+   slug: openai-gpt-5            # must match the filename
+   name: GPT-5
+   provider: openai              # openai | anthropic | google | meta
+   releaseDate: 2026-04-10
+   contextWindow: 1000000
+   modalities: [text, vision]    # text | vision | audio | video
+   pricing:
+     inputPer1M: 5
+     outputPer1M: 20
+   availability: [api, chatgpt]  # see schemas.ts for full list
+   strengths: [coding, reasoning]
+   officialDocs: https://platform.openai.com/docs/models/gpt-5
+   tweetIds: ["1234567890"]      # numeric IDs from x.com URLs
+   ---
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. Write the body as MDX — H2/H3 headings, lists, code blocks, and
+   `<Tweet id="..." />` embeds all work. See
+   [`content/models/anthropic-claude-4-7-opus.mdx`](content/models/anthropic-claude-4-7-opus.mdx)
+   as a template.
+4. `pnpm build` will fail loudly if the frontmatter is malformed — that's the
+   guardrail.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Pushes to `main` deploy automatically via Vercel.
 
-## Deploy on Vercel
+## Project layout
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/
+  page.tsx                  homepage / catalog
+  models/[slug]/page.tsx    per-model detail (SSG)
+components/
+  SpecsTable.tsx            dense spec dl
+  TweetEmbed.tsx            react-tweet wrapper
+  MDXComponents.tsx         MDX → JSX mappings
+lib/
+  schemas.ts                Zod schema (single source of truth)
+  content.ts                content loader
+content/models/*.mdx        the catalog
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT
