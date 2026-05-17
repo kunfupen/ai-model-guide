@@ -1,0 +1,50 @@
+---
+slug: anthropic-claude-4-7-opus
+name: Claude Opus 4.7
+provider: anthropic
+releaseDate: 2026-02-01
+contextWindow: 200000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 15
+  outputPer1M: 75
+availability: [api, claude-ai, bedrock, vertex]
+strengths: [reasoning, coding, agentic-tasks]
+officialDocs: https://docs.anthropic.com/en/docs/about-claude/models
+tweetIds: []
+---
+
+## When to reach for Opus 4.7
+
+Opus 4.7 is Anthropic's flagship model, tuned for long-horizon reasoning, agentic
+workflows, and code generation. Reach for it when:
+
+- A task requires multi-step planning that smaller models tend to truncate.
+- You're orchestrating tools or sub-agents and need stable behavior across many turns.
+- Quality matters more than per-token cost.
+
+For high-volume or latency-sensitive workloads, Sonnet 4.6 is usually the better fit.
+
+## Prompt patterns that work well
+
+- **Be explicit about the deliverable.** Opus will happily over-deliver if you don't
+  specify the shape and length of the output.
+- **Use system prompts for invariants.** Put rules that should never break ("never
+  modify the database without confirming first") in the system prompt, not the user turn.
+- **Ground long-context retrieval.** When stuffing >50k tokens of context, lead with a
+  one-line task statement, then the documents, then restate the task.
+
+## Tool use and agents
+
+Opus 4.7 supports parallel tool calls — emit multiple tool requests in a single turn
+when calls are independent. For long-running agent loops, prefer breaking work into
+focused sub-tasks rather than one monolithic prompt; intermediate checkpoints reduce drift.
+
+{/* Add curated tweets from Anthropic engineers once you have IDs:
+    <Tweet id="..." />
+*/}
+
+## Official resources
+
+- [Anthropic model docs](https://docs.anthropic.com/en/docs/about-claude/models)
+- [Anthropic cookbook](https://github.com/anthropics/anthropic-cookbook)
