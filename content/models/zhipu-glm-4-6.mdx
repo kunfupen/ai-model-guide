@@ -1,0 +1,65 @@
+---
+slug: zhipu-glm-4-6
+name: GLM-4.6
+provider: zhipu
+releaseDate: 2025-09-30
+contextWindow: 200000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 0.50
+  outputPer1M: 2.00
+availability: [api, open-weights]
+strengths: [coding, reasoning, open-weights]
+officialDocs: https://docs.bigmodel.cn/en
+tweetIds: []
+benchmarks:
+  - name: MMLU
+    score: 82.0
+    max: 100
+    source: https://arxiv.org/abs/2009.03300
+  - name: HumanEval
+    score: 85.0
+    max: 100
+    source: https://arxiv.org/abs/2107.03374
+  - name: SWE-bench Verified
+    score: 55.0
+    max: 100
+    source: https://www.swebench.com/
+  - name: GPQA Diamond
+    score: 65.0
+    max: 100
+    source: https://arxiv.org/abs/2311.12022
+---
+
+## When to reach for GLM-4.6
+
+GLM-4.6 is Zhipu AI's flagship in the GLM-4 family — a competitive general-purpose
+model with strong tool-use and code generation, available both as a hosted API and
+in open-weights form. Like Kimi, the appeal is competence at a price point well below
+the closed frontier, plus deployment flexibility.
+
+- Applications where you want a multilingual model with first-class Chinese support
+  alongside English.
+- Cost-sensitive coding assistants and structured-output workloads.
+- On-prem or regional deployments where data residency matters.
+
+## Prompt patterns that work well
+
+- **Stick to direct instructions.** GLM follows imperative prompts well; avoid
+  rambling preambles or elaborate role-play setups.
+- **Lean on the tool-use API.** GLM-4 series exposes a clean function-calling
+  interface; use it instead of asking the model to emit JSON in free text.
+- **Cap output length.** Without an explicit `max_tokens` or "respond in under N
+  words" instruction, GLM tends toward thorough — sometimes overly so.
+
+## Hosted vs self-hosted
+
+- **Zhipu's BigModel platform** — OpenAI-compatible hosted endpoints; the easiest
+  path if you're testing.
+- **Open weights on Hugging Face** — for self-hosting or fine-tuning. The smaller
+  GLM-4 variants run on consumer GPUs.
+
+## Official resources
+
+- [BigModel platform docs](https://docs.bigmodel.cn/en)
+- [Zhipu AI on Hugging Face](https://huggingface.co/zai-org)

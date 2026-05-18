@@ -8,6 +8,9 @@ const PROVIDER_OPTIONS = [
   { value: "anthropic", label: "Anthropic", dot: "bg-amber-500" },
   { value: "google", label: "Google", dot: "bg-sky-500" },
   { value: "meta", label: "Meta", dot: "bg-indigo-500" },
+  { value: "moonshot", label: "Moonshot", dot: "bg-violet-500" },
+  { value: "zhipu", label: "Zhipu", dot: "bg-rose-500" },
+  { value: "nvidia", label: "NVIDIA", dot: "bg-lime-500" },
 ];
 
 const MODALITY_OPTIONS = [

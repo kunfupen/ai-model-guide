@@ -1,0 +1,68 @@
+---
+slug: moonshot-kimi-k2
+name: Kimi K2
+provider: moonshot
+releaseDate: 2025-07-11
+contextWindow: 128000
+modalities: [text]
+pricing:
+  inputPer1M: 0.60
+  outputPer1M: 2.50
+availability: [api, open-weights]
+strengths: [coding, agentic-tasks, open-weights]
+officialDocs: https://platform.moonshot.ai/docs
+tweetIds: []
+benchmarks:
+  - name: MMLU
+    score: 84.0
+    max: 100
+    source: https://arxiv.org/abs/2009.03300
+  - name: HumanEval
+    score: 89.0
+    max: 100
+    source: https://arxiv.org/abs/2107.03374
+  - name: SWE-bench Verified
+    score: 65.0
+    max: 100
+    source: https://www.swebench.com/
+  - name: GPQA Diamond
+    score: 72.0
+    max: 100
+    source: https://arxiv.org/abs/2311.12022
+---
+
+## When to reach for Kimi K2
+
+Kimi K2 is Moonshot AI's flagship open-weights model — a 1T-parameter mixture-of-experts
+(roughly 32B active per token) released as a permissive open release. It's a serious
+alternative to closed-frontier models for teams that want strong coding and agentic
+capability without sending tokens to a US-hosted API.
+
+- Open-weights deployments where you can't or won't use a US API provider.
+- Code generation and agentic loops where Moonshot's tool-use post-training shines.
+- Cost-sensitive workloads — Moonshot's hosted pricing is well below the closed
+  frontier, and self-hosted is cheaper still.
+
+## Prompt patterns that work well
+
+- **Be explicit about tools.** K2 was specifically post-trained on agentic patterns;
+  it does best when given a small, well-documented set of tools and clear goals.
+- **Use structured output for downstream parsing.** Asking for JSON or a tagged
+  format works reliably.
+- **Don't paste in the kitchen sink.** With 128k context it's tempting, but K2's
+  attention quality holds up better when the prompt is curated.
+
+## Hosted vs self-hosted
+
+You can use K2 three ways:
+
+1. **Moonshot's hosted API** — easiest path, OpenAI-compatible endpoints.
+2. **Inference providers** (Together, Fireworks, Groq, etc.) — comparable pricing,
+   different latency profiles.
+3. **Self-hosted** — the MoE architecture means inference is heavier than a dense
+   30B-class model; budget GPU memory accordingly.
+
+## Official resources
+
+- [Moonshot platform docs](https://platform.moonshot.ai/docs)
+- [Kimi K2 on Hugging Face](https://huggingface.co/moonshotai)

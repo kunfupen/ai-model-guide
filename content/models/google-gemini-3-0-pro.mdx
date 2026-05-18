@@ -1,0 +1,67 @@
+---
+slug: google-gemini-3-0-pro
+name: Gemini 3.0 Pro
+provider: google
+releaseDate: 2026-03-15
+contextWindow: 2000000
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 2.00
+  outputPer1M: 15
+availability: [api, gemini-app, vertex]
+strengths: [reasoning, long-context, multimodal]
+officialDocs: https://ai.google.dev/gemini-api/docs/models
+tweetIds: []
+benchmarks:
+  - name: MMLU
+    score: 92.0
+    max: 100
+    source: https://arxiv.org/abs/2009.03300
+  - name: HumanEval
+    score: 95.0
+    max: 100
+    source: https://arxiv.org/abs/2107.03374
+  - name: SWE-bench Verified
+    score: 78.0
+    max: 100
+    source: https://www.swebench.com/
+  - name: GPQA Diamond
+    score: 87.0
+    max: 100
+    source: https://arxiv.org/abs/2311.12022
+---
+
+## When to reach for Gemini 3.0 Pro
+
+Gemini 3.0 Pro is the successor to the 2.5 Pro family — Google's flagship across
+reasoning, coding, and multimodal tasks. The headline change is the 2M-token context
+window (double 2.5 Pro's), plus continued improvements to native multimodality and
+long-horizon reasoning.
+
+- Tasks that exceeded 1M tokens of context in 2.5 Pro — entire monorepos, multi-hour
+  video transcripts, large document collections.
+- Heavy reasoning or agentic workloads where 2.5 Pro felt borderline.
+- Multimodal pipelines mixing video, audio, and text in a single call.
+
+For high-volume or latency-sensitive paths, Gemini 3.0 Flash (or sticking with 2.5
+Flash) is still the right call.
+
+## Prompt patterns that work well
+
+- **Lean on long context, but structure it.** Even at 2M tokens, prompt ordering
+  matters — task statement first, documents middle, task restated at the end.
+- **Use the reasoning controls.** Gemini 3 exposes thinking-budget controls; set
+  them based on whether the request is interactive or batch.
+- **Mix modalities deliberately.** Video + text reasoning works well; describe what
+  you want grounded in the video versus answered from general knowledge.
+
+## Long-context notes
+
+Per-token cost is the same regardless of input size up to 2M, but latency and time-
+to-first-token grow with input length. For interactive use cases over ~500k tokens,
+prefer Flash or pre-filter with retrieval.
+
+## Official resources
+
+- [Gemini API docs](https://ai.google.dev/gemini-api/docs/models)
+- [Vertex AI Gemini docs](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models)

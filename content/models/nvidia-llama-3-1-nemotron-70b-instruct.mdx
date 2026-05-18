@@ -1,0 +1,65 @@
+---
+slug: nvidia-llama-3-1-nemotron-70b-instruct
+name: Llama-3.1-Nemotron-70B-Instruct
+provider: nvidia
+releaseDate: 2024-10-15
+contextWindow: 128000
+modalities: [text]
+availability: [api, open-weights]
+strengths: [instruction-following, open-weights, fine-tunable]
+officialDocs: https://build.nvidia.com/nvidia/llama-3_1-nemotron-70b-instruct
+tweetIds: []
+benchmarks:
+  - name: MMLU
+    score: 80.0
+    max: 100
+    source: https://arxiv.org/abs/2009.03300
+  - name: HumanEval
+    score: 78.0
+    max: 100
+    source: https://arxiv.org/abs/2107.03374
+  - name: SWE-bench Verified
+    score: 30.0
+    max: 100
+    source: https://www.swebench.com/
+  - name: GPQA Diamond
+    score: 55.0
+    max: 100
+    source: https://arxiv.org/abs/2311.12022
+---
+
+## When to reach for Nemotron 70B Instruct
+
+Nemotron is NVIDIA's RLHF-tuned variant of Meta's Llama-3.1 70B. The base model is
+Meta's; the instruction-following and helpfulness tuning is NVIDIA's, using their
+own preference data. The result is a strong open-weights chat model that scores
+notably higher on instruction-following benchmarks than the stock Llama-3.1 70B.
+
+- Open-weights deployments where you want a "drop-in" chat model with better
+  instruction-following than the base Llama checkpoint.
+- Self-hosted inference on a single 80GB A100/H100 (in 4-bit quantization, fits on
+  consumer hardware too).
+- A solid starting point for further domain-specific fine-tuning.
+
+## Prompt patterns that work well
+
+- **Treat it like a Llama-3.1 chat model.** Same chat template, same system/user/
+  assistant boundaries — most of what's true for Llama-3.1 is true here.
+- **Be concrete in instructions.** The RLHF tuning makes it responsive to clear
+  directives; verbose persona prompts add less value than they would with frontier
+  models.
+- **Don't expect frontier-tier coding.** Strong on general assistance; weaker on
+  long-horizon coding tasks compared to GPT-5 or Opus 4.7.
+
+## Hosted vs self-hosted
+
+- **NVIDIA NIM** ([build.nvidia.com](https://build.nvidia.com)) — NVIDIA's hosted
+  inference service, useful for evaluation before deployment.
+- **Hosted inference providers** — Together, Fireworks, OctoAI all serve Nemotron.
+- **Self-hosted** — 70B is the sweet spot for "one big GPU box" deployments. Use
+  vLLM or TensorRT-LLM for production throughput.
+
+## Official resources
+
+- [NVIDIA build page](https://build.nvidia.com/nvidia/llama-3_1-nemotron-70b-instruct)
+- [Hugging Face model card](https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF)

@@ -1,6 +1,14 @@
 import { z } from "zod";
 
-export const Provider = z.enum(["openai", "anthropic", "google", "meta"]);
+export const Provider = z.enum([
+  "openai",
+  "anthropic",
+  "google",
+  "meta",
+  "moonshot",
+  "zhipu",
+  "nvidia",
+]);
 export type Provider = z.infer<typeof Provider>;
 
 export const Modality = z.enum(["text", "vision", "audio", "video"]);
