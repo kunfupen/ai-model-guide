@@ -12,6 +12,23 @@ availability: [api, gemini-app, vertex]
 strengths: [speed, cost-efficiency, long-context]
 officialDocs: https://ai.google.dev/gemini-api/docs/models
 tweetIds: []
+benchmarks:
+  - name: MMLU
+    score: 84.0
+    max: 100
+    source: https://arxiv.org/abs/2009.03300
+  - name: HumanEval
+    score: 85.0
+    max: 100
+    source: https://arxiv.org/abs/2107.03374
+  - name: SWE-bench Verified
+    score: 50.0
+    max: 100
+    source: https://www.swebench.com/
+  - name: GPQA Diamond
+    score: 68.0
+    max: 100
+    source: https://arxiv.org/abs/2311.12022
 ---
 
 ## When to reach for Gemini 2.5 Flash

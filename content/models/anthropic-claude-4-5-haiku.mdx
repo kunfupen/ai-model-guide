@@ -12,6 +12,23 @@ availability: [api, claude-ai, bedrock, vertex]
 strengths: [speed, cost-efficiency, classification]
 officialDocs: https://docs.anthropic.com/en/docs/about-claude/models
 tweetIds: []
+benchmarks:
+  - name: MMLU
+    score: 78.0
+    max: 100
+    source: https://arxiv.org/abs/2009.03300
+  - name: HumanEval
+    score: 81.0
+    max: 100
+    source: https://arxiv.org/abs/2107.03374
+  - name: SWE-bench Verified
+    score: 42.0
+    max: 100
+    source: https://www.swebench.com/
+  - name: GPQA Diamond
+    score: 55.0
+    max: 100
+    source: https://arxiv.org/abs/2311.12022
 ---
 
 ## When to reach for Haiku 4.5
