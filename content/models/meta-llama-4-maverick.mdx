@@ -1,0 +1,52 @@
+---
+slug: meta-llama-4-maverick
+name: Llama 4 Maverick
+provider: meta
+releaseDate: 2025-04-05
+contextWindow: 1000000
+modalities: [text, vision]
+availability: [open-weights, api]
+strengths: [open-weights, long-context, cost-efficiency]
+officialDocs: https://www.llama.com/docs/overview
+tweetIds: []
+---
+
+## When to reach for Llama 4 Maverick
+
+Maverick is Meta's mid-tier Llama 4 variant — natively multimodal, mixture-of-experts
+architecture, and crucially open weights. Pick it when you need to run inference on
+your own infrastructure, fine-tune for a vertical use case, or avoid vendor lock-in
+on a long-lived product.
+
+- On-prem or VPC-only deployments where sending tokens to a US-hosted API is
+  off the table.
+- Domain fine-tuning where you're starting from a strong general checkpoint and
+  adapting it with your own data.
+- Workloads where you want to pin the model version and never have it silently
+  updated underneath you.
+
+## Hosted vs self-hosted
+
+You can use Maverick three ways:
+
+1. **Hosted inference providers** (Together, Fireworks, Groq, etc.). Cheapest path
+   to "just call it." Pricing varies — typically lower per-token than frontier
+   closed models, but check each provider.
+2. **Cloud GPUs you rent** (A100/H100 instances on AWS/GCP). Reasonable for
+   moderate throughput; you own the deployment.
+3. **Your own hardware**. Best for steady-state high-volume workloads where the
+   capex amortizes.
+
+## Prompt patterns that work well
+
+- **Don't over-prompt.** Llama 4 is more sensitive to wandering instructions than
+  the closed frontier models. Be direct.
+- **Use the chat template correctly.** The right system/user/assistant boundaries
+  matter — most hosted providers handle this for you, but check when self-hosting.
+- **Fine-tune for narrow tasks.** Maverick is general-purpose; for a specific
+  vertical, even a small LoRA fine-tune is a meaningful quality bump.
+
+## Official resources
+
+- [Llama documentation](https://www.llama.com/docs/overview)
+- [Hugging Face model card](https://huggingface.co/meta-llama)

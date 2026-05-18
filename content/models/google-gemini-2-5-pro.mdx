@@ -1,0 +1,46 @@
+---
+slug: google-gemini-2-5-pro
+name: Gemini 2.5 Pro
+provider: google
+releaseDate: 2025-06-17
+contextWindow: 1000000
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 1.25
+  outputPer1M: 10
+availability: [api, gemini-app, vertex]
+strengths: [long-context, multimodal, reasoning]
+officialDocs: https://ai.google.dev/gemini-api/docs/models
+tweetIds: []
+---
+
+## When to reach for Gemini 2.5 Pro
+
+Gemini 2.5 Pro's defining feature is the 1M-token context window — and unlike many
+"long context" models, it actually uses what's in there. If your workload involves
+shoving a whole codebase, hours of transcripts, or many PDFs into a single prompt,
+Gemini is the natural pick.
+
+- Repository-scale code understanding and refactoring.
+- Document analysis where the answer requires reasoning across hundreds of pages.
+- Video understanding — Gemini natively accepts video input, not just frame extracts.
+
+## Prompt patterns that work well
+
+- **Structure long context.** Even with 1M tokens, ordering matters. Put the task at
+  the top, the documents in the middle, and restate the task at the bottom.
+- **Ask grounded questions.** "What does section 4.2 say about retries?" outperforms
+  "Tell me about retries" when the input is large — the model has somewhere to anchor.
+- **Use thinking tokens deliberately.** Gemini 2.5's reasoning modes trade latency
+  for depth; toggle them based on whether the user is waiting interactively.
+
+## Multimodal: video
+
+Video is the most distinctive input modality here. Pass an MP4 or a YouTube URL and
+ask questions across the timeline — Gemini will reason about what's on screen, what's
+said, and how the two relate.
+
+## Official resources
+
+- [Gemini API docs](https://ai.google.dev/gemini-api/docs/models)
+- [Vertex AI Gemini docs](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models)

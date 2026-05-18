@@ -1,0 +1,46 @@
+---
+slug: google-gemini-2-5-flash
+name: Gemini 2.5 Flash
+provider: google
+releaseDate: 2025-06-17
+contextWindow: 1000000
+modalities: [text, vision, audio]
+pricing:
+  inputPer1M: 0.30
+  outputPer1M: 2.50
+availability: [api, gemini-app, vertex]
+strengths: [speed, cost-efficiency, long-context]
+officialDocs: https://ai.google.dev/gemini-api/docs/models
+tweetIds: []
+---
+
+## When to reach for Gemini 2.5 Flash
+
+Flash is the sweet spot of the Gemini lineup: same 1M-token context window as Pro at
+a fraction of the price. For long-context tasks that don't need Pro's reasoning depth,
+it's hard to beat on cost-per-token.
+
+- Bulk summarization or extraction over large corpora.
+- Retrieval-augmented pipelines where you'd rather pay for context than embed
+  cleverness in retrieval logic.
+- High-volume multimodal classification (images, short audio clips).
+
+## Prompt patterns that work well
+
+- **Bias toward structure.** Flash follows JSON / tagged output reliably and is faster
+  to parse downstream.
+- **Skip elaborate few-shot.** It tends to follow concise instructions better than
+  long example chains at this tier.
+- **Pre-filter with retrieval anyway.** Even with 1M context, prompt cost is linear
+  in input size — use retrieval to feed only the relevant chunks when you can.
+
+## Cost intuition
+
+At ~$0.30 input / $2.50 output per million tokens, a 100k-token RAG prompt costs
+about three cents. That's the price point where "just stuff the docs into context"
+becomes a serious alternative to building a vector store.
+
+## Official resources
+
+- [Gemini API docs](https://ai.google.dev/gemini-api/docs/models)
+- [Vertex AI Gemini docs](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models)

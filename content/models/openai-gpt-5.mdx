@@ -1,0 +1,49 @@
+---
+slug: openai-gpt-5
+name: GPT-5
+provider: openai
+releaseDate: 2025-08-07
+contextWindow: 400000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 1.25
+  outputPer1M: 10
+availability: [api, chatgpt, azure]
+strengths: [coding, reasoning, agentic-tasks]
+officialDocs: https://platform.openai.com/docs/models
+tweetIds: []
+---
+
+## When to reach for GPT-5
+
+GPT-5 is OpenAI's flagship — the model to use when answer quality matters more than
+per-token cost. It's particularly strong on extended reasoning and multi-step coding
+tasks where smaller models miss context.
+
+- Hard reasoning problems where chain-of-thought depth pays off.
+- Complex code-generation and refactoring across many files.
+- Agentic workflows that need to plan, call tools, and recover from errors over
+  many turns.
+
+For high-throughput or latency-sensitive paths, the GPT-5 mini and nano variants (or
+GPT-4o) are usually the better fit.
+
+## Prompt patterns that work well
+
+- **Trust it to think.** GPT-5 does its best work when you don't over-constrain the
+  reasoning path — describe the goal, the constraints, and let it plan.
+- **Use developer messages for invariants.** Put hard rules ("never call this tool
+  more than three times") in the developer/system message, not the user turn.
+- **Be explicit about format only when you need it.** Asking for JSON or markdown
+  works well; over-specifying tone and length tends to make output less natural.
+
+## Tool use and agents
+
+GPT-5 supports parallel tool calls and structured outputs natively. For agent loops,
+prefer giving the model a small, well-named set of tools over a sprawling toolbox —
+selection quality drops with too many similar-purpose tools.
+
+## Official resources
+
+- [OpenAI platform docs](https://platform.openai.com/docs/models)
+- [OpenAI cookbook](https://github.com/openai/openai-cookbook)

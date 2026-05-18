@@ -1,0 +1,47 @@
+---
+slug: openai-gpt-4o
+name: GPT-4o
+provider: openai
+releaseDate: 2024-05-13
+contextWindow: 128000
+modalities: [text, vision, audio]
+pricing:
+  inputPer1M: 2.50
+  outputPer1M: 10
+availability: [api, chatgpt, azure]
+strengths: [multimodal, realtime-audio, general-purpose]
+officialDocs: https://platform.openai.com/docs/models/gpt-4o
+tweetIds: []
+---
+
+## When to reach for GPT-4o
+
+GPT-4o was OpenAI's flagship before GPT-5 and remains a solid general-purpose pick —
+especially when you need native audio in addition to text and vision. The Realtime API
+runs on GPT-4o variants and is the standard choice for voice agents.
+
+- Voice-first products (the Realtime API speaks and listens natively, no separate
+  TTS/STT plumbing).
+- Multimodal tasks that need to mix images and text in a single call.
+- Cases where GPT-5's pricing or latency isn't justified by the task.
+
+## Prompt patterns that work well
+
+- **Lean on the system message for persona.** GPT-4o follows a consistent voice well
+  when you set it up once, rather than re-injecting style instructions per turn.
+- **Mix modalities in one message.** Send images and text together and ask explicit
+  questions about both — it handles cross-modal reasoning well.
+- **Use vision for layout, not OCR-only.** GPT-4o is good at understanding screenshots
+  and UI structure, not just transcribing text from them.
+
+## Realtime / voice
+
+The Realtime API is the most distinctive thing about GPT-4o today. It speaks with
+natural prosody, can be interrupted mid-sentence, and exposes audio events you can
+hook into for visualizations or function calls. Latency is the killer constraint —
+keep your server hops minimal.
+
+## Official resources
+
+- [GPT-4o model docs](https://platform.openai.com/docs/models/gpt-4o)
+- [Realtime API docs](https://platform.openai.com/docs/guides/realtime)

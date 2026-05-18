@@ -1,0 +1,48 @@
+---
+slug: anthropic-claude-4-6-sonnet
+name: Claude Sonnet 4.6
+provider: anthropic
+releaseDate: 2025-11-15
+contextWindow: 200000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 3
+  outputPer1M: 15
+availability: [api, claude-ai, bedrock, vertex]
+strengths: [coding, agentic-tasks, instruction-following]
+officialDocs: https://docs.anthropic.com/en/docs/about-claude/models
+tweetIds: []
+---
+
+## When to reach for Sonnet 4.6
+
+Sonnet is the workhorse tier of the Claude family — significantly cheaper and faster than
+Opus while keeping most of the reasoning quality on day-to-day tasks. It's almost
+always the right starting point unless you have evidence a task needs Opus.
+
+- Production chat and assistant features where Opus's pricing doesn't pencil out.
+- Code generation and refactoring in IDE-integrated tools.
+- Tool-use loops where latency and per-call cost compound across many turns.
+
+If you're prototyping, start here and only escalate to Opus 4.7 for individual prompts
+that fall short.
+
+## Prompt patterns that work well
+
+- **Lean on examples.** Sonnet follows few-shot patterns very reliably; one or two
+  well-chosen examples often beats lengthy abstract instructions.
+- **Constrain the output shape.** Give a schema or a literal template for the response;
+  it cuts hallucination and makes downstream parsing trivial.
+- **Use it for the boring 80%.** Reserve Opus calls for the prompts where Sonnet
+  produces visibly weaker output — most of the time it won't.
+
+## Tool use
+
+Sonnet supports the same tool-use surface as Opus and is the standard pick for
+agentic pipelines where you're orchestrating many calls. Parallel tool calls work the
+same way. The lower per-call cost is what makes long-running agents economically viable.
+
+## Official resources
+
+- [Anthropic model docs](https://docs.anthropic.com/en/docs/about-claude/models)
+- [Anthropic cookbook](https://github.com/anthropics/anthropic-cookbook)

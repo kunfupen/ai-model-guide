@@ -1,0 +1,49 @@
+---
+slug: anthropic-claude-4-5-haiku
+name: Claude Haiku 4.5
+provider: anthropic
+releaseDate: 2025-10-01
+contextWindow: 200000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 0.80
+  outputPer1M: 4
+availability: [api, claude-ai, bedrock, vertex]
+strengths: [speed, cost-efficiency, classification]
+officialDocs: https://docs.anthropic.com/en/docs/about-claude/models
+tweetIds: []
+---
+
+## When to reach for Haiku 4.5
+
+Haiku is the small, fast, cheap end of the Claude family. It's the right choice when
+volume and latency dominate the cost equation — not when you need the smartest
+possible answer.
+
+- Real-time UI features (autocomplete, smart replies, in-product summarization).
+- High-volume classification, extraction, and routing.
+- The first pass of a multi-model pipeline where Sonnet or Opus handles the hard cases.
+
+The same 200k context window as the larger Claudes means you can still feed it long
+documents — it just won't reason about them as deeply.
+
+## Prompt patterns that work well
+
+- **Keep instructions terse.** Haiku is good at following clear instructions and
+  sometimes gets distracted by lengthy preambles.
+- **Use structured output.** Ask for JSON or a tagged format and Haiku will comply
+  much more reliably than older small models.
+- **Cascade, don't escalate mid-stream.** If a task often needs a smarter model,
+  send it to Sonnet from the start rather than retrying Haiku with longer prompts.
+
+## Cost intuition
+
+At roughly $0.80 input / $4 output per million tokens, a 2k-token classification call
+costs a fraction of a cent. That changes which features are economically viable —
+things like "summarize every notification" or "classify every incoming email" only
+become reasonable at Haiku-scale pricing.
+
+## Official resources
+
+- [Anthropic model docs](https://docs.anthropic.com/en/docs/about-claude/models)
+- [Anthropic cookbook](https://github.com/anthropics/anthropic-cookbook)
