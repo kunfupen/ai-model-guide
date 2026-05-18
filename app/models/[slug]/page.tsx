@@ -3,6 +3,7 @@ import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllModelSlugs, getModelBySlug } from "@/lib/content";
 import { SpecsTable } from "@/components/SpecsTable";
+import { BenchmarksTable } from "@/components/BenchmarksTable";
 import { ProviderChip } from "@/components/ProviderChip";
 import { TweetEmbed } from "@/components/TweetEmbed";
 import { mdxComponents } from "@/components/MDXComponents";
@@ -89,6 +90,8 @@ export default async function ModelPage({
       <section className="mt-12">
         <SpecsTable frontmatter={frontmatter} />
       </section>
+
+      <BenchmarksTable benchmarks={frontmatter.benchmarks} />
 
       <article className="editorial mt-16">
         <MDXRemote source={body} components={mdxComponents} />

@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import { getAllModels } from "@/lib/content";
-import { ModelCard } from "@/components/ModelCard";
+import { CatalogClient } from "@/components/CatalogClient";
 
 export default async function Home() {
   const models = await getAllModels();
+  const frontmatters = models.map((m) => m.frontmatter);
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-20">
@@ -20,24 +22,11 @@ export default async function Home() {
         </p>
       </section>
 
-      <section className="mt-20">
-        <div className="flex items-baseline justify-between border-b border-zinc-200 pb-3 dark:border-zinc-800">
-          <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-            Models
-          </h2>
-          <p className="font-mono text-xs tabular-nums text-zinc-400 dark:text-zinc-600">
-            {String(models.length).padStart(2, "0")} total
-          </p>
-        </div>
-
-        <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {models.map(({ frontmatter }) => (
-            <li key={frontmatter.slug}>
-              <ModelCard frontmatter={frontmatter} />
-            </li>
-          ))}
-        </ul>
-      </section>
+      <div className="mt-20">
+        <Suspense fallback={<div className="h-96" />}>
+          <CatalogClient models={frontmatters} />
+        </Suspense>
+      </div>
     </main>
   );
 }

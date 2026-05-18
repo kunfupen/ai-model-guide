@@ -40,5 +40,15 @@ export const ModelFrontmatterSchema = z.object({
   strengths: z.array(z.string()).default([]),
   officialDocs: z.string().url(),
   tweetIds: z.array(z.string().regex(/^\d+$/, "tweet IDs are numeric")).default([]),
+  benchmarks: z
+    .array(
+      z.object({
+        name: z.string().min(1),
+        score: z.number().nonnegative(),
+        max: z.number().positive().default(100),
+        source: z.string().url().optional(),
+      }),
+    )
+    .default([]),
 });
 export type ModelFrontmatter = z.infer<typeof ModelFrontmatterSchema>;
