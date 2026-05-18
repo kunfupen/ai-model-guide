@@ -60,3 +60,44 @@ export const ModelFrontmatterSchema = z.object({
     .default([]),
 });
 export type ModelFrontmatter = z.infer<typeof ModelFrontmatterSchema>;
+
+export const ToolCategory = z.enum([
+  "ide",
+  "runner",
+  "agent-cli",
+  "framework",
+  "hosting",
+]);
+export type ToolCategory = z.infer<typeof ToolCategory>;
+
+export const ToolPlatform = z.enum([
+  "mac",
+  "linux",
+  "windows",
+  "web",
+  "ios",
+  "android",
+  "vscode-extension",
+  "jetbrains-plugin",
+  "terminal",
+]);
+export type ToolPlatform = z.infer<typeof ToolPlatform>;
+
+export const ToolPricing = z.enum(["free", "freemium", "paid", "open-source"]);
+export type ToolPricing = z.infer<typeof ToolPricing>;
+
+export const ToolFrontmatterSchema = z.object({
+  slug: z.string().regex(/^[a-z0-9-]+$/, "slug must be kebab-case"),
+  name: z.string().min(1),
+  category: ToolCategory,
+  releaseDate: dateString.optional(),
+  license: z.string().min(1),
+  pricingModel: ToolPricing,
+  platforms: z.array(ToolPlatform).min(1),
+  supportedModels: z.array(z.string()).default([]),
+  strengths: z.array(z.string()).default([]),
+  officialDocs: z.string().url(),
+  repository: z.string().url().optional(),
+  tweetIds: z.array(z.string().regex(/^\d+$/, "tweet IDs are numeric")).default([]),
+});
+export type ToolFrontmatter = z.infer<typeof ToolFrontmatterSchema>;

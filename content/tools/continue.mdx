@@ -1,0 +1,57 @@
+---
+slug: continue
+name: Continue
+category: ide
+releaseDate: 2023-08-15
+license: Apache-2.0
+pricingModel: open-source
+platforms: [vscode-extension, jetbrains-plugin]
+supportedModels:
+  - GPT-5
+  - Claude Opus 4.7
+  - Llama 4
+  - Ollama models
+  - Any OpenAI-compatible endpoint
+strengths: [open-source, model-agnostic, ide-native]
+officialDocs: https://docs.continue.dev
+repository: https://github.com/continuedev/continue
+tweetIds: []
+---
+
+## What it is
+
+Continue is an open-source AI code assistant that runs as a VS Code extension or
+JetBrains plugin. It gives you the core Cursor-style features — inline edits,
+chat, autocomplete — without forking the editor and without locking you to a
+proprietary model list. Bring your own API key or point it at a local
+[Ollama](/tools/ollama) instance.
+
+## What it does well
+
+- **Stays in stock VS Code or JetBrains.** No new editor, no migration cost.
+  Useful if your team standardises on one IDE and won't be moving everyone
+  to Cursor.
+- **Model-agnostic by design.** Configure any OpenAI-compatible endpoint —
+  frontier APIs, your local Ollama, or a corporate gateway. The config is a
+  JSON file, version-controllable per project.
+- **Open-source.** You can read the source, file PRs, fork it, or self-host
+  the indexing pipeline. Useful for regulated environments where proprietary
+  AI tooling is a non-starter.
+- **Composable autocomplete + chat + edits.** Same three interaction modes
+  as Cursor, mapped to keybindings you control.
+
+## Trade-offs
+
+- **Less polished than Cursor.** The autocomplete model selection, latency
+  tuning, and out-of-the-box defaults aren't quite as smooth.
+- **You configure it.** Open-source and model-agnostic means you decide which
+  model goes where. Powerful, occasionally annoying.
+- **Agent mode is younger.** Cursor's Composer / agent-mode has a head start;
+  Continue's equivalent is catching up.
+
+## Who it's for
+
+Teams who want AI in their IDE but don't want to leave VS Code or JetBrains,
+anyone in a regulated environment where proprietary tooling is restricted,
+and anyone who wants tight integration with a local model via
+[Ollama](/tools/ollama).

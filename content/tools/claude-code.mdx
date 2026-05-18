@@ -1,0 +1,54 @@
+---
+slug: claude-code
+name: Claude Code
+category: agent-cli
+releaseDate: 2025-02-24
+license: Proprietary
+pricingModel: freemium
+platforms: [mac, linux, windows, terminal]
+supportedModels:
+  - Claude Opus 4.7
+  - Claude Sonnet 4.6
+  - Claude Haiku 4.5
+strengths: [agentic-coding, terminal-native, deep-anthropic-integration]
+officialDocs: https://docs.claude.com/en/docs/claude-code
+tweetIds: []
+---
+
+## What it is
+
+Claude Code is Anthropic's terminal-native agentic coding tool. Instead of being
+an editor or an extension, it's an agent that operates directly on your repo via
+shell commands — reading files, editing them, running tests, committing changes.
+The Claude model it runs on top of (typically Opus 4.7) handles the planning and
+the diffs; the CLI handles the file I/O and shell.
+
+## What it does well
+
+- **Multi-file autonomous changes.** Describe a feature; Claude Code plans the
+  work, makes the edits across however many files are needed, and (when you
+  let it) runs your tests to verify.
+- **Tight loop with your shell.** It reads your existing scripts, your
+  package.json, your CI config — and respects them. No need to teach it your
+  toolchain; it figures things out by looking.
+- **Built-in tool use.** Bash, Read, Edit, Write are first-class. You can also
+  add MCP servers to expose more capabilities (databases, APIs, custom internal
+  tools) to the agent.
+- **Plan mode.** Reviews the proposed changes before any file is touched.
+  Useful for non-trivial work where you want a checkpoint.
+
+## Trade-offs
+
+- **Anthropic-only.** Doesn't work with GPT, Gemini, or open-weights models.
+  If model flexibility matters, [Aider](/tools/aider) is the better choice.
+- **Costs scale with autonomy.** Long agentic runs use a lot of tokens.
+  Pro/Max subscription is the typical pricing path; API usage adds up fast.
+- **Terminal-first.** Excellent if you live in the terminal; less obvious how
+  to use it alongside an IDE-centric workflow.
+
+## Who it's for
+
+Developers comfortable in a terminal who want to delegate larger chunks of work
+than tab-autocomplete can handle, anyone already paying for Claude Pro or Max
+who wants more out of the subscription, and teams who want an agent that can
+operate on whole codebases rather than one file at a time.

@@ -1,0 +1,53 @@
+---
+slug: cursor
+name: Cursor
+category: ide
+releaseDate: 2023-03-15
+license: Proprietary
+pricingModel: freemium
+platforms: [mac, linux, windows]
+supportedModels:
+  - GPT-5
+  - Claude Opus 4.7
+  - Claude Sonnet 4.6
+  - Gemini 2.5 Pro
+strengths: [code-editing, autocomplete, agent-mode]
+officialDocs: https://docs.cursor.com
+tweetIds: []
+---
+
+## What it is
+
+Cursor is an AI-first fork of VS Code. The editing surface is familiar — same
+keybindings, same extensions ecosystem — but the AI features are first-class,
+not bolted on. It's the closest thing to a default IDE choice for developers who
+spend most of their day in front of a model.
+
+## What it does well
+
+- **Tab autocomplete.** Multi-line, cross-file completions that beat anything
+  language-server-based. The model sees your cursor context, recent edits, and
+  often the right neighbouring files.
+- **⌘K inline edits.** Highlight code, describe the change, get a diff. Tight
+  loop for small targeted refactors.
+- **Composer / Agent mode.** Multi-file edits driven by a high-level prompt.
+  Best for "add a new endpoint and wire it up everywhere" tasks where the change
+  spans files.
+- **Chat with your codebase.** Indexed Q&A over your repo. Useful for
+  onboarding to an unfamiliar codebase or remembering "where does X get set?"
+
+## Trade-offs
+
+- **Proprietary.** You're locked into Cursor's binary and pricing tiers; switching
+  back to vanilla VS Code is easy, but you lose the AI features.
+- **Cost at the Pro tier.** Heavy agent-mode users blow through the included
+  quota; it gets expensive if you use it as a daily driver.
+- **Model choice is curated.** You pick from Cursor's supported list; you can't
+  point it at an arbitrary endpoint as easily as with open-source alternatives.
+
+## Who it's for
+
+Cursor is the right pick when you want the strongest AI-IDE experience available
+and you're OK with the proprietary lock-in. If you'd rather stay in stock VS Code
+or use an open-source extension, look at [Continue](/tools/continue) or
+[Aider](/tools/aider) instead.

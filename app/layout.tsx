@@ -39,6 +39,12 @@ export default function RootLayout({
               AI Model Guide
             </Link>
             <nav className="flex items-center gap-6 text-sm text-zinc-500 dark:text-zinc-400">
+              <Link
+                href="/tools"
+                className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
+              >
+                Tools
+              </Link>
               <a
                 href="https://github.com/kunfupen/ai-model-guide"
                 target="_blank"

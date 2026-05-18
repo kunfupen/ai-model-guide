@@ -1,0 +1,54 @@
+---
+slug: aider
+name: Aider
+category: agent-cli
+releaseDate: 2023-05-01
+license: Apache-2.0
+pricingModel: open-source
+platforms: [mac, linux, windows, terminal]
+supportedModels:
+  - GPT-5
+  - Claude Opus 4.7
+  - Gemini 2.5 Pro
+  - DeepSeek
+strengths: [git-aware-edits, terminal-native, multi-file]
+officialDocs: https://aider.chat
+repository: https://github.com/Aider-AI/aider
+tweetIds: []
+---
+
+## What it is
+
+Aider is a terminal-based AI pair programmer that operates directly on your git
+repository. You describe a change in natural language, Aider edits the files,
+and each accepted change gets its own git commit. It's the most "git-native"
+of the agent CLIs.
+
+## What it does well
+
+- **Git as the interaction model.** Every change is a commit you can review,
+  revert, or rebase. There's no opaque "agent state" to lose track of — the
+  repo history is the truth.
+- **Repository-aware edits.** Aider builds a repo map so the model knows which
+  files exist and roughly what's in them, even without loading them all into
+  context.
+- **Model-agnostic.** Works with any frontier API (OpenAI, Anthropic, Google,
+  DeepSeek), local models via Ollama, or anything OpenAI-compatible.
+- **Pure terminal.** No GUI, no editor lock-in. Lives wherever your shell lives.
+
+## Trade-offs
+
+- **No autocomplete.** Aider is for "describe a change, get a diff" — it
+  doesn't replace tab completion or inline suggestions. Pair it with an editor
+  for that.
+- **You manage context.** You /add files to the chat explicitly. Powerful when
+  you know what you're doing, occasionally tedious when you don't.
+- **Terminal-only is a feature and a constraint.** No visual diff, no
+  hover-over-symbol; you live in your terminal and your editor of choice.
+
+## Who it's for
+
+Developers who already think in commits and live in a terminal, anyone who
+wants an AI workflow that survives switching between editors, and anyone who
+wants to point their AI at a different model with one config change. Pair with
+your editor of choice — Aider is deliberately editor-agnostic.

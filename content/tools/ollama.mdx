@@ -1,0 +1,56 @@
+---
+slug: ollama
+name: Ollama
+category: runner
+releaseDate: 2023-06-27
+license: MIT
+pricingModel: open-source
+platforms: [mac, linux, windows]
+supportedModels:
+  - Llama 4
+  - GLM-4.6
+  - Mistral
+  - Qwen
+  - DeepSeek
+  - Gemma
+strengths: [local-inference, simple-cli, cross-platform]
+officialDocs: https://ollama.com/docs
+repository: https://github.com/ollama/ollama
+tweetIds: []
+---
+
+## What it is
+
+Ollama is a single-binary local LLM runner. Install it, run `ollama run llama4`,
+and you have a model serving on `http://localhost:11434` with an OpenAI-compatible
+API. It's the path of least resistance for running open-weights models on your
+own hardware.
+
+## What it does well
+
+- **Trivial setup.** No Python environment, no CUDA debugging, no
+  `transformers` version conflicts. One install, one command, one model.
+- **OpenAI-compatible API.** Point any tool that speaks OpenAI's chat-completions
+  format at `localhost:11434` and it works. Drop-in for testing local inference
+  in apps designed against the OpenAI SDK.
+- **Model library.** Curated set of pre-quantized models with sensible defaults.
+  You don't have to think about which quantization or which checkpoint to pull.
+- **Modelfile system.** Build custom models with prompt templates and parameters
+  baked in — like a Dockerfile for an LLM persona.
+
+## Trade-offs
+
+- **You provide the GPU.** Ollama runs on CPU but is painful there for any
+  model bigger than ~7B; budget for at least 16–24GB of GPU memory for the
+  larger open-weights models.
+- **Throughput, not scale.** Great for single-user dev workflows; not what you
+  want as a multi-tenant inference server. For that, look at vLLM or TensorRT-LLM.
+- **Quantization opinions.** Defaults to 4-bit; not all models survive
+  quantization gracefully, and Ollama doesn't always surface this.
+
+## Who it's for
+
+Developers prototyping against local models, anyone who wants
+"localhost:11434 just works," and anyone running an AI feature on-prem where
+sending tokens to a cloud API isn't an option. Pair it with
+[Continue](/tools/continue) for an end-to-end local AI coding workflow.
