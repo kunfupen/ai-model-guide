@@ -40,6 +40,12 @@ export default function RootLayout({
             </Link>
             <nav className="flex items-center gap-6 text-sm text-zinc-500 dark:text-zinc-400">
               <Link
+                href="/benchmarks"
+                className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
+              >
+                Benchmarks
+              </Link>
+              <Link
                 href="/tools"
                 className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
               >

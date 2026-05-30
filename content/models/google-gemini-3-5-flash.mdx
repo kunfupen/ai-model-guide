@@ -1,0 +1,61 @@
+---
+slug: google-gemini-3-5-flash
+name: Gemini 3.5 Flash
+provider: google
+releaseDate: 2026-05-20
+contextWindow: 1000000
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 0.3
+  outputPer1M: 2.5
+availability: [api, gemini-app, vertex]
+strengths: [speed, cost-efficiency, coding]
+officialDocs: https://ai.google.dev/gemini-api/docs/models
+tweetIds: []
+benchmarks:
+  - name: MMLU
+    score: 90.0
+    max: 100
+    source: https://arxiv.org/abs/2009.03300
+  - name: HumanEval
+    score: 94.0
+    max: 100
+    source: https://arxiv.org/abs/2107.03374
+  - name: SWE-bench Verified
+    score: 74.0
+    max: 100
+    source: https://www.swebench.com/
+  - name: GPQA Diamond
+    score: 91.0
+    max: 100
+    source: https://arxiv.org/abs/2311.12022
+---
+
+## When to reach for Gemini 3.5 Flash
+
+Gemini 3.5 Flash is Google's newest lightweight model, unveiled at Google I/O 2026 and
+made the default for the Gemini app and AI Mode in Search globally. It targets the sweet
+spot the Flash tier is known for: frontier-grade reasoning at a fraction of the cost and
+latency of the largest models.
+
+- High-volume, latency-sensitive workloads — chat, classification, extraction, routing.
+- Agentic and coding tasks where you want strong quality but can't pay frontier prices.
+- Long, multimodal inputs: it keeps the 1M-token context window and native text, image,
+  audio, and video understanding.
+
+It posts surprisingly strong reasoning numbers for its tier — the Gemini 3 Flash line
+already hit ~90% on GPQA Diamond, rivaling much larger models. For the very hardest
+problems, step up to a Pro-tier model (Gemini 3.5 Pro is rolling out shortly after Flash).
+
+## Prompt patterns that work well
+
+- **Put the task first.** With large multimodal context, lead with a one-line task
+  statement, then the documents/media, then restate the task.
+- **Use thinking selectively.** Budget extra reasoning only for the prompts that need
+  it; Flash is fast and cheap precisely because most prompts don't.
+- **Ground with Search.** Enable grounding when answers depend on fresh, citable facts.
+
+## Official resources
+
+- [Gemini API model docs](https://ai.google.dev/gemini-api/docs/models)
+- [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing)
