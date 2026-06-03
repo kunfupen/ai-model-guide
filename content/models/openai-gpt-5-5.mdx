@@ -1,0 +1,68 @@
+---
+slug: openai-gpt-5-5
+name: GPT-5.5
+provider: openai
+releaseDate: 2026-04-23
+contextWindow: 400000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 1.25
+  outputPer1M: 10
+availability: [api, chatgpt, azure]
+strengths: [reasoning, coding, agentic-tasks]
+officialDocs: https://platform.openai.com/docs/models
+tweetIds: []
+benchmarks:
+  - name: MMLU
+    score: 91.0
+    max: 100
+    source: https://arxiv.org/abs/2009.03300
+  - name: HumanEval
+    score: 95.5
+    max: 100
+    source: https://arxiv.org/abs/2107.03374
+  - name: SWE-bench Verified
+    score: 77.5
+    max: 100
+    source: https://www.swebench.com/
+  - name: GPQA Diamond
+    score: 88.0
+    max: 100
+    source: https://arxiv.org/abs/2311.12022
+---
+
+## When to reach for GPT-5.5
+
+GPT-5.5 is OpenAI's latest flagship — described as its "smartest and most intuitive
+to use model yet" and the successor to the GPT-5 line. It's a strong all-rounder for
+writing and debugging code, online research, data analysis, and agentic workflows that
+move across tools until a task is finished.
+
+- Hard reasoning and multi-step coding where answer quality matters more than cost.
+- Agentic loops that plan, call tools, and recover from errors over many turns —
+  GPT-5.5 powers OpenAI's Codex agents.
+- High-stakes prompts where hallucination is costly: GPT-5.5 Instant produced ~52.5%
+  fewer hallucinated claims than GPT-5.3 Instant on internal medicine/law/finance evals.
+
+For high-throughput or latency-sensitive paths, the lighter GPT-5.5 Instant / mini
+variants are the better fit; GPT-5.5 Instant is now ChatGPT's default for all users.
+
+## Prompt patterns that work well
+
+- **Trust it to think.** GPT-5.5 does its best work when you describe the goal and
+  constraints and let it plan, rather than over-specifying the reasoning path.
+- **Use developer messages for invariants.** Put hard rules in the developer/system
+  message, not the user turn.
+- **Lean on its memory tools.** It can refer back to past conversations and connected
+  data for more personalized answers when you enable those tools.
+
+## Tool use and agents
+
+GPT-5.5 supports parallel tool calls and structured outputs natively. For agent loops,
+prefer a small, well-named set of tools over a sprawling toolbox — selection quality
+drops with too many similar-purpose tools.
+
+## Official resources
+
+- [OpenAI platform docs](https://platform.openai.com/docs/models)
+- [OpenAI cookbook](https://github.com/openai/openai-cookbook)

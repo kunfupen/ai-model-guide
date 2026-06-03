@@ -3,21 +3,66 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Brand accent — a calm indigo→violet, used sparingly for emphasis. */
+  --color-accent: oklch(0.58 0.21 280);
+  --color-accent-fg: oklch(0.97 0.01 280);
+
+  --radius-card: 0.9rem;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root {
   color-scheme: light dark;
+  --bg: #ffffff;
+  --bg-subtle: #fafafa;
+  --hairline: rgb(228 228 231);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #09090b;
+    --bg-subtle: #0b0b0e;
+    --hairline: rgb(39 39 42);
+  }
 }
 
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
 body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   font-feature-settings: "cv11", "ss01", "ss03";
+  letter-spacing: -0.011em;
+}
+
+/* Consistent, accessible focus ring across interactive elements. */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: none;
+  border-radius: 0.4rem;
+  box-shadow:
+    0 0 0 2px var(--bg),
+    0 0 0 4px color-mix(in oklch, var(--color-accent) 70%, transparent);
 }
 
 /* Refined selection */
@@ -30,6 +75,141 @@ body {
     background-color: rgb(244 244 245 / 0.92);
     color: rgb(9 9 11);
   }
+}
+
+/* Slim, unobtrusive scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--hairline) 70%, transparent) transparent;
+}
+
+/* ----- Reusable surface treatments ----- */
+
+/* Elevated card: hairline border, soft shadow, subtle lift on hover. */
+.surface-card {
+  position: relative;
+  border: 1px solid var(--hairline);
+  background-color: var(--bg);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 1px 2px rgb(9 9 11 / 0.04),
+    0 1px 3px rgb(9 9 11 / 0.03);
+  transition:
+    transform 0.25s var(--ease-out-soft),
+    box-shadow 0.25s var(--ease-out-soft),
+    border-color 0.25s var(--ease-out-soft);
+}
+.surface-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in oklch, var(--hairline) 40%, var(--color-accent) 20%);
+  box-shadow:
+    0 10px 30px -12px rgb(9 9 11 / 0.18),
+    0 4px 10px -6px rgb(9 9 11 / 0.12);
+}
+@media (prefers-color-scheme: dark) {
+  .surface-card:hover {
+    box-shadow:
+      0 14px 40px -16px rgb(0 0 0 / 0.7),
+      0 4px 12px -8px rgb(0 0 0 / 0.6);
+  }
+}
+
+/* Hero ambient glow */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  top: -16rem;
+  left: 50%;
+  height: 32rem;
+  width: 52rem;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklch, var(--color-accent) 22%, transparent),
+    transparent
+  );
+  filter: blur(28px);
+  opacity: 0.6;
+}
+@media (prefers-color-scheme: dark) {
+  .hero-glow::before {
+    opacity: 0.35;
+  }
+}
+
+/* Faint grid behind the hero for depth */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  opacity: 0.5;
+}
+
+/* Gradient text for accents */
+.text-gradient {
+  background: linear-gradient(
+    115deg,
+    rgb(24 24 27),
+    color-mix(in oklch, var(--color-accent) 85%, rgb(24 24 27))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@media (prefers-color-scheme: dark) {
+  .text-gradient {
+    background: linear-gradient(
+      115deg,
+      rgb(250 250 250),
+      color-mix(in oklch, var(--color-accent) 60%, rgb(250 250 250))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Entrance animation, applied progressively */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: rise-in 0.6s var(--ease-out-soft) both;
+}
+
+/* Animated benchmark bar fill */
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.bar-fill {
+  transform-origin: left;
+  animation: bar-grow 0.9s var(--ease-out-soft) both;
 }
 
 /* Editorial: drop cap on the first paragraph after the article tag */

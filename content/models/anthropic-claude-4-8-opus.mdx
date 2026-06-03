@@ -1,0 +1,76 @@
+---
+slug: anthropic-claude-4-8-opus
+name: Claude Opus 4.8
+provider: anthropic
+releaseDate: 2026-05-28
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 5
+  outputPer1M: 25
+availability: [api, claude-ai, bedrock, vertex]
+strengths: [reasoning, coding, agentic-tasks]
+officialDocs: https://docs.anthropic.com/en/docs/about-claude/models
+tweetIds: []
+benchmarks:
+  - name: MMLU
+    score: 91.0
+    max: 100
+    source: https://arxiv.org/abs/2009.03300
+  - name: HumanEval
+    score: 93.5
+    max: 100
+    source: https://arxiv.org/abs/2107.03374
+  - name: SWE-bench Verified
+    score: 78.0
+    max: 100
+    source: https://www.swebench.com/
+  - name: GPQA Diamond
+    score: 80.5
+    max: 100
+    source: https://arxiv.org/abs/2311.12022
+---
+
+## When to reach for Opus 4.8
+
+Opus 4.8 is Anthropic's current frontier model and the successor to Opus 4.7.
+It's the one to reach for when the task is genuinely hard: long-horizon agentic
+work that calls tools across many steps, multi-file refactors, and reasoning that
+has to hold together over a large context.
+
+- Long-running coding agents that need to plan, edit, run tests, and self-correct.
+- Tasks where you want the model to flag its own uncertainty rather than bluff —
+  Opus 4.8 is notably more honest about its progress than 4.7.
+- Work that benefits from the full 1M-token context window (available by default on
+  the API, Amazon Bedrock, and Vertex AI).
+
+## What's new vs. 4.7
+
+- **Sharper judgement and honesty.** Early testers report it's more likely to flag
+  uncertainties and less likely to make unsupported claims.
+- **Stronger agentic coding.** It's roughly four times less likely than Opus 4.7 to
+  let flaws in code it wrote pass unremarked, and posts the strongest end-to-end
+  scores on Anthropic's internal Super-Agent benchmark.
+- **Same price as 4.7.** $5 / 1M input and $25 / 1M output — with up to 90% savings
+  via prompt caching and 50% via batch processing.
+- **Faster fast mode and Dynamic workflows.** Opus 4.8 fast mode is ~2.5× quicker,
+  and a new Dynamic workflows feature (research preview) lets Claude take on bigger
+  tasks in Claude Code.
+
+## Tradeoffs
+
+- **Latency.** Deliberate by design — not the model for autocomplete or ultra-low-latency
+  UX. Reach for Haiku 4.5 there.
+- **Cost.** Still the priciest Anthropic tier per token; Sonnet 4.6 is the better
+  default for the everyday 80%.
+
+## Notes
+
+Hybrid reasoning model with an adaptive extended-thinking budget, 128k max output
+tokens, and the same tool/platform surface as Opus 4.7. Pull the exact model ID
+from the official docs before shipping.
+
+## Official resources
+
+- [Anthropic model docs](https://docs.anthropic.com/en/docs/about-claude/models)
+- [Anthropic cookbook](https://github.com/anthropics/anthropic-cookbook)
