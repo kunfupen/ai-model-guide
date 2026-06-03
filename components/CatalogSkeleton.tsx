@@ -1,6 +1,7 @@
 export function CatalogSkeleton() {
   return (
     <section aria-hidden>
+      <div className="skeleton mb-6 h-11 w-full rounded-xl" />
       <div className="space-y-3">
         {[24, 16, 32].map((w, i) => (
           <div key={i} className="flex flex-wrap items-center gap-2">

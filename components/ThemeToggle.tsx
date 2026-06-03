@@ -40,12 +40,15 @@ const LABEL: Record<Theme, string> = {
 };
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("system");
+  // Lazy initializer reads the stored preference once, on the client only.
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "system";
+    return (localStorage.getItem("theme") as Theme | null) ?? "system";
+  });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = (localStorage.getItem("theme") as Theme | null) ?? "system";
-    setTheme(stored);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
 
     // Keep "system" responsive to OS changes.

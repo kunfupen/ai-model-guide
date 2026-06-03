@@ -8,6 +8,7 @@ import { filterAndSort, parseQuery } from "@/lib/filterModels";
 import { ModelCard } from "./ModelCard";
 import { FilterBar } from "./FilterBar";
 import { SortMenu } from "./SortMenu";
+import { SearchBox } from "./SearchBox";
 
 export function CatalogClient({ models }: { models: ModelFrontmatter[] }) {
   const searchParams = useSearchParams();
@@ -25,6 +26,10 @@ export function CatalogClient({ models }: { models: ModelFrontmatter[] }) {
 
   return (
     <section>
+      <div className="mb-6">
+        <SearchBox />
+      </div>
+
       <FilterBar />
 
       <div className="mt-10 flex items-baseline justify-between border-b border-zinc-200 pb-3 dark:border-zinc-800">

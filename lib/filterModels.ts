@@ -3,6 +3,7 @@ import type { ModelFrontmatter, Provider, Modality, Availability } from "./schem
 export type SortKey = "name" | "newest" | "cheapest" | "context";
 
 export type FilterQuery = {
+  q?: string;
   provider?: Provider[];
   modality?: Modality[];
   availability?: Availability[];
@@ -22,7 +23,9 @@ export function parseQuery(searchParams: URLSearchParams): FilterQuery {
   const sort = rawSort && SORT_KEYS.includes(rawSort as SortKey)
     ? (rawSort as SortKey)
     : undefined;
+  const q = searchParams.get("q")?.trim() || undefined;
   return {
+    q,
     provider: arr<Provider>("provider"),
     modality: arr<Modality>("modality"),
     availability: arr<Availability>("availability"),
@@ -34,7 +37,19 @@ export function filterAndSort(
   models: ModelFrontmatter[],
   q: FilterQuery,
 ): ModelFrontmatter[] {
+  const needle = q.q?.toLowerCase();
   const filtered = models.filter((m) => {
+    if (needle) {
+      const haystack = [
+        m.name,
+        m.provider,
+        ...m.strengths,
+        ...m.modalities,
+      ]
+        .join(" ")
+        .toLowerCase();
+      if (!haystack.includes(needle)) return false;
+    }
     if (q.provider?.length && !q.provider.includes(m.provider)) return false;
     if (
       q.modality?.length &&
