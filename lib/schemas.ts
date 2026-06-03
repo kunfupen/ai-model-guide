@@ -4,6 +4,7 @@ export const Provider = z.enum([
   "openai",
   "anthropic",
   "google",
+  "microsoft",
   "meta",
   "moonshot",
   "zhipu",

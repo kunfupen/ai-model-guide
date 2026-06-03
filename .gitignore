@@ -42,4 +42,7 @@ next-env.d.ts
 
 # tooling metadata
 /.claude-flow/
-/.claude/
+# Track shared Claude Code config (hooks, settings) but never local overrides/secrets
+/.claude/settings.local.json
+/.claude/*.local.json
+.claude/.last-model-check
