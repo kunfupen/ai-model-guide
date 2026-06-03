@@ -83,7 +83,7 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
             </div>
 
             <ul className="mt-6 space-y-3.5">
-              {rows.map((r) => {
+              {rows.map((r, i) => {
                 const isLeader = r.pct === leaderPct;
                 return (
                   <li key={r.slug}>
@@ -92,6 +92,9 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
                         href={`/models/${r.slug}`}
                         className="group flex min-w-0 items-center gap-2"
                       >
+                        <span className="w-5 shrink-0 font-mono text-xs tabular-nums text-zinc-300 dark:text-zinc-600">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
                         <ProviderChip provider={r.provider} />
                         <span className="truncate font-medium text-zinc-900 group-hover:underline group-hover:decoration-zinc-300 group-hover:underline-offset-4 dark:text-zinc-100">
                           {r.model}
@@ -112,12 +115,12 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
                     </div>
                     <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-900">
                       <div
-                        className={`h-full rounded-full transition-[width] ${
+                        className={`bar-fill h-full rounded-full ${
                           isLeader
                             ? "bg-zinc-900 dark:bg-zinc-100"
                             : "bg-zinc-300 dark:bg-zinc-700"
                         }`}
-                        style={{ width: `${r.pct}%` }}
+                        style={{ width: `${r.pct}%`, animationDelay: `${i * 60}ms` }}
                         aria-hidden
                       />
                     </div>

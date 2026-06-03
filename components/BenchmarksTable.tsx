@@ -38,7 +38,7 @@ export function BenchmarksTable({ benchmarks }: { benchmarks: Benchmark[] }) {
               </div>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-900">
                 <div
-                  className="h-full rounded-full bg-zinc-900 transition-[width] dark:bg-zinc-100"
+                  className="bar-fill h-full rounded-full bg-zinc-900 dark:bg-zinc-100"
                   style={{ width: `${pct}%` }}
                   aria-hidden
                 />

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,9 +15,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Model Guide",
+  metadataBase: new URL("https://ai-model-guide.vercel.app"),
+  title: {
+    default: "AI Model Guide — Compare Claude, GPT, Gemini & more",
+    template: "%s — AI Model Guide",
+  },
   description:
-    "A curated catalog of popular AI models — specs, availability, and distilled usage guidance.",
+    "A curated catalog of popular AI models — specs, availability, benchmarks, and distilled usage guidance, written for the developers who actually have to pick one.",
+  openGraph: {
+    title: "AI Model Guide",
+    description:
+      "Specs, availability, benchmarks, and distilled guidance for the models from OpenAI, Anthropic, Google, and more.",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({
@@ -29,44 +41,57 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-        <header className="sticky top-0 z-10 border-b border-zinc-200/70 bg-white/80 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/80">
-          <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-            <Link
-              href="/"
-              className="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100"
-            >
-              AI Model Guide
-            </Link>
-            <nav className="flex items-center gap-6 text-sm text-zinc-500 dark:text-zinc-400">
-              <Link
-                href="/benchmarks"
-                className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
-              >
-                Benchmarks
-              </Link>
-              <Link
-                href="/tools"
-                className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
-              >
-                Tools
-              </Link>
-              <a
-                href="https://github.com/kunfupen/ai-model-guide"
-                target="_blank"
-                rel="noreferrer"
-                className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
-              >
-                GitHub
-              </a>
-            </nav>
-          </div>
-        </header>
+      <body className="min-h-full bg-white text-zinc-900 selection:bg-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+        <SiteHeader />
         {children}
-        <footer className="mt-24 border-t border-zinc-200/70 dark:border-zinc-800/70">
-          <div className="mx-auto max-w-5xl px-6 py-8 text-sm text-zinc-500 dark:text-zinc-500">
-            Curated by hand. Content reflects publicly available information from
-            each provider.
+        <footer className="mt-28 border-t border-zinc-200/70 dark:border-zinc-800/70">
+          <div className="mx-auto max-w-5xl px-6 py-12">
+            <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+              <div className="max-w-sm">
+                <div className="flex items-center gap-2.5">
+                  <span
+                    aria-hidden
+                    className="grid h-7 w-7 place-items-center rounded-lg bg-zinc-900 text-[13px] font-bold text-white dark:bg-zinc-100 dark:text-zinc-900"
+                  >
+                    AI
+                  </span>
+                  <span className="text-sm font-semibold tracking-tight">
+                    Model Guide
+                  </span>
+                </div>
+                <p className="mt-4 text-sm leading-6 text-zinc-500 dark:text-zinc-400">
+                  A curated, developer-first catalog of AI models — specs,
+                  benchmarks, and honest guidance. Content reflects publicly
+                  available information from each provider.
+                </p>
+              </div>
+              <nav className="grid grid-cols-2 gap-x-12 gap-y-2 text-sm">
+                <span className="col-span-2 text-xs font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-600">
+                  Explore
+                </span>
+                <Link href="/" className="text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                  Models
+                </Link>
+                <Link href="/benchmarks" className="text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                  Benchmarks
+                </Link>
+                <Link href="/tools" className="text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                  Tools
+                </Link>
+                <a
+                  href="https://github.com/kunfupen/ai-model-guide"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                >
+                  GitHub
+                </a>
+              </nav>
+            </div>
+            <div className="mt-10 border-t border-zinc-200/70 pt-6 text-xs text-zinc-400 dark:border-zinc-800/70 dark:text-zinc-600">
+              © {new Date().getFullYear()} AI Model Guide · Built with Next.js.
+              Curated by hand.
+            </div>
           </div>
         </footer>
       </body>
