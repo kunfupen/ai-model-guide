@@ -1,0 +1,45 @@
+---
+slug: google-gemini-omni
+name: Gemini Omni
+provider: google
+releaseDate: 2026-05-19
+contextWindow: 1000000
+modalities: [text, vision, audio, video]
+availability: [api, gemini-app, vertex]
+strengths: [multimodal, video-generation, reasoning]
+officialDocs: https://ai.google.dev/gemini-api/docs/models
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Gemini Omni
+
+Gemini Omni, introduced at Google I/O on May 19, 2026, is Google DeepMind's
+natively multimodal model: it processes and generates text, images, audio, and
+video within a single core engine rather than routing between separate tools.
+Its standout capability is handling **video as both input and output** — a full
+multimodal pipeline rather than one-directional generation.
+
+- Creating dynamic video content by blending text, audio, image, and video inputs.
+- Social and broadcast pipelines — it generates native 9:16 vertical, 1:1 square,
+  and 16:9 widescreen framing.
+- Unified multimodal understanding where you'd otherwise stitch several models
+  together. The lighter **Gemini Omni Flash** targets faster, cheaper rollouts
+  (already live across the Gemini app, Google Flow, and YouTube Shorts).
+
+## Specs & availability
+
+- **Modalities:** native text, image, audio, and video — in and out.
+- **Availability:** Gemini API / Google AI Studio, the Gemini app and Google Flow,
+  with Vertex AI typically following a week or two after consumer launch.
+
+> Pricing and benchmarks are still settling at the time of writing and were
+> intentionally omitted rather than guessed. Pricing is expected to vary by
+> output modality (text near Gemini Pro rates, video near Veo rates). The context
+> window shown is the standard Gemini figure; verify the exact value on the
+> official model docs before relying on it.
+
+## Official resources
+
+- [Gemini API model docs](https://ai.google.dev/gemini-api/docs/models)
+- [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing)
