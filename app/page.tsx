@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { getAllModels } from "@/lib/content";
 import { CatalogClient } from "@/components/CatalogClient";
+import { CatalogSkeleton } from "@/components/CatalogSkeleton";
 
 export default async function Home() {
   const models = await getAllModels();
@@ -81,7 +82,7 @@ export default async function Home() {
       </section>
 
       <div id="catalog" className="mx-auto max-w-5xl scroll-mt-24 px-6 pb-24">
-        <Suspense fallback={<div className="h-96" />}>
+        <Suspense fallback={<CatalogSkeleton />}>
           <CatalogClient models={frontmatters} />
         </Suspense>
       </div>

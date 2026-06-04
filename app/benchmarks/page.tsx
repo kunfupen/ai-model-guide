@@ -25,6 +25,7 @@ export default async function BenchmarksPage() {
           How every model in the catalog performs on each task — ranked, shown as a
           percentage of the maximum score, with the top model on each benchmark marked
           <span className="font-medium text-zinc-900 dark:text-zinc-100"> ★ Best</span>.
+          Each task shows the top 5; expand to see the rest.
         </p>
       </section>
 

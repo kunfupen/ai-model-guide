@@ -7,6 +7,7 @@ const PROVIDER_OPTIONS = [
   { value: "openai", label: "OpenAI", dot: "bg-emerald-500" },
   { value: "anthropic", label: "Anthropic", dot: "bg-amber-500" },
   { value: "google", label: "Google", dot: "bg-sky-500" },
+  { value: "microsoft", label: "Microsoft", dot: "bg-cyan-500" },
   { value: "meta", label: "Meta", dot: "bg-indigo-500" },
   { value: "moonshot", label: "Moonshot", dot: "bg-violet-500" },
   { value: "zhipu", label: "Zhipu", dot: "bg-rose-500" },

@@ -1,6 +1,5 @@
-import Link from "next/link";
 import type { ModelFrontmatter } from "@/lib/schemas";
-import { ProviderChip } from "./ProviderChip";
+import { BenchmarkSection, type BenchmarkRow } from "./BenchmarkSection";
 
 // Preferred display order; anything else falls to the end, alphabetically.
 const BENCHMARK_ORDER = ["MMLU", "HumanEval", "SWE-bench Verified", "GPQA Diamond"];
@@ -10,15 +9,6 @@ const BENCHMARK_BLURB: Record<string, string> = {
   HumanEval: "Python code-generation correctness",
   "SWE-bench Verified": "Resolving real GitHub issues",
   "GPQA Diamond": "Graduate-level science reasoning",
-};
-
-type Row = {
-  slug: string;
-  model: string;
-  provider: ModelFrontmatter["provider"];
-  score: number;
-  max: number;
-  pct: number;
 };
 
 function orderBenchmarks(names: string[]): string[] {
@@ -34,7 +24,7 @@ function orderBenchmarks(names: string[]): string[] {
 
 export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] }) {
   // Group every model's score under each benchmark (task).
-  const groups = new Map<string, Row[]>();
+  const groups = new Map<string, BenchmarkRow[]>();
   for (const m of models) {
     for (const b of m.benchmarks) {
       const max = b.max ?? 100;
@@ -67,68 +57,14 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
         const rows = (groups.get(name) ?? [])
           .slice()
           .sort((a, b) => b.pct - a.pct);
-        const leaderPct = rows[0]?.pct ?? 0;
 
         return (
-          <section key={name}>
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-zinc-200 pb-3 dark:border-zinc-800">
-              <h2 className="text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
-                {name}
-              </h2>
-              {BENCHMARK_BLURB[name] && (
-                <span className="text-xs text-zinc-400 dark:text-zinc-500">
-                  {BENCHMARK_BLURB[name]}
-                </span>
-              )}
-            </div>
-
-            <ul className="mt-6 space-y-3.5">
-              {rows.map((r, i) => {
-                const isLeader = r.pct === leaderPct;
-                return (
-                  <li key={r.slug}>
-                    <div className="flex items-baseline justify-between gap-3 text-sm">
-                      <Link
-                        href={`/models/${r.slug}`}
-                        className="group flex min-w-0 items-center gap-2"
-                      >
-                        <span className="w-5 shrink-0 font-mono text-xs tabular-nums text-zinc-300 dark:text-zinc-600">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <ProviderChip provider={r.provider} />
-                        <span className="truncate font-medium text-zinc-900 group-hover:underline group-hover:decoration-zinc-300 group-hover:underline-offset-4 dark:text-zinc-100">
-                          {r.model}
-                        </span>
-                        {isLeader && (
-                          <span className="shrink-0 rounded-full bg-zinc-900 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white dark:bg-zinc-100 dark:text-zinc-900">
-                            ★ Best
-                          </span>
-                        )}
-                      </Link>
-                      <span className="shrink-0 font-mono text-xs tabular-nums text-zinc-500 dark:text-zinc-400">
-                        {r.score}
-                        <span className="text-zinc-400 dark:text-zinc-600">
-                          {" "}
-                          / {r.max}
-                        </span>
-                      </span>
-                    </div>
-                    <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-900">
-                      <div
-                        className={`bar-fill h-full rounded-full ${
-                          isLeader
-                            ? "bg-zinc-900 dark:bg-zinc-100"
-                            : "bg-zinc-300 dark:bg-zinc-700"
-                        }`}
-                        style={{ width: `${r.pct}%`, animationDelay: `${i * 60}ms` }}
-                        aria-hidden
-                      />
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
+          <BenchmarkSection
+            key={name}
+            name={name}
+            blurb={BENCHMARK_BLURB[name]}
+            rows={rows}
+          />
         );
       })}
     </div>

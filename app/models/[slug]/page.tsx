@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { getAllModelSlugs, getModelBySlug } from "@/lib/content";
+import { getAllModelSlugs, getModelBySlug, getAllModels } from "@/lib/content";
 import { SpecsTable } from "@/components/SpecsTable";
 import { BenchmarksTable } from "@/components/BenchmarksTable";
 import { ProviderChip } from "@/components/ProviderChip";
 import { TweetEmbed } from "@/components/TweetEmbed";
 import { mdxComponents } from "@/components/MDXComponents";
+import type { ModelFrontmatter } from "@/lib/schemas";
 
 export const dynamicParams = false;
 
@@ -43,6 +44,26 @@ function formatDate(iso: string): string {
   });
 }
 
+/** Rank other models by relevance: same provider, then shared strengths. */
+function relatedModels(
+  current: ModelFrontmatter,
+  all: ModelFrontmatter[],
+  limit = 3,
+): ModelFrontmatter[] {
+  return all
+    .filter((m) => m.slug !== current.slug)
+    .map((m) => {
+      let score = 0;
+      if (m.provider === current.provider) score += 3;
+      score += m.strengths.filter((s) => current.strengths.includes(s)).length;
+      score += m.modalities.filter((x) => current.modalities.includes(x)).length * 0.25;
+      return { m, score };
+    })
+    .sort((a, b) => b.score - a.score || b.m.releaseDate.localeCompare(a.m.releaseDate))
+    .slice(0, limit)
+    .map((x) => x.m);
+}
+
 export default async function ModelPage({
   params,
 }: {
@@ -56,6 +77,11 @@ export default async function ModelPage({
     notFound();
   }
   const { frontmatter, body } = model;
+  const allModels = await getAllModels();
+  const related = relatedModels(
+    frontmatter,
+    allModels.map((m) => m.frontmatter),
+  );
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-16">
@@ -127,6 +153,44 @@ export default async function ModelPage({
           </li>
         </ul>
       </section>
+
+      {related.length > 0 && (
+        <section className="mt-20">
+          <h2 className="border-b border-zinc-200 pb-3 text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+            Related models
+          </h2>
+          <ul className="mt-6 space-y-3">
+            {related.map((r) => (
+              <li key={r.slug}>
+                <Link
+                  href={`/models/${r.slug}`}
+                  className="surface-card group flex items-center justify-between gap-4 p-4"
+                >
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2.5">
+                      <ProviderChip provider={r.provider} />
+                    </div>
+                    <p className="mt-1.5 font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+                      {r.name}
+                    </p>
+                    {r.strengths.length > 0 && (
+                      <p className="mt-0.5 truncate text-sm text-zinc-500 dark:text-zinc-400">
+                        {r.strengths.slice(0, 3).join(" · ")}
+                      </p>
+                    )}
+                  </div>
+                  <span
+                    aria-hidden
+                    className="shrink-0 text-zinc-300 transition-all duration-300 ease-out group-hover:translate-x-0.5 group-hover:text-zinc-900 dark:text-zinc-700 dark:group-hover:text-zinc-100"
+                  >
+                    →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </main>
   );
 }

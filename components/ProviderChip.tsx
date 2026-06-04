@@ -4,6 +4,7 @@ const PROVIDER_META: Record<Provider, { label: string; dot: string }> = {
   openai: { label: "OpenAI", dot: "bg-emerald-500" },
   anthropic: { label: "Anthropic", dot: "bg-amber-500" },
   google: { label: "Google", dot: "bg-sky-500" },
+  microsoft: { label: "Microsoft", dot: "bg-cyan-500" },
   meta: { label: "Meta", dot: "bg-indigo-500" },
   moonshot: { label: "Moonshot", dot: "bg-violet-500" },
   zhipu: { label: "Zhipu", dot: "bg-rose-500" },
