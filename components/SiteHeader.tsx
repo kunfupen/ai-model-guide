@@ -10,6 +10,14 @@ const NAV = [
   { href: "/tools", label: "Tools", match: (p: string) => p.startsWith("/tools") },
 ];
 
+// The palette listens for ⌘K / Ctrl-K globally; dispatch a synthetic event so
+// the visible button and the keyboard shortcut share one code path.
+function openCommandPalette() {
+  window.dispatchEvent(
+    new KeyboardEvent("keydown", { key: "k", metaKey: true, bubbles: true }),
+  );
+}
+
 export function SiteHeader() {
   const pathname = usePathname() ?? "/";
 
@@ -30,6 +38,33 @@ export function SiteHeader() {
         </Link>
 
         <nav className="flex items-center gap-0.5 text-sm sm:gap-1">
+          <button
+            type="button"
+            onClick={openCommandPalette}
+            aria-label="Open command palette"
+            className="mr-1 hidden items-center gap-2 rounded-full border border-zinc-200 bg-white py-1.5 pl-3 pr-2 text-xs text-zinc-500 transition-colors hover:border-zinc-300 hover:text-zinc-900 sm:flex dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:text-zinc-100"
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <circle cx="11" cy="11" r="7" />
+              <path d="M21 21l-4.3-4.3" />
+            </svg>
+            <span>Search</span>
+            <kbd className="rounded border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 font-mono text-[10px] dark:border-zinc-700 dark:bg-zinc-900">
+              ⌘K
+            </kbd>
+          </button>
+          {/* Mobile: icon-only search trigger */}
+          <button
+            type="button"
+            onClick={openCommandPalette}
+            aria-label="Open command palette"
+            className="grid h-8 w-8 place-items-center rounded-full text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 sm:hidden dark:text-zinc-400 dark:hover:bg-zinc-800/80 dark:hover:text-zinc-100"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <circle cx="11" cy="11" r="7" />
+              <path d="M21 21l-4.3-4.3" />
+            </svg>
+          </button>
           {NAV.map((item) => {
             const active = item.match(pathname);
             return (

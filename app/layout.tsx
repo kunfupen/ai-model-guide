@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
+import { CommandPalette, type CommandItem } from "@/components/CommandPalette";
+import { getAllModels, getAllTools } from "@/lib/content";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,11 +33,32 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [models, tools] = await Promise.all([getAllModels(), getAllTools()]);
+  const commandItems: CommandItem[] = [
+    ...models.map(({ frontmatter: f }) => ({
+      label: f.name,
+      href: `/models/${f.slug}`,
+      group: "Models" as const,
+      hint: f.provider,
+      keywords: f.strengths.join(" "),
+    })),
+    ...tools.map(({ frontmatter: f }) => ({
+      label: f.name,
+      href: `/tools/${f.slug}`,
+      group: "Tools" as const,
+      hint: f.category,
+      keywords: f.strengths.join(" "),
+    })),
+    { label: "Models catalog", href: "/", group: "Pages" as const },
+    { label: "Benchmarks", href: "/benchmarks", group: "Pages" as const },
+    { label: "Tools", href: "/tools", group: "Pages" as const },
+  ];
+
   return (
     <html
       lang="en"
@@ -51,6 +74,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+        <CommandPalette items={commandItems} />
         <SiteHeader />
         {children}
         <footer className="mt-28 border-t border-zinc-200/70 dark:border-zinc-800/70">
