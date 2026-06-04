@@ -1,0 +1,47 @@
+---
+slug: openai-gpt-5-4
+name: GPT-5.4
+provider: openai
+releaseDate: 2026-05-28
+contextWindow: 272000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 2.5
+  outputPer1M: 15
+availability: [api, chatgpt, azure]
+strengths: [reasoning, coding, agentic-tasks]
+officialDocs: https://developers.openai.com/api/docs/models/gpt-5.4
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for GPT-5.4
+
+GPT-5.4 is a frontier model that unifies recent advances in reasoning, coding,
+and agentic workflows into a single model. It folds in the industry-leading
+coding ability of GPT-5.3-Codex while improving how the model works across
+tools, software environments, and professional tasks (spreadsheets,
+presentations, documents).
+
+- Hard reasoning and multi-step coding where you want one model that's strong
+  at both.
+- Agentic, tool-using workflows across software environments.
+- Long-context work: the standard window is 272K tokens, with an experimental
+  ~1M-token mode you enable explicitly via context/auto-compact settings.
+
+## Specs & cost
+
+- **Context:** 272K standard (experimental ~1.05M when explicitly configured),
+  128K max output.
+- **Pricing:** $2.50 / 1M input and $15 / 1M output. Note prompts over 272K
+  input tokens are billed at 2× input / 1.5× output for the session. A higher-end
+  **GPT-5.4 Pro** variant also exists at a premium.
+- **Inputs:** text, images, and PDFs; reasoning, tool calling, and structured
+  output supported.
+
+> Benchmarks intentionally omitted until verified against official figures.
+
+## Official resources
+
+- [GPT-5.4 model docs](https://developers.openai.com/api/docs/models/gpt-5.4)
+- [OpenAI API pricing](https://openai.com/api/pricing/)
