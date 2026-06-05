@@ -5,8 +5,10 @@ import { getAllModelSlugs, getModelBySlug, getAllModels } from "@/lib/content";
 import { SpecsTable } from "@/components/SpecsTable";
 import { BenchmarksTable } from "@/components/BenchmarksTable";
 import { ProviderChip } from "@/components/ProviderChip";
+import { ProviderLogo } from "@/components/ProviderLogo";
 import { TweetEmbed } from "@/components/TweetEmbed";
 import { mdxComponents } from "@/components/MDXComponents";
+import { modelCategory } from "@/lib/modelCategory";
 import type { ModelFrontmatter } from "@/lib/schemas";
 
 export const dynamicParams = false;
@@ -78,6 +80,7 @@ export default async function ModelPage({
   }
   const { frontmatter, body } = model;
   const isPreview = /preview/i.test(frontmatter.name);
+  const category = modelCategory(frontmatter);
   const allModels = await getAllModels();
   const related = relatedModels(
     frontmatter,
@@ -95,6 +98,9 @@ export default async function ModelPage({
 
       <header className="mt-10">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-zinc-200 bg-white text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100">
+            <ProviderLogo provider={frontmatter.provider} className="h-5 w-5" />
+          </span>
           <ProviderChip provider={frontmatter.provider} size="md" />
           <span className="text-xs text-zinc-400 dark:text-zinc-600">·</span>
           <time
@@ -106,6 +112,13 @@ export default async function ModelPage({
           {isPreview && (
             <span className="inline-flex items-center rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-600 ring-1 ring-inset ring-amber-500/20 dark:text-amber-400">
               Preview
+            </span>
+          )}
+          {category && (
+            <span
+              className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ring-1 ring-inset ${category.className}`}
+            >
+              {category.label}
             </span>
           )}
         </div>

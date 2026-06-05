@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { ModelFrontmatter } from "@/lib/schemas";
 import { ProviderChip } from "./ProviderChip";
+import { ProviderLogo } from "./ProviderLogo";
+import { modelCategory } from "@/lib/modelCategory";
 
 function formatContext(tokens: number): string {
   if (tokens >= 1_000_000) return `${(tokens / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
@@ -26,6 +28,7 @@ export function ModelCard({ frontmatter }: { frontmatter: ModelFrontmatter }) {
   const ctx = formatContext(frontmatter.contextWindow);
   const isPreview = /preview/i.test(frontmatter.name);
   const isNew = !isPreview && isRecent(frontmatter.releaseDate);
+  const category = modelCategory(frontmatter);
   const headline = frontmatter.benchmarks
     .slice()
     .sort((a, b) => b.score / (b.max ?? 100) - a.score / (a.max ?? 100))[0];
@@ -36,7 +39,12 @@ export function ModelCard({ frontmatter }: { frontmatter: ModelFrontmatter }) {
       className="surface-card group flex h-full flex-col p-6"
     >
       <div className="flex items-center justify-between">
-        <ProviderChip provider={frontmatter.provider} />
+        <div className="flex items-center gap-2.5">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-zinc-200 bg-white text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100">
+            <ProviderLogo provider={frontmatter.provider} className="h-[18px] w-[18px]" />
+          </span>
+          <ProviderChip provider={frontmatter.provider} />
+        </div>
         <span className="text-xs font-medium tabular-nums text-zinc-400 dark:text-zinc-600">
           {formatReleased(frontmatter.releaseDate)}
         </span>
@@ -58,6 +66,13 @@ export function ModelCard({ frontmatter }: { frontmatter: ModelFrontmatter }) {
         {isPreview && (
           <span className="inline-flex items-center rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-600 ring-1 ring-inset ring-amber-500/20 dark:text-amber-400">
             Preview
+          </span>
+        )}
+        {category && (
+          <span
+            className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ring-1 ring-inset ${category.className}`}
+          >
+            {category.label}
           </span>
         )}
       </div>
