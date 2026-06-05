@@ -4,8 +4,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import type { SortKey } from "@/lib/filterModels";
 
 const SORT_OPTIONS: { key: SortKey; label: string }[] = [
-  { key: "name", label: "Name (A→Z)" },
   { key: "newest", label: "Newest" },
+  { key: "name", label: "Name (A→Z)" },
   { key: "cheapest", label: "Cheapest input" },
   { key: "context", label: "Largest context" },
 ];
@@ -13,13 +13,14 @@ const SORT_OPTIONS: { key: SortKey; label: string }[] = [
 export function SortMenu() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const currentKey = (searchParams.get("sort") ?? "name") as SortKey;
+  const currentKey = (searchParams.get("sort") ?? "newest") as SortKey;
   const activeLabel =
     SORT_OPTIONS.find((o) => o.key === currentKey)?.label ?? SORT_OPTIONS[0].label;
 
   const setSort = (key: SortKey, detailsEl: HTMLDetailsElement | null) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (key === "name") params.delete("sort");
+    // "newest" is the default — omit it from the URL to keep links clean.
+    if (key === "newest") params.delete("sort");
     else params.set("sort", key);
     const qs = params.toString();
     router.replace(qs ? `/?${qs}` : "/", { scroll: false });

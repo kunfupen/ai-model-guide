@@ -66,8 +66,8 @@ export function filterAndSort(
 
   const sorted = filtered.slice();
   switch (q.sort) {
-    case "newest":
-      sorted.sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
+    case "name":
+      sorted.sort((a, b) => a.name.localeCompare(b.name));
       break;
     case "cheapest":
       sorted.sort((a, b) => {
@@ -79,9 +79,14 @@ export function filterAndSort(
     case "context":
       sorted.sort((a, b) => b.contextWindow - a.contextWindow);
       break;
-    case "name":
+    case "newest":
     default:
-      sorted.sort((a, b) => a.name.localeCompare(b.name));
+      // Default sort: newest first, with name as a stable tiebreaker.
+      sorted.sort(
+        (a, b) =>
+          b.releaseDate.localeCompare(a.releaseDate) ||
+          a.name.localeCompare(b.name),
+      );
       break;
   }
   return sorted;
