@@ -3,6 +3,13 @@ import Link from "next/link";
 import { getAllModels } from "@/lib/content";
 import { CatalogClient } from "@/components/CatalogClient";
 import { CatalogSkeleton } from "@/components/CatalogSkeleton";
+import { CountUp } from "@/components/CountUp";
+import { Reveal } from "@/components/Reveal";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
+
+type Stat =
+  | { kind: "num"; value: number; suffix?: string; decimals?: number; label: string }
+  | { kind: "text"; value: string; label: string };
 
 export default async function Home() {
   const models = await getAllModels();
@@ -14,18 +21,17 @@ export default async function Home() {
     .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))[0];
   const maxContext = Math.max(...frontmatters.map((m) => m.contextWindow));
 
-  const stats = [
-    { value: String(frontmatters.length), label: "Models tracked" },
-    { value: String(providerCount), label: "Providers" },
-    { value: `${(maxContext / 1_000_000).toFixed(0)}M`, label: "Largest context" },
-    { value: newest ? newest.name : "—", label: "Latest addition" },
+  const stats: Stat[] = [
+    { kind: "num", value: frontmatters.length, label: "Models tracked" },
+    { kind: "num", value: providerCount, label: "Providers" },
+    { kind: "num", value: maxContext / 1_000_000, suffix: "M", label: "Largest context" },
+    { kind: "text", value: newest ? newest.name : "—", label: "Latest addition" },
   ];
 
   return (
     <main>
       <section className="relative overflow-hidden">
-        <div className="hero-grid" aria-hidden />
-        <div className="hero-glow" aria-hidden />
+        <HeroBackdrop />
         <div className="mx-auto max-w-5xl px-6 pb-16 pt-24 sm:pt-28">
           <div className="max-w-3xl">
             <span className="animate-rise inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/60 px-3 py-1 text-xs font-medium text-zinc-600 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-300">
@@ -73,7 +79,15 @@ export default async function Home() {
                   {s.label}
                 </dt>
                 <dd className="mt-1.5 truncate text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
-                  {s.value}
+                  {s.kind === "num" ? (
+                    <CountUp
+                      value={s.value}
+                      suffix={s.suffix}
+                      decimals={s.decimals ?? 0}
+                    />
+                  ) : (
+                    s.value
+                  )}
                 </dd>
               </div>
             ))}
@@ -81,11 +95,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <div id="catalog" className="mx-auto max-w-5xl scroll-mt-24 px-6 pb-24">
+      <Reveal id="catalog" className="mx-auto block max-w-5xl scroll-mt-24 px-6 pb-24">
         <Suspense fallback={<CatalogSkeleton />}>
           <CatalogClient models={frontmatters} />
         </Suspense>
-      </div>
+      </Reveal>
     </main>
   );
 }
