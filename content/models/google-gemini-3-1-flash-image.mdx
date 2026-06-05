@@ -1,0 +1,41 @@
+---
+slug: google-gemini-3-1-flash-image
+name: Gemini 3.1 Flash Image
+provider: google
+releaseDate: 2026-05-19
+contextWindow: 131072
+modalities: [text, vision]
+availability: [api, gemini-app, vertex]
+strengths: [image-generation, image-editing, speed]
+officialDocs: https://ai.google.dev/gemini-api/docs/models
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Gemini 3.1 Flash Image
+
+Gemini 3.1 Flash Image is Google's state-of-the-art image generation and editing
+model, now generally available. It targets the Flash sweet spot — Pro-level
+visual quality at Flash speed and cost — for quick, interactive image work and
+high-throughput pipelines.
+
+- Fast, cost-efficient image generation and editing.
+- Contextual edits that need real-world grounding from Gemini.
+- Video-to-image generation (thumbnails, posters, infographics).
+
+For the highest-fidelity output, step up to **Gemini 3.1 Pro Image**; for unified
+text/image/audio/video generation, see **Gemini Omni**.
+
+## Specs & cost
+
+- **Context:** 131,072 tokens, up to 65,536 output tokens.
+- **Pricing is per-image, not per-token**, so it's omitted from the spec fields
+  above. As published: ~$0.0006 per input image; output scales by resolution —
+  ~$0.045 (512px), ~$0.067 (1K), ~$0.101 (2K), ~$0.15 (4K). Confirm on the
+  pricing page.
+- **Availability:** Gemini API / AI Studio, the Gemini app, and Vertex AI.
+
+## Official resources
+
+- [Gemini API model docs](https://ai.google.dev/gemini-api/docs/models)
+- [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing)
