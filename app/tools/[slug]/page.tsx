@@ -49,7 +49,7 @@ export async function generateMetadata({
   try {
     const { frontmatter } = await getToolBySlug(slug);
     return {
-      title: `${frontmatter.name} — AI Model Guide`,
+      title: frontmatter.name,
       description: `${frontmatter.name}: purpose, features, and how it fits into an AI development workflow.`,
     };
   } catch {

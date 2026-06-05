@@ -14,8 +14,18 @@ function formatReleased(iso: string): string {
   return date.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 }
 
+// "New" if released within the last ~75 days. Pure date math, no client clock
+// needed at render — evaluated when the page is built/requested.
+function isRecent(iso: string, days = 75): boolean {
+  const released = Date.parse(iso);
+  if (Number.isNaN(released)) return false;
+  return Date.now() - released <= days * 86_400_000;
+}
+
 export function ModelCard({ frontmatter }: { frontmatter: ModelFrontmatter }) {
   const ctx = formatContext(frontmatter.contextWindow);
+  const isPreview = /preview/i.test(frontmatter.name);
+  const isNew = !isPreview && isRecent(frontmatter.releaseDate);
   const headline = frontmatter.benchmarks
     .slice()
     .sort((a, b) => b.score / (b.max ?? 100) - a.score / (a.max ?? 100))[0];
@@ -32,9 +42,25 @@ export function ModelCard({ frontmatter }: { frontmatter: ModelFrontmatter }) {
         </span>
       </div>
 
-      <h3 className="mt-4 text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
-        {frontmatter.name}
-      </h3>
+      <div className="mt-4 flex items-center gap-2">
+        <h3 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+          {frontmatter.name.replace(/\s*\(preview\)/i, "")}
+        </h3>
+        {isNew && (
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-600 ring-1 ring-inset ring-emerald-500/20 dark:text-emerald-400">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            </span>
+            New
+          </span>
+        )}
+        {isPreview && (
+          <span className="inline-flex items-center rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-600 ring-1 ring-inset ring-amber-500/20 dark:text-amber-400">
+            Preview
+          </span>
+        )}
+      </div>
 
       {frontmatter.strengths.length > 0 && (
         <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
