@@ -2,7 +2,7 @@ import { getAllTools } from "@/lib/content";
 import { ToolCard } from "@/components/ToolCard";
 
 export const metadata = {
-  title: "Tools — AI Model Guide",
+  title: "Tools",
   description:
     "The tools developers use to build with AI: IDEs, local runners, agent CLIs, and frameworks.",
 };

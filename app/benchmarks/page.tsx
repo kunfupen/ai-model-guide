@@ -3,7 +3,7 @@ import { getAllModels } from "@/lib/content";
 import { BenchmarksComparison } from "@/components/BenchmarksComparison";
 
 export const metadata: Metadata = {
-  title: "Benchmarks — AI Model Guide",
+  title: "Benchmarks",
   description:
     "How every model in the catalog scores on each task, ranked side by side with the leader highlighted.",
 };

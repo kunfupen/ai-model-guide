@@ -25,7 +25,7 @@ export async function generateMetadata({
   try {
     const { frontmatter } = await getModelBySlug(slug);
     return {
-      title: `${frontmatter.name} — AI Model Guide`,
+      title: frontmatter.name,
       description: `How to use ${frontmatter.name} effectively. Specs, availability, and curated guidance.`,
     };
   } catch {
@@ -77,6 +77,7 @@ export default async function ModelPage({
     notFound();
   }
   const { frontmatter, body } = model;
+  const isPreview = /preview/i.test(frontmatter.name);
   const allModels = await getAllModels();
   const related = relatedModels(
     frontmatter,
@@ -93,7 +94,7 @@ export default async function ModelPage({
       </Link>
 
       <header className="mt-10">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <ProviderChip provider={frontmatter.provider} size="md" />
           <span className="text-xs text-zinc-400 dark:text-zinc-600">·</span>
           <time
@@ -102,9 +103,14 @@ export default async function ModelPage({
           >
             Released {formatDate(frontmatter.releaseDate)}
           </time>
+          {isPreview && (
+            <span className="inline-flex items-center rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-600 ring-1 ring-inset ring-amber-500/20 dark:text-amber-400">
+              Preview
+            </span>
+          )}
         </div>
         <h1 className="mt-5 text-5xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
-          {frontmatter.name}
+          {frontmatter.name.replace(/\s*\(preview\)/i, "")}
         </h1>
         {frontmatter.strengths.length > 0 && (
           <p className="mt-4 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
