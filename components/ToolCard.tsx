@@ -30,7 +30,7 @@ export function ToolCard({ frontmatter }: { frontmatter: ToolFrontmatter }) {
         </span>
         <span
           aria-hidden
-          className="text-zinc-300 transition-all duration-300 ease-out group-hover:translate-x-0.5 group-hover:text-zinc-900 dark:text-zinc-700 dark:group-hover:text-zinc-100"
+          className="pop-on-hover text-zinc-300 transition-all duration-300 ease-out group-hover:translate-x-0.5 group-hover:text-zinc-900 dark:text-zinc-700 dark:group-hover:text-zinc-100"
         >
           →
         </span>

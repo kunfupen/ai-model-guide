@@ -232,6 +232,143 @@ summary:focus-visible,
   animation: bar-grow 0.9s var(--ease-out-soft) both;
 }
 
+/* ----- Motion & effects ----- */
+
+/* Staggered card reveal. Children animate in with an increasing delay set via
+   the --i custom property on each item. */
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.stagger > * {
+  animation: card-in 0.5s var(--ease-out-soft) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+/* Refine the elevated card: add an animated sheen that sweeps across on hover
+   and let the inner content shift slightly for depth. */
+.surface-card {
+  isolation: isolate;
+}
+.surface-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    color-mix(in oklch, var(--color-accent) 14%, transparent) 50%,
+    transparent 70%
+  );
+  background-size: 250% 250%;
+  background-position: 100% 0;
+  transition: opacity 0.4s var(--ease-out-soft);
+}
+.surface-card:hover::after {
+  opacity: 1;
+  animation: sheen 0.9s var(--ease-out-soft);
+}
+@keyframes sheen {
+  from {
+    background-position: 140% 0;
+  }
+  to {
+    background-position: -40% 0;
+  }
+}
+
+/* Icon/arrow pop used on interactive affordances */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.group:hover .pop-on-hover {
+  animation: pop 0.4s var(--ease-out-soft);
+}
+
+/* Gentle floating animation for ambient hero accents */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -14px) scale(1.05);
+    opacity: 0.75;
+  }
+}
+.hero-glow::before {
+  animation: float-slow 9s ease-in-out infinite;
+}
+.dark .hero-glow::before {
+  animation: float-slow 9s ease-in-out infinite;
+}
+
+/* Underline-grow link effect */
+.link-grow {
+  position: relative;
+}
+.link-grow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1.5px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: currentColor;
+  transition: transform 0.3s var(--ease-out-soft);
+}
+.link-grow:hover::after {
+  transform: scaleX(1);
+}
+
+/* Cross-document View Transitions (progressive enhancement; ignored where
+   unsupported). Gives a soft fade between pages. */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.28s;
+  animation-timing-function: var(--ease-out-soft);
+}
+
+/* Respect reduced-motion: neutralize the heavier effects entirely. */
+@media (prefers-reduced-motion: reduce) {
+  .stagger > *,
+  .surface-card:hover::after,
+  .hero-glow::before,
+  .group:hover .pop-on-hover {
+    animation: none !important;
+  }
+  .surface-card::after {
+    display: none;
+  }
+  @view-transition {
+    navigation: none;
+  }
+}
+
 /* Editorial: drop cap on the first paragraph after the article tag */
 .editorial > p:first-of-type::first-letter {
   float: left;
