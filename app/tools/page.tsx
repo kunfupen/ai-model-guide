@@ -36,9 +36,9 @@ export default async function ToolsPage() {
             {pad(tools.length)} total
           </p>
         </div>
-        <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {tools.map(({ frontmatter }) => (
-            <li key={frontmatter.slug}>
+        <ul className="stagger mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {tools.map(({ frontmatter }, i) => (
+            <li key={frontmatter.slug} style={{ "--i": i } as React.CSSProperties}>
               <ToolCard frontmatter={frontmatter} />
             </li>
           ))}

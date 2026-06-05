@@ -52,19 +52,20 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
   }
 
   return (
-    <div className="space-y-16">
-      {names.map((name) => {
+    <div className="stagger space-y-16">
+      {names.map((name, i) => {
         const rows = (groups.get(name) ?? [])
           .slice()
           .sort((a, b) => b.pct - a.pct);
 
         return (
-          <BenchmarkSection
-            key={name}
-            name={name}
-            blurb={BENCHMARK_BLURB[name]}
-            rows={rows}
-          />
+          <div key={name} style={{ "--i": i * 2 } as React.CSSProperties}>
+            <BenchmarkSection
+              name={name}
+              blurb={BENCHMARK_BLURB[name]}
+              rows={rows}
+            />
+          </div>
         );
       })}
     </div>
