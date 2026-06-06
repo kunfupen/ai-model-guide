@@ -287,6 +287,20 @@ summary:focus-visible,
   }
 }
 
+/* Scroll-reveal: starts faded + lowered, transitions in when data-reveal=in. */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.6s var(--ease-out-soft),
+    transform 0.6s var(--ease-out-soft);
+  will-change: opacity, transform;
+}
+.reveal[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
 /* Icon/arrow pop used on interactive affordances */
 @keyframes pop {
   0% {
