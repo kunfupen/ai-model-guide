@@ -21,15 +21,17 @@ export function FilterChip({
   const isActive = current.includes(value);
 
   const toggle = useCallback(() => {
-    const next = isActive
-      ? current.filter((v) => v !== value)
-      : [...current, value];
     const params = new URLSearchParams(searchParams.toString());
+    const existing =
+      params.get(paramKey)?.split(",").filter(Boolean) ?? [];
+    const next = existing.includes(value)
+      ? existing.filter((v) => v !== value)
+      : [...existing, value];
     if (next.length === 0) params.delete(paramKey);
     else params.set(paramKey, next.join(","));
     const qs = params.toString();
     router.replace(qs ? `/?${qs}` : "/", { scroll: false });
-  }, [router, searchParams, paramKey, value, isActive, current]);
+  }, [router, searchParams, paramKey, value]);
 
   return (
     <button

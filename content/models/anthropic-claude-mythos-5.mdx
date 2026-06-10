@@ -1,0 +1,61 @@
+---
+slug: anthropic-claude-mythos-5
+name: Claude Mythos 5
+provider: anthropic
+releaseDate: 2026-06-09
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 10
+  outputPer1M: 50
+availability: [api, bedrock, vertex]
+strengths: [reasoning, coding, security]
+officialDocs: https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5
+tweetIds: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 95.0
+    max: 100
+    source: https://llm-stats.com/benchmarks/swe-bench-verified
+  - name: GPQA Diamond
+    score: 95.0
+    max: 100
+    source: https://www.digitalapplied.com/blog/claude-fable-5-vs-gpt-5-5-frontier-comparison-2026
+---
+
+## When to reach for Claude Mythos 5
+
+Claude Mythos 5 is the unguarded sibling of [Claude Fable 5](/models/anthropic-claude-fable-5),
+released the same day (June 9, 2026). It's the **same underlying model at the same
+price** — the difference is that Mythos 5 ships **without** the safety classifiers
+that Fable applies to sensitive domains.
+
+Because of that, Mythos 5 is **not generally available**: access is limited to
+**Project Glasswing** partners and U.S. government cyber defenders. If you're a
+general developer, [Fable 5](/models/anthropic-claude-fable-5) is the version you
+can actually use, with identical capabilities and pricing.
+
+## Fable vs. Mythos
+
+- **Same model, same $10 / $50 pricing, same 1M context** (128K max output).
+- **Fable 5** adds guardrails for cyber, bio/chem, and model-extraction queries
+  (routing sensitive requests to an Opus 4.8 fallback); they trigger in under 5%
+  of sessions.
+- **Mythos 5** removes those guardrails — hence the restricted, gated availability.
+
+## Specs & cost
+
+- **Context:** 1M tokens, up to 128K output.
+- **Inputs:** text, images, and files; text output.
+- **Thinking:** adaptive only — use the `effort` parameter to control depth.
+- **Pricing:** $10 / 1M input and $50 / 1M output.
+- **Availability:** limited release via Project Glasswing only.
+
+> Benchmark scores reflect the shared Fable 5 / Mythos 5 model: SWE-bench Verified
+> ~95% and GPQA Diamond ~95%. MMLU / HumanEval omitted (Anthropic published MMLU
+> *Pro*, a different benchmark, and no HumanEval figure).
+
+## Official resources
+
+- [Introducing Claude Fable 5 and Mythos 5](https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5)
+- [Anthropic announcement](https://www.anthropic.com/news/claude-fable-5-mythos-5)
