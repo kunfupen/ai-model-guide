@@ -1,0 +1,55 @@
+---
+slug: anthropic-claude-fable-5
+name: Claude Fable 5
+provider: anthropic
+releaseDate: 2026-06-09
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 10
+  outputPer1M: 50
+availability: [api, claude-ai, bedrock, vertex]
+strengths: [reasoning, coding, agentic-tasks]
+officialDocs: https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Claude Fable 5
+
+Claude Fable 5 is Anthropic's first publicly available **Mythos-class** model
+(released June 9, 2026), and its most capable general-availability model to date.
+It posts state-of-the-art results across nearly all tested benchmarks, with
+standout strength in software engineering, knowledge work, vision, and scientific
+research.
+
+- The hardest autonomous, long-horizon coding and knowledge work.
+- Tasks where you want maximum capability and are willing to pay the top tier.
+- Agentic workflows needing deep, adaptive reasoning over a large context.
+
+For the everyday 80%, **Claude Sonnet 4.6** remains the better-value default, and
+**Opus 4.8** is a cheaper frontier option.
+
+## Fable vs. Mythos
+
+Fable 5 and Claude Mythos 5 are the **same underlying model**. The difference is
+safety: Fable adds guardrails that intervene when a session enters sensitive
+territory (cybersecurity, biology, chemistry, and some forms of model extraction).
+These safeguards trigger in under ~5% of sessions on average; sensitive requests
+can route to a Claude Opus 4.8 fallback.
+
+## Specs & cost
+
+- **Context:** 1M tokens by default, up to 128K output tokens per request.
+- **Inputs:** text, images, and files; text output.
+- **Thinking:** adaptive thinking only — use the `effort` parameter to control depth.
+- **Pricing:** $10 / 1M input and $50 / 1M output.
+- **Availability:** Claude API / Platform / Code, plus AWS, Google Cloud, and
+  Microsoft Foundry (and GitHub Copilot).
+
+> Benchmark scores intentionally omitted until verified against official figures.
+
+## Official resources
+
+- [Introducing Claude Fable 5 and Mythos 5](https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5)
+- [Anthropic announcement](https://www.anthropic.com/news/claude-fable-5-mythos-5)
