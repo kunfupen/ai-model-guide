@@ -12,7 +12,15 @@ availability: [api, claude-ai, bedrock, vertex]
 strengths: [reasoning, coding, agentic-tasks]
 officialDocs: https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5
 tweetIds: []
-benchmarks: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 95.0
+    max: 100
+    source: https://llm-stats.com/benchmarks/swe-bench-verified
+  - name: GPQA Diamond
+    score: 95.0
+    max: 100
+    source: https://www.digitalapplied.com/blog/claude-fable-5-vs-gpt-5-5-frontier-comparison-2026
 ---
 
 ## When to reach for Claude Fable 5
@@ -47,7 +55,10 @@ can route to a Claude Opus 4.8 fallback.
 - **Availability:** Claude API / Platform / Code, plus AWS, Google Cloud, and
   Microsoft Foundry (and GitHub Copilot).
 
-> Benchmark scores intentionally omitted until verified against official figures.
+> Benchmark notes: SWE-bench Verified (95.0%, leaderboard-corroborated) and GPQA
+> Diamond (~95%, third-party reported) are included. MMLU and HumanEval are
+> omitted — Anthropic published MMLU *Pro* (91.5%), a different benchmark, and
+> no HumanEval figure; we don't substitute or invent numbers.
 
 ## Official resources
 
