@@ -1,0 +1,48 @@
+---
+slug: google-gemini-3-1-pro
+name: Gemini 3.1 Pro
+provider: google
+releaseDate: 2026-02-19
+contextWindow: 1000000
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 2
+  outputPer1M: 12
+availability: [api, gemini-app, vertex]
+strengths: [reasoning, long-context, multimodal]
+officialDocs: https://ai.google.dev/gemini-api/docs/models
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Gemini 3.1 Pro
+
+Gemini 3.1 Pro is a high-end model in Google's Gemini 3 line, built for hard
+reasoning over very large, multimodal inputs. It pairs frontier intelligence with
+Gemini's signature huge context window and native handling of text, images, audio,
+video, and code in a single model.
+
+- Very large inputs: up to ~1 hour of video or ~30,000 lines of code per prompt
+  with high retrieval accuracy.
+- Deep multi-step reasoning where you also need long-context grounding.
+- Multimodal analysis that would otherwise need several specialized models.
+
+For faster, cheaper everyday work, **Gemini 3.5 Flash** is the better default; for
+unified text/image/audio/video *generation*, see **Gemini Omni**.
+
+## Specs & cost
+
+- **Context:** 1M tokens (a 2M-token window has been reported in later updates),
+  up to 64K output.
+- **Modalities:** text, image, audio, video, and code in.
+- **Pricing:** $2 / 1M input and $12 / 1M output for prompts up to 200K tokens;
+  above that, input rises to $4 and output to $18 per 1M.
+- **Availability:** Gemini API / AI Studio, Vertex AI and Gemini Enterprise, plus
+  the Gemini app and NotebookLM for Pro/Ultra tiers.
+
+> Benchmark scores intentionally omitted until verified against official figures.
+
+## Official resources
+
+- [Gemini API model docs](https://ai.google.dev/gemini-api/docs/models)
+- [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing)
