@@ -42,7 +42,7 @@ export function SiteHeader() {
             type="button"
             onClick={openCommandPalette}
             aria-label="Open command palette"
-            className="mr-1 hidden items-center gap-2 rounded-full border border-zinc-200 bg-white py-1.5 pl-3 pr-2 text-xs text-zinc-500 transition-colors hover:border-zinc-300 hover:text-zinc-900 sm:flex dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:text-zinc-100"
+            className="search-trigger mr-1 hidden items-center gap-2 rounded-full border border-zinc-200 bg-white py-1.5 pl-3 pr-2 text-xs text-zinc-500 transition-all hover:border-zinc-300 hover:text-zinc-900 sm:flex dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:text-zinc-100"
           >
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <circle cx="11" cy="11" r="7" />
@@ -58,7 +58,7 @@ export function SiteHeader() {
             type="button"
             onClick={openCommandPalette}
             aria-label="Open command palette"
-            className="grid h-8 w-8 place-items-center rounded-full text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 sm:hidden dark:text-zinc-400 dark:hover:bg-zinc-800/80 dark:hover:text-zinc-100"
+            className="search-trigger grid h-8 w-8 place-items-center rounded-full text-zinc-500 transition-all hover:bg-zinc-100 hover:text-zinc-900 sm:hidden dark:text-zinc-400 dark:hover:bg-zinc-800/80 dark:hover:text-zinc-100"
           >
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <circle cx="11" cy="11" r="7" />
@@ -81,7 +81,7 @@ export function SiteHeader() {
                 {active && (
                   <span
                     aria-hidden
-                    className="absolute inset-0 -z-10 rounded-full bg-zinc-100 dark:bg-zinc-800/80"
+                    className="nav-pill absolute inset-0 -z-10 rounded-full bg-zinc-100 dark:bg-zinc-800/80"
                   />
                 )}
                 {item.label}

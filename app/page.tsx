@@ -73,8 +73,12 @@ export default async function Home() {
           </div>
 
           <dl className="animate-rise mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-200 sm:grid-cols-4 dark:border-zinc-800 dark:bg-zinc-800">
-            {stats.map((s) => (
-              <div key={s.label} className="bg-white px-5 py-5 dark:bg-zinc-950">
+            {stats.map((s, i) => (
+              <div
+                key={s.label}
+                className="stat-tile bg-white px-5 py-5 dark:bg-zinc-950"
+                style={{ "--i": i } as React.CSSProperties}
+              >
                 <dt className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
                   {s.label}
                 </dt>

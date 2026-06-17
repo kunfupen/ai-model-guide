@@ -53,10 +53,10 @@ export function SearchBox() {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="search-shell relative">
       <span
         aria-hidden
-        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500"
+        className="search-icon pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500"
       >
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="11" cy="11" r="7" />
@@ -70,7 +70,7 @@ export function SearchBox() {
         onChange={(e) => setValue(e.target.value)}
         placeholder="Search models…"
         aria-label="Search models"
-        className="w-full rounded-xl border border-zinc-200 bg-white py-2.5 pl-10 pr-12 text-sm text-zinc-900 shadow-sm transition-colors placeholder:text-zinc-400 hover:border-zinc-300 focus:border-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:hover:border-zinc-700 [&::-webkit-search-cancel-button]:hidden"
+        className="w-full rounded-xl border border-zinc-200 bg-white py-2.5 pl-10 pr-12 text-sm text-zinc-900 shadow-sm transition-all placeholder:text-zinc-400 hover:border-zinc-300 focus:border-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:hover:border-zinc-700 [&::-webkit-search-cancel-button]:hidden"
       />
       {value ? (
         <button
@@ -80,7 +80,7 @@ export function SearchBox() {
             inputRef.current?.focus();
           }}
           aria-label="Clear search"
-          className="absolute right-3 top-1/2 -translate-y-1/2 grid h-5 w-5 place-items-center rounded-full text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+          className="clear-button absolute right-3 top-1/2 -translate-y-1/2 grid h-5 w-5 place-items-center rounded-full text-zinc-400 transition-all hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
         >
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M18 6 6 18M6 6l12 12" />

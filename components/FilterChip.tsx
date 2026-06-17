@@ -38,14 +38,14 @@ export function FilterChip({
       type="button"
       onClick={toggle}
       aria-pressed={isActive}
-      className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+      className={`filter-chip inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium transition-all ${
         isActive
           ? "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
           : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:border-zinc-600"
       }`}
     >
       {dotClass && (
-        <span className={`h-1.5 w-1.5 rounded-full ${dotClass}`} aria-hidden />
+        <span className={`chip-dot h-1.5 w-1.5 rounded-full ${dotClass}`} aria-hidden />
       )}
       {label}
     </button>

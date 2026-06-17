@@ -251,6 +251,46 @@ summary:focus-visible,
   animation-delay: calc(var(--i, 0) * 45ms);
 }
 
+@keyframes stat-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.stat-tile {
+  position: relative;
+  overflow: hidden;
+  animation: stat-rise 0.55s var(--ease-out-soft) both;
+  animation-delay: calc(180ms + var(--i, 0) * 70ms);
+}
+.stat-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    color-mix(in oklch, var(--color-accent) 10%, transparent),
+    transparent
+  );
+  transform: translateX(-100%);
+}
+.stat-tile:hover::before {
+  opacity: 1;
+  animation: stat-sweep 0.8s var(--ease-out-soft);
+}
+@keyframes stat-sweep {
+  to {
+    transform: translateX(100%);
+  }
+}
+
 /* Refine the elevated card: add an animated sheen that sweeps across on hover
    and let the inner content shift slightly for depth. */
 .surface-card {
@@ -277,6 +317,15 @@ summary:focus-visible,
 .surface-card:hover::after {
   opacity: 1;
   animation: sheen 0.9s var(--ease-out-soft);
+}
+.surface-card .card-logo {
+  transition:
+    transform 0.35s var(--ease-out-soft),
+    box-shadow 0.35s var(--ease-out-soft);
+}
+.surface-card:hover .card-logo {
+  transform: translateY(-1px) rotate(-3deg) scale(1.06);
+  box-shadow: 0 8px 18px -12px rgb(9 9 11 / 0.35);
 }
 @keyframes sheen {
   from {
@@ -359,6 +408,101 @@ summary:focus-visible,
   animation: pop 0.4s var(--ease-out-soft);
 }
 
+.filter-chip {
+  transform-origin: center;
+}
+.filter-chip:hover {
+  transform: translateY(-1px);
+}
+.filter-chip[aria-pressed="true"] {
+  animation: chip-select 0.28s var(--ease-out-soft);
+}
+@keyframes chip-select {
+  50% {
+    transform: translateY(-1px) scale(1.04);
+  }
+}
+.chip-dot {
+  transition:
+    transform 0.3s var(--ease-out-soft),
+    box-shadow 0.3s var(--ease-out-soft);
+}
+.filter-chip:hover .chip-dot,
+.surface-card:hover .chip-dot {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 4px currentColor;
+}
+
+.search-shell input:focus {
+  box-shadow:
+    0 1px 2px rgb(9 9 11 / 0.04),
+    0 0 0 4px color-mix(in oklch, var(--color-accent) 13%, transparent);
+}
+.search-shell input:focus + .clear-button,
+.clear-button:hover {
+  transform: translateY(-50%) scale(1.08) rotate(90deg);
+}
+.search-shell:focus-within .search-icon {
+  animation: search-nudge 0.45s var(--ease-out-soft);
+  color: color-mix(in oklch, var(--color-accent) 70%, rgb(113 113 122));
+}
+@keyframes search-nudge {
+  35% {
+    transform: translateY(-50%) scale(1.12) rotate(-8deg);
+  }
+}
+
+.search-trigger:hover {
+  transform: translateY(-1px);
+}
+.search-trigger kbd {
+  transition: transform 0.25s var(--ease-out-soft);
+}
+.search-trigger:hover kbd {
+  transform: translateY(-1px);
+}
+
+.nav-pill {
+  animation: nav-pill-in 0.28s var(--ease-out-soft) both;
+}
+@keyframes nav-pill-in {
+  from {
+    opacity: 0;
+    transform: scaleX(0.75);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.sort-menu summary:hover {
+  transform: translateY(-1px);
+}
+.sort-arrow {
+  display: inline-block;
+  transition: transform 0.25s var(--ease-out-soft);
+}
+.sort-menu[open] .sort-arrow {
+  transform: rotate(180deg);
+}
+.sort-panel {
+  transform-origin: top right;
+}
+.sort-menu[open] .sort-panel {
+  animation: menu-in 0.18s var(--ease-out-soft) both;
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* Gentle floating animation for ambient hero accents */
 @keyframes float-slow {
   0%,
@@ -412,13 +556,27 @@ summary:focus-visible,
 /* Respect reduced-motion: neutralize the heavier effects entirely. */
 @media (prefers-reduced-motion: reduce) {
   .stagger > *,
+  .stat-tile,
+  .stat-tile:hover::before,
   .surface-card:hover::after,
   .hero-glow::before,
-  .group:hover .pop-on-hover {
+  .group:hover .pop-on-hover,
+  .filter-chip[aria-pressed="true"],
+  .search-shell:focus-within .search-icon,
+  .nav-pill,
+  .sort-menu[open] .sort-panel {
     animation: none !important;
   }
   .surface-card::after {
     display: none;
+  }
+  .filter-chip:hover,
+  .surface-card:hover .card-logo,
+  .search-trigger:hover,
+  .search-shell input:focus + .clear-button,
+  .clear-button:hover,
+  .sort-menu summary:hover {
+    transform: none;
   }
   @view-transition {
     navigation: none;

@@ -40,7 +40,7 @@ export function ModelCard({ frontmatter }: { frontmatter: ModelFrontmatter }) {
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-zinc-200 bg-white text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100">
+          <span className="card-logo grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-zinc-200 bg-white text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100">
             <ProviderLogo provider={frontmatter.provider} className="h-[18px] w-[18px]" />
           </span>
           <ProviderChip provider={frontmatter.provider} />
@@ -94,7 +94,7 @@ export function ModelCard({ frontmatter }: { frontmatter: ModelFrontmatter }) {
           </div>
           <div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-900">
             <div
-              className="h-full rounded-full bg-zinc-900 dark:bg-zinc-100"
+              className="bar-fill h-full rounded-full bg-zinc-900 dark:bg-zinc-100"
               style={{ width: `${Math.min(100, (headline.score / (headline.max ?? 100)) * 100)}%` }}
               aria-hidden
             />
