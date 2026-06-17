@@ -287,6 +287,48 @@ summary:focus-visible,
   }
 }
 
+/* Animated gradient sweep for the hero headline — a slow shimmer across the
+   gradient text. */
+@keyframes gradient-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+.text-gradient-animated {
+  background: linear-gradient(
+    110deg,
+    rgb(24 24 27),
+    color-mix(in oklch, var(--color-accent) 90%, rgb(24 24 27)),
+    rgb(24 24 27)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 6s linear infinite;
+}
+.dark .text-gradient-animated {
+  background: linear-gradient(
+    110deg,
+    rgb(250 250 250),
+    color-mix(in oklch, var(--color-accent) 65%, rgb(250 250 250)),
+    rgb(250 250 250)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 6s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .text-gradient-animated {
+    animation: none;
+  }
+}
+
 /* Scroll-reveal: starts faded + lowered, transitions in when data-reveal=in. */
 .reveal {
   opacity: 0;

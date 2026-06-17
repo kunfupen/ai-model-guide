@@ -6,6 +6,7 @@ import { SpecsTable } from "@/components/SpecsTable";
 import { BenchmarksTable } from "@/components/BenchmarksTable";
 import { ProviderChip } from "@/components/ProviderChip";
 import { ProviderLogo } from "@/components/ProviderLogo";
+import { Reveal } from "@/components/Reveal";
 import { TweetEmbed } from "@/components/TweetEmbed";
 import { mdxComponents } from "@/components/MDXComponents";
 import { modelCategory } from "@/lib/modelCategory";
@@ -132,11 +133,15 @@ export default async function ModelPage({
         )}
       </header>
 
-      <section className="mt-12">
+      <Reveal as="section" className="mt-12 block">
         <SpecsTable frontmatter={frontmatter} />
-      </section>
+      </Reveal>
 
-      <BenchmarksTable benchmarks={frontmatter.benchmarks} />
+      {frontmatter.benchmarks.length > 0 && (
+        <Reveal className="block">
+          <BenchmarksTable benchmarks={frontmatter.benchmarks} />
+        </Reveal>
+      )}
 
       <article className="editorial mt-16">
         <MDXRemote source={body} components={mdxComponents} />

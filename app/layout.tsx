@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ScrollProgress } from "@/components/ScrollProgress";
 import { CommandPalette, type CommandItem } from "@/components/CommandPalette";
 import { getAllModels, getAllTools } from "@/lib/content";
 import "./globals.css";
@@ -74,6 +75,7 @@ export default async function RootLayout({
         />
       </head>
       <body className="min-h-full bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+        <ScrollProgress />
         <CommandPalette items={commandItems} />
         <SiteHeader />
         {children}

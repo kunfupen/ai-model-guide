@@ -43,7 +43,7 @@ export default async function Home() {
             </span>
 
             <h1 className="animate-rise mt-6 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl">
-              <span className="text-gradient">The AI models,</span>
+              <span className="text-gradient-animated">The AI models,</span>
               <br />
               evaluated.
             </h1>
