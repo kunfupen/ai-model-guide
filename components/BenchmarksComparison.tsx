@@ -4,13 +4,22 @@ import { BenchmarkSection, type BenchmarkRow } from "./BenchmarkSection";
 import { ProviderChip } from "./ProviderChip";
 
 // Preferred display order; anything else falls to the end, alphabetically.
-const BENCHMARK_ORDER = ["MMLU", "HumanEval", "SWE-bench Verified", "GPQA Diamond"];
+const BENCHMARK_ORDER = [
+  "MMLU",
+  "HumanEval",
+  "SWE-bench Verified",
+  "GPQA Diamond",
+  "Terminal-Bench 2.1",
+  "τ²-bench Telecom",
+];
 
 const BENCHMARK_BLURB: Record<string, string> = {
   MMLU: "Broad multitask knowledge (57 subjects)",
   HumanEval: "Python code-generation correctness",
   "SWE-bench Verified": "Resolving real GitHub issues",
   "GPQA Diamond": "Graduate-level science reasoning",
+  "Terminal-Bench 2.1": "Agentic coding in a live terminal",
+  "τ²-bench Telecom": "Agentic tool-use workflows (customer service)",
 };
 
 function orderBenchmarks(names: string[]): string[] {
