@@ -1,5 +1,7 @@
+import Link from "next/link";
 import type { ModelFrontmatter } from "@/lib/schemas";
 import { BenchmarkSection, type BenchmarkRow } from "./BenchmarkSection";
+import { ProviderChip } from "./ProviderChip";
 
 // Preferred display order; anything else falls to the end, alphabetically.
 const BENCHMARK_ORDER = ["MMLU", "HumanEval", "SWE-bench Verified", "GPQA Diamond"];
@@ -42,6 +44,9 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
   }
 
   const names = orderBenchmarks(Array.from(groups.keys()));
+  const unbenchmarked = models
+    .filter((m) => m.benchmarks.length === 0)
+    .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
 
   if (names.length === 0) {
     return (
@@ -64,10 +69,45 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
               name={name}
               blurb={BENCHMARK_BLURB[name]}
               rows={rows}
+              totalModels={models.length}
             />
           </div>
         );
       })}
+
+      {unbenchmarked.length > 0 && (
+        <section style={{ "--i": names.length * 2 } as React.CSSProperties}>
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-zinc-200 pb-3 dark:border-zinc-800">
+            <h2 className="text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+              Awaiting published scores
+            </h2>
+            <span className="text-xs text-zinc-400 dark:text-zinc-500">
+              No credible published figures yet — we don&apos;t guess
+            </span>
+          </div>
+          <ul className="mt-6 flex flex-wrap gap-2.5">
+            {unbenchmarked.map((m) => (
+              <li key={m.slug}>
+                <Link
+                  href={`/models/${m.slug}`}
+                  className="group inline-flex items-center gap-2.5 rounded-full border border-zinc-200 bg-white py-1.5 pl-3 pr-4 text-sm transition-colors hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-600"
+                >
+                  <ProviderChip provider={m.provider} />
+                  <span className="font-medium text-zinc-900 dark:text-zinc-100">
+                    {m.name.replace(/\s*\(preview\)/i, "")}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-xs leading-6 text-zinc-400 dark:text-zinc-500">
+            These are mostly specialized (image/video) models where text benchmarks
+            don&apos;t apply, or releases whose providers haven&apos;t published stable
+            figures on our tracked benchmarks. Each model page explains the specific
+            reason.
+          </p>
+        </section>
+      )}
     </div>
   );
 }
