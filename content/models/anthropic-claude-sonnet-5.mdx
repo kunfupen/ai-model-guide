@@ -1,0 +1,63 @@
+---
+slug: anthropic-claude-sonnet-5
+name: Claude Sonnet 5
+provider: anthropic
+releaseDate: 2026-06-30
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 3
+  outputPer1M: 15
+availability: [api, claude-ai, bedrock, vertex]
+strengths: [agentic-tasks, coding, cost-efficiency]
+officialDocs: https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5
+tweetIds: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 85.2
+    max: 100
+    source: https://llm-stats.com/models/claude-sonnet-5
+  - name: Terminal-Bench 2.1
+    score: 80.4
+    max: 100
+    source: https://llm-stats.com/models/claude-sonnet-5
+---
+
+## When to reach for Claude Sonnet 5
+
+Claude Sonnet 5 (released June 30, 2026) is the first Sonnet of the Claude 5
+generation and, in Anthropic's words, **"the most agentic Sonnet."** It closes
+most of the gap to Opus 4.8 at a fraction of the price — early testers report it
+finishes complex tasks where earlier Sonnets stopped short and checks its own
+work unprompted.
+
+- The default workhorse for production chat, coding, and agent pipelines — it's
+  now the default model on Claude Free and Pro plans.
+- Agentic coding on a budget: it **beats Opus 4.8 on Terminal-Bench 2.1** (80.4
+  vs 71.9, same harness) — the first mid-tier Claude to out-score the flagship
+  on a suite benchmark.
+- Long-context work: the 1M-token window comes standard.
+
+Escalate to Fable 5 or Opus 4.8 only for the prompts that genuinely need
+frontier depth.
+
+## Specs & cost
+
+- **Context:** 1M tokens standard.
+- **Pricing:** $3 / 1M input and $15 / 1M output — with **introductory pricing
+  of $2 / $10 through August 31, 2026**.
+- **Availability:** Claude API/Platform, claude.ai (default on Free/Pro), Claude
+  Code, Amazon Bedrock, and Vertex AI.
+
+## Benchmark notes
+
+SWE-bench Verified (85.2) and Terminal-Bench 2.1 (80.4) are corroborated
+leaderboard figures — both huge jumps over Sonnet 4.6, and it beats GPT-5.5 on
+directly comparable benchmarks at lower cost. GPQA Diamond is omitted: only a
+"GPQA-AAA v2" variant score is published, which isn't the same benchmark. MMLU /
+HumanEval / τ²-bench figures aren't published yet.
+
+## Official resources
+
+- [Introducing Claude Sonnet 5](https://www.anthropic.com/news/claude-sonnet-5)
+- [What's new in Sonnet 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5)
