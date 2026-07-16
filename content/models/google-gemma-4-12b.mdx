@@ -1,0 +1,43 @@
+---
+slug: google-gemma-4-12b
+name: Gemma 4 12B
+provider: google
+releaseDate: 2026-06-03
+contextWindow: 256000
+modalities: [text, vision, audio]
+availability: [open-weights, api]
+strengths: [on-device, multimodal, open-weights]
+officialDocs: https://ai.google.dev/gemma/docs/core
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Gemma 4 12B
+
+Gemma 4 12B is Google's open-weight model (released June 3, 2026) that brings
+capable multimodal AI to a laptop: it runs locally with just ~16GB of VRAM or
+unified memory, under an **Apache 2.0** license.
+
+- Self-hosting, privacy, and on-device agents without a cloud dependency.
+- Multimodal input — text, images, and audio — with a novel **encoder-free
+  unified architecture** (vision/audio flow directly into the LLM backbone).
+- Long-context local work: a 256K-token window, unusual for a model this size.
+
+For frontier-grade quality, Google's hosted Gemini models are stronger; Gemma is
+the "run it yourself" option.
+
+## Specs
+
+- **Parameters:** ~11.95B, 48 layers, hybrid local/global attention (1024-token
+  sliding window, final layer always global).
+- **Context:** 256K tokens; 262K vocabulary.
+- **Inputs:** text, image, audio.
+- **License:** Apache 2.0 (open weights on Hugging Face, Ollama, LM Studio).
+
+> No per-token pricing — it's an open-weight model you host yourself (hosted
+> API options vary by provider). Benchmarks omitted until verified.
+
+## Official resources
+
+- [Gemma 4 model overview](https://ai.google.dev/gemma/docs/core)
+- [Google announcement](https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemma-4-12b/)
