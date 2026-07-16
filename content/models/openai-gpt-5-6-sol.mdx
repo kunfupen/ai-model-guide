@@ -12,7 +12,11 @@ availability: [api, chatgpt, azure]
 strengths: [reasoning, coding, agentic-tasks]
 officialDocs: https://platform.openai.com/docs/models
 tweetIds: []
-benchmarks: []
+benchmarks:
+  - name: GPQA Diamond
+    score: 94.6
+    max: 100
+    source: https://llm-stats.com/benchmarks/gpqa
 ---
 
 ## When to reach for GPT-5.6 Sol
@@ -37,7 +41,11 @@ high-volume, latency-sensitive paths, **GPT-5.6 Luna** is the cheap/fast option.
   cheaper; cache writes bill at 1.25× input.
 - **Note:** GPT-5.4 is being retired (July 23) following the 5.6 launch.
 
-> Benchmark scores intentionally omitted until verified against official figures.
+> Benchmark notes: GPQA Diamond (94.6, third-party leaderboards; OpenAI's launch
+> materials focused on agentic evals, not academic benchmarks). SWE-bench
+> Verified omitted — only a single independent source reports a score, and
+> OpenAI officially publishes SWE-bench *Pro* (64.6%), a different benchmark.
+> MMLU / HumanEval not published.
 
 ## Official resources
 

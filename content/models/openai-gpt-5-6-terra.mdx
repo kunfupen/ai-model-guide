@@ -12,7 +12,11 @@ availability: [api, chatgpt, azure]
 strengths: [coding, reasoning, instruction-following]
 officialDocs: https://platform.openai.com/docs/models
 tweetIds: []
-benchmarks: []
+benchmarks:
+  - name: GPQA Diamond
+    score: 92.5
+    max: 100
+    source: https://artificialanalysis.ai/models/gpt-5-6-terra
 ---
 
 ## When to reach for GPT-5.6 Terra
@@ -31,7 +35,10 @@ between the flagship **Sol** and the high-throughput **Luna**.
 - **Pricing:** $2.50 / 1M input and $15 / 1M output. Cached-input reads are 90%
   cheaper; cache writes bill at 1.25× input.
 
-> Benchmark scores intentionally omitted until verified against official figures.
+> Benchmark notes: GPQA Diamond (92.5) is consistently reported across four
+> independent evaluations (Artificial Analysis, Requesty, Vellum, AnyCap); OpenAI
+> did not publish academic benchmarks at launch. MMLU / HumanEval / SWE-bench
+> Verified have no credible published figures — omitted rather than guessed.
 
 ## Official resources
 
