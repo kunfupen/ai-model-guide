@@ -20,10 +20,12 @@ export function BenchmarkSection({
   name,
   blurb,
   rows,
+  totalModels,
 }: {
   name: string;
   blurb?: string;
   rows: BenchmarkRow[];
+  totalModels?: number;
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -35,9 +37,16 @@ export function BenchmarkSection({
   return (
     <section>
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-zinc-200 pb-3 dark:border-zinc-800">
-        <h2 className="text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
-          {name}
-        </h2>
+        <div className="flex items-baseline gap-3">
+          <h2 className="text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+            {name}
+          </h2>
+          {typeof totalModels === "number" && (
+            <span className="font-mono text-[11px] tabular-nums text-zinc-400 dark:text-zinc-600">
+              {rows.length}/{totalModels} models
+            </span>
+          )}
+        </div>
         {blurb && (
           <span className="text-xs text-zinc-400 dark:text-zinc-500">{blurb}</span>
         )}
