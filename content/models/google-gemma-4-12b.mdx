@@ -9,7 +9,11 @@ availability: [open-weights, api]
 strengths: [on-device, multimodal, open-weights]
 officialDocs: https://ai.google.dev/gemma/docs/core
 tweetIds: []
-benchmarks: []
+benchmarks:
+  - name: GPQA Diamond
+    score: 78.8
+    max: 100
+    source: https://arxiv.org/abs/2607.02770
 ---
 
 ## When to reach for Gemma 4 12B
@@ -35,7 +39,9 @@ the "run it yourself" option.
 - **License:** Apache 2.0 (open weights on Hugging Face, Ollama, LM Studio).
 
 > No per-token pricing — it's an open-weight model you host yourself (hosted
-> API options vary by provider). Benchmarks omitted until verified.
+> API options vary by provider). GPQA Diamond (78.8, instruction-tuned variant)
+> comes from the official Gemma 4 Technical Report; MMLU / HumanEval / SWE-bench
+> Verified figures aren't published there — omitted rather than guessed.
 
 ## Official resources
 

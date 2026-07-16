@@ -12,7 +12,15 @@ availability: [api, gemini-app, vertex]
 strengths: [reasoning, long-context, multimodal]
 officialDocs: https://ai.google.dev/gemini-api/docs/models
 tweetIds: []
-benchmarks: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 80.6
+    max: 100
+    source: https://deepmind.google/models/gemini/
+  - name: GPQA Diamond
+    score: 94.3
+    max: 100
+    source: https://deepmind.google/models/gemini/
 ---
 
 ## When to reach for Gemini 3.1 Pro
@@ -40,7 +48,9 @@ unified text/image/audio/video *generation*, see **Gemini Omni**.
 - **Availability:** Gemini API / AI Studio, Vertex AI and Gemini Enterprise, plus
   the Gemini app and NotebookLM for Pro/Ultra tiers.
 
-> Benchmark scores intentionally omitted until verified against official figures.
+> Benchmark notes: GPQA Diamond (94.3) and SWE-bench Verified (80.6) are from
+> Google DeepMind's official model card. MMLU / HumanEval aren't reported there —
+> omitted rather than guessed.
 
 ## Official resources
 
