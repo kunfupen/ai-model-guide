@@ -1,0 +1,39 @@
+---
+slug: openai-gpt-5-6-terra
+name: GPT-5.6 Terra
+provider: openai
+releaseDate: 2026-07-09
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 2.5
+  outputPer1M: 15
+availability: [api, chatgpt, azure]
+strengths: [coding, reasoning, instruction-following]
+officialDocs: https://platform.openai.com/docs/models
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for GPT-5.6 Terra
+
+Terra is the balanced mid-tier of the GPT-5.6 family (GA July 9, 2026) — built
+for production workloads that need strong quality at sensible cost. It sits
+between the flagship **Sol** and the high-throughput **Luna**.
+
+- The everyday production workhorse for chat, coding, and agents.
+- Workloads where Sol's quality edge doesn't justify 2× the price.
+- Long-context work: the full ~1M-token window comes at this tier too.
+
+## Specs & cost
+
+- **Context:** ~1.05M tokens, 128K max output (shared across the 5.6 family).
+- **Pricing:** $2.50 / 1M input and $15 / 1M output. Cached-input reads are 90%
+  cheaper; cache writes bill at 1.25× input.
+
+> Benchmark scores intentionally omitted until verified against official figures.
+
+## Official resources
+
+- [OpenAI model docs](https://platform.openai.com/docs/models)
+- [OpenAI API pricing](https://openai.com/api/pricing/)

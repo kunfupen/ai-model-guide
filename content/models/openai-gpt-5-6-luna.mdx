@@ -1,0 +1,42 @@
+---
+slug: openai-gpt-5-6-luna
+name: GPT-5.6 Luna
+provider: openai
+releaseDate: 2026-07-09
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 1
+  outputPer1M: 6
+availability: [api, chatgpt, azure]
+strengths: [speed, cost-efficiency, classification]
+officialDocs: https://platform.openai.com/docs/models
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for GPT-5.6 Luna
+
+Luna is the fast, cost-efficient tier of the GPT-5.6 family (GA July 9, 2026) —
+the pick for high-volume, latency-sensitive workloads where per-token cost
+compounds quickly.
+
+- Classification, extraction, routing, and other well-scoped bulk tasks.
+- Latency-sensitive UX where a frontier model would feel slow.
+- Cost-dominated pipelines — Luna is the cheapest 5.6 tier by a wide margin.
+
+Unusually for a "small" tier, Luna keeps the family's full ~1M-token context
+window, which makes it a strong long-context bargain.
+
+## Specs & cost
+
+- **Context:** ~1.05M tokens, 128K max output (shared across the 5.6 family).
+- **Pricing:** $1 / 1M input and $6 / 1M output. Cached-input reads are 90%
+  cheaper; cache writes bill at 1.25× input.
+
+> Benchmark scores intentionally omitted until verified against official figures.
+
+## Official resources
+
+- [OpenAI model docs](https://platform.openai.com/docs/models)
+- [OpenAI API pricing](https://openai.com/api/pricing/)
