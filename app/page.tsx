@@ -21,6 +21,25 @@ export default async function Home() {
     .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))[0];
   const maxContext = Math.max(...frontmatters.map((m) => m.contextWindow));
 
+  // Badge line: the flagship of each of the three most recently active providers,
+  // so the hero pill stays current as models are added. Rank by release date,
+  // then by output price (flagship first) so same-day families show their top tier.
+  const byNewestFlagship = frontmatters.slice().sort((a, b) => {
+    const byDate = b.releaseDate.localeCompare(a.releaseDate);
+    if (byDate !== 0) return byDate;
+    return (b.pricing?.outputPer1M ?? 0) - (a.pricing?.outputPer1M ?? 0);
+  });
+  const latestPerProvider: typeof byNewestFlagship = [];
+  for (const m of byNewestFlagship) {
+    if (!latestPerProvider.some((x) => x.provider === m.provider)) {
+      latestPerProvider.push(m);
+      if (latestPerProvider.length === 3) break;
+    }
+  }
+  const badgeNames = latestPerProvider
+    .map((m) => m.name.replace(/\s*\(preview\)/i, ""))
+    .join(", ");
+
   const stats: Stat[] = [
     { kind: "num", value: frontmatters.length, label: "Models tracked" },
     { kind: "num", value: providerCount, label: "Providers" },
@@ -39,7 +58,7 @@ export default async function Home() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
               </span>
-              Updated for {newest ? new Date(newest.releaseDate).getFullYear() : "2026"} — Claude Opus 4.8, GPT-5.5, Gemini 3.5
+              Updated for {newest ? new Date(newest.releaseDate).getFullYear() : "2026"} — {badgeNames}
             </span>
 
             <h1 className="animate-rise mt-6 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl">
