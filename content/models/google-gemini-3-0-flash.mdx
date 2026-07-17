@@ -1,0 +1,54 @@
+---
+slug: google-gemini-3-0-flash
+name: Gemini 3 Flash
+provider: google
+releaseDate: 2025-12-17
+contextWindow: 1000000
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 0.5
+  outputPer1M: 3
+availability: [api, gemini-app, vertex]
+strengths: [speed, coding, multimodal]
+officialDocs: https://ai.google.dev/gemini-api/docs/models
+tweetIds: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 78.0
+    max: 100
+    source: https://blog.google/products/gemini/gemini-3-flash/
+---
+
+## When to reach for Gemini 3 Flash
+
+Gemini 3 Flash launched December 17, 2025 as the speed tier of the Gemini 3
+family — Pro-grade reasoning at Flash-level latency, efficiency, and cost, at
+less than a quarter the cost of Gemini 3 Pro with higher rate limits. It rolled
+out globally at launch in the Gemini app and AI Mode in Search, and to developers
+via the Gemini API in Google AI Studio, Google Antigravity, Gemini CLI, Android
+Studio, Vertex AI, and Gemini Enterprise.
+
+- The default high-throughput pick of the Gemini 3 generation: fast, cheap, and
+  strong at coding — on SWE-bench Verified it scores 78%, outperforming both the
+  2.5 series and Gemini 3 Pro.
+- Agentic coding loops where per-call cost and latency compound.
+- Multimodal work: natively accepts text, images, audio, and video input.
+
+## Specs
+
+- 1M-token input context window, up to 64k output tokens.
+- $0.50 / 1M input, $3 / 1M output (audio input $1 / 1M).
+- Google reports it outperforms 2.5 Pro while being roughly 3x faster (Artificial
+  Analysis benchmarking).
+
+## Tradeoffs
+
+- Superseded on some axes by the newer 3.1 and 3.5 series (3.5 Flash is now the
+  model behind `gemini-flash-latest`); reach for those tiers if you want the
+  current frontier.
+
+## Official resources
+
+- [Launch announcement](https://blog.google/products/gemini/gemini-3-flash/)
+- [Developer announcement](https://blog.google/technology/developers/build-with-gemini-3-flash/)
+- [Gemini API model docs](https://ai.google.dev/gemini-api/docs/models)
