@@ -1,0 +1,60 @@
+---
+slug: anthropic-claude-opus-5
+name: Claude Opus 5
+provider: anthropic
+releaseDate: 2026-07-24
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 5
+  outputPer1M: 25
+availability: [api, claude-ai, bedrock, vertex]
+strengths: [reasoning, coding, agentic-tasks]
+officialDocs: https://platform.claude.com/docs/en/about-claude/models/overview
+tweetIds: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 97.0
+    max: 100
+    source: https://www.vals.ai/benchmarks/swebench
+---
+
+## When to reach for Claude Opus 5
+
+Claude Opus 5 (released July 24, 2026) is the flagship of Anthropic's Claude 5
+generation. Its headline pitch: performance approaching — and on several
+benchmarks surpassing — the more expensive Fable 5, while keeping the **same API
+pricing as Opus 4.8** ($5/$25). Anthropic frames it as frontier capability with a
+"dial on your bill."
+
+- The hardest agentic coding and long-horizon reasoning, now at a materially
+  better price/performance than Fable 5 for most tasks.
+- Enterprise and coding-agent workloads that need frontier quality without the
+  top-tier token cost.
+- Work that benefits from the 1M-token context window (128K max output).
+
+## What's new vs. Opus 4.8
+
+- **Big capability jump at the same price.** On Frontier-Bench v0.1 it more than
+  doubles Opus 4.8's score; on CursorBench 3.2 (max effort) it lands within 0.5%
+  of Fable 5 at half the cost per task; on OSWorld 2.0 (computer use) it beats
+  Fable 5's best result at ~a third of the cost.
+- **Leads SWE-bench Verified** at 97.0 — ahead of GPT-5.6 Sol (96.2) and Fable 5 (95.0).
+- **Fast Mode** — 2.5× faster for 2× the price.
+
+## Specs & cost
+
+- **Context:** 1M tokens, 128K max output.
+- **Pricing:** $5 / 1M input and $25 / 1M output — unchanged from Opus 4.8.
+- **Availability:** Claude API/Platform, claude.ai, Amazon Bedrock, Vertex AI,
+  and Microsoft Foundry.
+
+> Benchmark notes: SWE-bench Verified (97.0) is corroborated by the Vals AI
+> leaderboard. GPQA Diamond is saturated (~93–94% across top models, differences
+> statistically insignificant) and omitted pending a stable published figure;
+> MMLU / HumanEval not published.
+
+## Official resources
+
+- [Anthropic model docs](https://platform.claude.com/docs/en/about-claude/models/overview)
+- [Anthropic news](https://www.anthropic.com/news)
