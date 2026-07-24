@@ -1,0 +1,51 @@
+---
+slug: google-gemini-3-6-flash
+name: Gemini 3.6 Flash
+provider: google
+releaseDate: 2026-07-21
+contextWindow: 1048576
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 1.5
+  outputPer1M: 7.5
+availability: [api, gemini-app, vertex]
+strengths: [speed, cost-efficiency, agentic-tasks]
+officialDocs: https://ai.google.dev/gemini-api/docs/models
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Gemini 3.6 Flash
+
+Gemini 3.6 Flash (launched July 21, 2026) is the latest in Google's fast, cheap
+Flash line, tuned for efficiency, latency, and reliability when building AI agents
+at scale. It's a straightforward upgrade over Gemini 3.5 Flash across the board.
+
+- High-volume, latency-sensitive agentic workloads at scale.
+- Cost-sensitive pipelines: it uses ~17% fewer output tokens than 3.5 Flash on
+  the Artificial Analysis Index, compounding the price savings.
+- Long, multimodal inputs — text, image, video, audio, and PDF — with a full
+  ~1M-token context window and sharply better long-context retrieval (91.8% on
+  GDM-MRCR v2 at 128k).
+
+For frontier reasoning, step up to a Pro-tier Gemini; Flash is the speed/cost pick.
+
+## Specs & cost
+
+- **Context:** 1,048,576 input tokens, up to 65,536 output.
+- **Modalities:** text, image, video, audio, PDF in; text out.
+- **Pricing:** $1.50 / 1M input and $7.50 / 1M output ($0.15 cached input).
+- **Availability:** Google AI Studio, Gemini API, the Gemini app, Android Studio,
+  Antigravity, and Vertex AI / Gemini Enterprise (day one).
+
+## Benchmark notes
+
+Google reports gains over 3.5 Flash on DeepSWE (49% vs 37%), OSWorld-Verified
+(83.0 vs 78.4), and MLE-Bench (63.9 vs 49.7) — but not on our tracked
+benchmarks (MMLU / HumanEval / SWE-bench Verified / GPQA Diamond) in comparable
+form, so scores are omitted rather than mixed across incompatible suites.
+
+## Official resources
+
+- [Gemini API model docs](https://ai.google.dev/gemini-api/docs/models)
+- [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing)
