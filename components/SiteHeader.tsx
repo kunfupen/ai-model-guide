@@ -8,6 +8,7 @@ const NAV = [
   { href: "/", label: "Models", match: (p: string) => p === "/" || p.startsWith("/models") },
   { href: "/benchmarks", label: "Benchmarks", match: (p: string) => p.startsWith("/benchmarks") },
   { href: "/tools", label: "Tools", match: (p: string) => p.startsWith("/tools") },
+  { href: "/agent", label: "Agent", match: (p: string) => p.startsWith("/agent") },
 ];
 
 // The palette listens for ⌘K / Ctrl-K globally; dispatch a synthetic event so

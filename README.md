@@ -15,6 +15,15 @@ provider sites and X.
   fails the build
 - [react-tweet](https://react-tweet.vercel.app) — static tweet embeds, no X API
 
+## ModelPilot — the agent
+
+[`agent/`](agent) holds **ModelPilot**, a single-agent tool-calling system (Python, LangGraph,
+FastAPI) that answers model-selection questions using this catalog as its source of truth. It
+compiles `content/models/*.mdx` into SQLite, does cost arithmetic in Python rather than in the
+model, and validates every recommended slug against the database before returning it. The demo
+lives at [`/agent`](https://ai-model-guide.vercel.app/agent); see [`agent/README.md`](agent/README.md)
+for the architecture.
+
 ## Local development
 
 ```bash
@@ -74,6 +83,7 @@ lib/
   schemas.ts                Zod schema (single source of truth)
   content.ts                content loader
 content/models/*.mdx        the catalog
+agent/                      ModelPilot — the Python agent (see agent/README.md)
 ```
 
 ## License

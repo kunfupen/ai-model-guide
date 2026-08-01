@@ -1,0 +1,102 @@
+# Golden questions for ModelPilot.
+#
+# Each case asserts on behavior, not phrasing:
+#   expect_tools     tools that MUST be called at least once
+#   forbid_tools     tools that must NOT be called (e.g. don't hit the web for catalog facts)
+#   expect_slugs     slugs that must appear in `picks`
+#   expect_any_slug  at least one of these must appear (when several answers are defensible)
+#   forbid_slugs     slugs that must NOT appear
+#   expect_cost      {slug, usd, tolerance} — the agent's arithmetic must match ours
+#   expect_phrases   case-insensitive substrings that must appear in the answer
+#   min_assumptions  the agent must state at least N assumptions (underspecified asks)
+#   max_confidence   confidence must not exceed this level
+
+- id: cheapest-long-context-coding-bedrock
+  question: >-
+    I need the cheapest model with at least 500K context that's good at coding and
+    available on Bedrock. What would 50M input and 5M output tokens per month cost?
+  expect_tools: [query_models, compare_costs]
+  forbid_tools: [web_search]
+  expect_slugs: [anthropic-claude-sonnet-5]
+  expect_cost: { slug: anthropic-claude-sonnet-5, usd: 225.0, tolerance: 0.5 }
+
+- id: swe-bench-leader
+  question: Which model scores highest on SWE-bench Verified?
+  expect_tools: [query_models]
+  expect_slugs: [anthropic-claude-opus-5]
+  forbid_tools: [web_search]
+
+- id: open-weights-only
+  question: I can only use models I can self-host with open weights. What are my options?
+  expect_tools: [query_models]
+  expect_any_slug:
+    - meta-llama-4-maverick
+    - moonshot-kimi-k2
+    - zhipu-glm-4-6
+    - google-gemma-4-12b
+    - nvidia-llama-3-1-nemotron-70b-instruct
+  forbid_slugs: [anthropic-claude-opus-5, openai-gpt-5]
+
+- id: vision-capable-cheap
+  question: What's the cheapest model that can handle images?
+  expect_tools: [query_models]
+  forbid_tools: [web_search]
+
+- id: hallucination-trap-gpt6
+  question: Should I use GPT-6 Turbo for my coding agent? How much does it cost?
+  expect_phrases: ["not in the catalog"]
+  forbid_slugs: [openai-gpt-6-turbo, openai-gpt-6]
+
+- id: hallucination-trap-fictional-bench
+  question: Which model has the highest score on the Sunfish-9000 reasoning benchmark?
+  expect_phrases: ["not"]
+  max_confidence: medium
+
+- id: underspecified-best-model
+  question: What's the best model?
+  min_assumptions: 1
+
+- id: cost-comparison-three-way
+  question: >-
+    Compare the monthly cost of Claude Opus 5, Claude Sonnet 5, and Claude Fable 5
+    at 10M input and 2M output tokens per month.
+  expect_tools: [compare_costs]
+  expect_slugs: [anthropic-claude-sonnet-5]
+  expect_cost: { slug: anthropic-claude-sonnet-5, usd: 60.0, tolerance: 0.5 }
+
+- id: context-window-max
+  question: Which models give me a 1M token context window?
+  expect_tools: [query_models]
+  forbid_tools: [web_search]
+
+- id: google-only-reasoning
+  question: I'm on Google Cloud and need a strong reasoning model available on Vertex.
+  expect_tools: [query_models]
+
+- id: qualitative-agentic
+  question: >-
+    Which model is best for long-horizon agentic work where the agent runs unattended
+    for hours, and why?
+  expect_tools: [query_models]
+
+- id: budget-constraint
+  question: I can't spend more than $2 per million input tokens. What can I use?
+  expect_tools: [query_models]
+  forbid_slugs: [anthropic-claude-fable-5, anthropic-claude-opus-5]
+
+- id: newest-model
+  question: What's the most recently released model in the catalog?
+  expect_tools: [query_models]
+  expect_slugs: [anthropic-claude-opus-5]
+
+- id: multimodal-audio
+  question: I need a model that handles audio input. What's available?
+  expect_tools: [query_models]
+  expect_any_slug: [google-gemini-omni, google-gemini-2-5-pro, google-gemini-3-0-pro]
+
+- id: followup-cheaper-alternative
+  question: >-
+    I was going to use Claude Fable 5 for coding but it's too expensive.
+    What should I use instead, and how much do I save at 20M input tokens a month?
+  expect_tools: [compare_costs]
+  forbid_slugs: [anthropic-claude-fable-5]

@@ -46,3 +46,11 @@ next-env.d.ts
 /.claude/settings.local.json
 /.claude/*.local.json
 .claude/.last-model-check
+
+# ModelPilot agent artifacts
+/agent/data/
+/agent/.venv/
+/agent/.env
+__pycache__/
+*.pyc
+.pytest_cache/
