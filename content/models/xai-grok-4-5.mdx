@@ -1,0 +1,60 @@
+---
+slug: xai-grok-4-5
+name: Grok 4.5
+provider: xai
+releaseDate: 2026-07-08
+contextWindow: 500000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 2
+  outputPer1M: 6
+availability: [api]
+strengths: [reasoning, coding, cost-efficiency]
+officialDocs: https://docs.x.ai/docs/models
+tweetIds: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 86.6
+    max: 100
+    source: https://www.vals.ai/benchmarks/swebench
+  - name: GPQA Diamond
+    score: 93.1
+    max: 100
+    source: https://artificialanalysis.ai/models/grok-4-5
+  - name: Terminal-Bench 2.1
+    score: 83.3
+    max: 100
+    source: https://benchlm.ai/models/grok-4-5
+---
+
+## When to reach for Grok 4.5
+
+Grok 4.5 is xAI's flagship (developer launch July 8, 2026; public July 9). Musk
+pitched it as **"an Opus-class model, but faster, more token-efficient and lower
+cost"** — and independent testing broadly backs the price/performance claim:
+Artificial Analysis ranked it #4 of 168 models on its Intelligence Index, near
+the frontier at a fraction of rivals' cost per task.
+
+- Strong general reasoning and agentic coding at an aggressive price point.
+- Workloads already integrated with X / the xAI ecosystem.
+- Cost-sensitive frontier work — it undercuts most Opus/GPT-flagship pricing.
+
+## Specs & cost
+
+- **Context:** 500K tokens.
+- **Pricing:** $2 / 1M input and $6 / 1M output (cached input $0.50, a 75%
+  discount).
+- **Availability:** xAI API (and the Grok apps).
+
+## Benchmark notes
+
+SWE-bench Verified (86.6), GPQA Diamond (93.1), and Terminal-Bench 2.1 (83.3)
+are from the same independent leaderboards used across this catalog (Vals AI /
+Artificial Analysis / BenchLM). Note xAI's *own* launch materials omitted GPQA
+and other pure-reasoning evals, so these third-party numbers give a fuller
+picture. MMLU / HumanEval not reported in comparable form.
+
+## Official resources
+
+- [xAI model docs](https://docs.x.ai/docs/models)
+- [xAI API](https://x.ai/api)

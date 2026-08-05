@@ -70,6 +70,16 @@ const LOGOS: Record<Provider, { node: React.ReactNode; viewBox: string }> = {
       />
     ),
   },
+  xai: {
+    // xAI's angular "X" mark, approximated with two intersecting slashes.
+    viewBox: "0 0 24 24",
+    node: (
+      <path
+        fill="currentColor"
+        d="M3 3h3.4l6.1 8.6L20.6 3H24l-8.3 10.4L24 21h-3.4l-6.5-9.1L4.9 21H2l8.8-10.9L3 3Z"
+      />
+    ),
+  },
 };
 
 export function ProviderLogo({

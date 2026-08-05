@@ -12,6 +12,7 @@ const PROVIDER_OPTIONS = [
   { value: "moonshot", label: "Moonshot", dot: "bg-violet-500" },
   { value: "zhipu", label: "Zhipu", dot: "bg-rose-500" },
   { value: "nvidia", label: "NVIDIA", dot: "bg-lime-500" },
+  { value: "xai", label: "xAI", dot: "bg-zinc-500" },
 ];
 
 const MODALITY_OPTIONS = [

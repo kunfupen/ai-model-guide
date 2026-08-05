@@ -21,6 +21,7 @@ const PROVIDER: Record<Provider, { label: string; dot: string }> = {
   moonshot: { label: "Moonshot", dot: "#8b5cf6" },
   zhipu: { label: "Zhipu", dot: "#f43f5e" },
   nvidia: { label: "NVIDIA", dot: "#84cc16" },
+  xai: { label: "xAI", dot: "#71717a" },
 };
 
 function formatContext(tokens: number): string {
