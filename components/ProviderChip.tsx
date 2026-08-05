@@ -9,6 +9,7 @@ const PROVIDER_META: Record<Provider, { label: string; dot: string }> = {
   moonshot: { label: "Moonshot", dot: "bg-violet-500" },
   zhipu: { label: "Zhipu", dot: "bg-rose-500" },
   nvidia: { label: "NVIDIA", dot: "bg-lime-500" },
+  xai: { label: "xAI", dot: "bg-zinc-500" },
 };
 
 export function ProviderChip({
