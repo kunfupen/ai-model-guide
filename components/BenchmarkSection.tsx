@@ -21,11 +21,13 @@ export function BenchmarkSection({
   blurb,
   rows,
   totalModels,
+  firstParty = false,
 }: {
   name: string;
   blurb?: string;
   rows: BenchmarkRow[];
   totalModels?: number;
+  firstParty?: boolean;
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -41,6 +43,14 @@ export function BenchmarkSection({
           <h2 className="text-base font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
             {name}
           </h2>
+          {firstParty && (
+            <span
+              title="We run this benchmark ourselves, in-house"
+              className="inline-flex items-center rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-600 ring-1 ring-inset ring-emerald-500/20 dark:text-emerald-400"
+            >
+              First-party
+            </span>
+          )}
           {typeof totalModels === "number" && (
             <span className="font-mono text-[11px] tabular-nums text-zinc-400 dark:text-zinc-600">
               {rows.length}/{totalModels} models

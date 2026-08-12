@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "track": "node scripts/track-releases.mjs",
+    "track:json": "node scripts/track-releases.mjs --json",
+    "scaffold": "node scripts/scaffold-model.mjs",
+    "eval": "node evals/run-eval.mjs",
+    "eval:self-test": "node evals/run-eval.mjs --self-test"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

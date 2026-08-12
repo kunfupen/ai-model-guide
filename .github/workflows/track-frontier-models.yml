@@ -1,0 +1,108 @@
+name: Track frontier model releases
+
+# Polls OpenAI, Anthropic, Google, and xAI for models the catalog does not know
+# about. Runs on a schedule and needs NO secrets — it falls back to public docs
+# pages. Add provider API keys as repo secrets for exact, faster detection.
+on:
+  schedule:
+    # Every 6 hours. Frontier launches are announced during US business hours,
+    # so this catches one within a few hours without hammering anyone's docs.
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      seed_baseline:
+        description: "Rebuild the observed-ID baseline instead of reporting"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: frontier-tracker
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Check providers for new models
+        id: track
+        continue-on-error: true # exit code 10 means "found something", not "broken"
+        env:
+          # Optional. Present => exact detection via /v1/models. Absent => public docs.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+        run: |
+          node scripts/track-releases.mjs --github ${{ inputs.seed_baseline && '--seed-baseline' || '' }} | tee tracker-report.txt
+          echo "exit=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Persist the observed-ID baseline
+        run: |
+          if ! git diff --quiet scripts/tracker-state.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add scripts/tracker-state.json
+            git commit -m "chore: update frontier tracker baseline"
+            git push
+          fi
+
+      - name: Open an issue for new models
+        if: steps.track.outputs.found != '' && steps.track.outputs.found != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('tracker-report.txt', 'utf8');
+            const models = '${{ steps.track.outputs.models }}'.split(',').filter(Boolean);
+            const title = `New frontier model(s) detected: ${models.slice(0, 3).join(', ')}${models.length > 3 ? '…' : ''}`;
+
+            // Don't spam — reuse an open issue for the same models if one exists.
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: 'frontier-tracker',
+            });
+            const dupe = existing.data.find((i) => i.title === title);
+
+            const body = [
+              'The scheduled tracker saw model IDs that are in neither the catalog nor the observed baseline.',
+              '',
+              '```',
+              report.trim(),
+              '```',
+              '',
+              '### To add a confirmed release',
+              '1. Verify against the provider\'s official docs — a docs page can mention an alias, a retired model, or a variant.',
+              '2. `node scripts/scaffold-model.mjs --spec spec.json` (see `docs/AGENTIC-TRACKING.md`).',
+              '3. `pnpm build` to validate the frontmatter.',
+              '4. Add the API model ID to `evals/models.json`, then run the **Run AMG Eval** workflow to score it.',
+              '',
+              '> Never invent benchmark numbers. Omit a score rather than guess it.',
+            ].join('\n');
+
+            if (dupe) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: dupe.number, body: 'Still detected on a later run.\n\n' + body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title, body, labels: ['frontier-tracker'],
+              });
+            }
