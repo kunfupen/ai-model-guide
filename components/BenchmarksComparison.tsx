@@ -5,6 +5,7 @@ import { ProviderChip } from "./ProviderChip";
 
 // Preferred display order; anything else falls to the end, alphabetically.
 const BENCHMARK_ORDER = [
+  "AMG Eval v1.0",
   "MMLU",
   "HumanEval",
   "SWE-bench Verified",
@@ -14,6 +15,7 @@ const BENCHMARK_ORDER = [
 ];
 
 const BENCHMARK_BLURB: Record<string, string> = {
+  "AMG Eval v1.0": "Our own suite — seeded tasks, run in-house",
   MMLU: "Broad multitask knowledge (57 subjects)",
   HumanEval: "Python code-generation correctness",
   "SWE-bench Verified": "Resolving real GitHub issues",
@@ -21,6 +23,9 @@ const BENCHMARK_BLURB: Record<string, string> = {
   "Terminal-Bench 2.1": "Agentic coding in a live terminal",
   "τ²-bench Telecom": "Agentic tool-use workflows (customer service)",
 };
+
+/** Benchmarks we run ourselves get a "first-party" marker on the tab. */
+const FIRST_PARTY = new Set(["AMG Eval v1.0"]);
 
 function orderBenchmarks(names: string[]): string[] {
   return names.slice().sort((a, b) => {
@@ -79,6 +84,7 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
               blurb={BENCHMARK_BLURB[name]}
               rows={rows}
               totalModels={models.length}
+              firstParty={FIRST_PARTY.has(name)}
             />
           </div>
         );
