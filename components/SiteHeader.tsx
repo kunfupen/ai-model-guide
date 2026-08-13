@@ -6,6 +6,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const NAV = [
   { href: "/", label: "Models", match: (p: string) => p === "/" || p.startsWith("/models") },
+  { href: "/compare", label: "Compare", match: (p: string) => p.startsWith("/compare") },
   { href: "/benchmarks", label: "Benchmarks", match: (p: string) => p.startsWith("/benchmarks") },
   { href: "/tools", label: "Tools", match: (p: string) => p.startsWith("/tools") },
 ];

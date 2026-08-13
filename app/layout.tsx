@@ -56,6 +56,7 @@ export default async function RootLayout({
       keywords: f.strengths.join(" "),
     })),
     { label: "Models catalog", href: "/", group: "Pages" as const },
+    { label: "Compare models", href: "/compare", group: "Pages" as const },
     { label: "Benchmarks", href: "/benchmarks", group: "Pages" as const },
     { label: "Tools", href: "/tools", group: "Pages" as const },
   ];
@@ -106,6 +107,9 @@ export default async function RootLayout({
                 </span>
                 <Link href="/" className="text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
                   Models
+                </Link>
+                <Link href="/compare" className="text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+                  Compare
                 </Link>
                 <Link href="/benchmarks" className="text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
                   Benchmarks
