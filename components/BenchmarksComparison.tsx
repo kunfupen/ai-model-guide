@@ -4,20 +4,25 @@ import { BenchmarkSection, type BenchmarkRow } from "./BenchmarkSection";
 import { ProviderChip } from "./ProviderChip";
 
 // Preferred display order; anything else falls to the end, alphabetically.
+// Live benchmarks first, then saturated ones. MMLU and HumanEval are kept for
+// historical context but no longer separate frontier models — top scores cluster
+// in the high 80s/90s — so they rank last and are labelled as legacy.
 const BENCHMARK_ORDER = [
   "AMG Eval v1.0",
-  "MMLU",
-  "HumanEval",
   "SWE-bench Verified",
   "GPQA Diamond",
   "Terminal-Bench 2.1",
   "τ²-bench Telecom",
+  "MMLU",
+  "HumanEval",
 ];
+
+const LEGACY = new Set(["MMLU", "HumanEval"]);
 
 const BENCHMARK_BLURB: Record<string, string> = {
   "AMG Eval v1.0": "Our own suite — seeded tasks, run in-house",
-  MMLU: "Broad multitask knowledge (57 subjects)",
-  HumanEval: "Python code-generation correctness",
+  MMLU: "Broad multitask knowledge — saturated, no longer differentiating",
+  HumanEval: "Python code generation — saturated, no longer differentiating",
   "SWE-bench Verified": "Resolving real GitHub issues",
   "GPQA Diamond": "Graduate-level science reasoning",
   "Terminal-Bench 2.1": "Agentic coding in a live terminal",
@@ -88,6 +93,7 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
               rows={rows}
               totalModels={models.length}
               firstParty={FIRST_PARTY.has(name)}
+              legacy={LEGACY.has(name)}
             />
           </div>
         );

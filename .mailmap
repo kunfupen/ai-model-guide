@@ -1,0 +1,12 @@
+# Consolidates commit authorship onto the repository owner.
+#
+# `git log`, `git shortlog -sne` and `git blame` honour this file, so local
+# history reads as a single author without rewriting any commits.
+#
+# NOTE: GitHub's contributors sidebar does NOT read .mailmap — it keys off the
+# raw author email on each commit. Fully removing a co-author from that view
+# requires rewriting history and force-pushing; see docs/ATTRIBUTION.md.
+Khang Thai <61812548+kunfupen@users.noreply.github.com>
+Khang Thai <61812548+kunfupen@users.noreply.github.com> <noreply@anthropic.com>
+Khang Thai <61812548+kunfupen@users.noreply.github.com> Claude <noreply@anthropic.com>
+Khang Thai <61812548+kunfupen@users.noreply.github.com> kunfupen <61812548+kunfupen@users.noreply.github.com>

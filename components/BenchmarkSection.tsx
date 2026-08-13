@@ -24,12 +24,15 @@ export function BenchmarkSection({
   rows,
   totalModels,
   firstParty = false,
+  legacy = false,
 }: {
   name: string;
   blurb?: string;
   rows: BenchmarkRow[];
   totalModels?: number;
   firstParty?: boolean;
+  /** Saturated benchmark kept for historical context only. */
+  legacy?: boolean;
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -54,6 +57,14 @@ export function BenchmarkSection({
               className="inline-flex items-center rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-600 ring-1 ring-inset ring-emerald-500/20 dark:text-emerald-400"
             >
               First-party
+            </span>
+          )}
+          {legacy && (
+            <span
+              title="Saturated — top models cluster too tightly for this to separate them. Kept for historical context."
+              className="inline-flex items-center rounded-full bg-zinc-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500 ring-1 ring-inset ring-zinc-500/20 dark:text-zinc-400"
+            >
+              Legacy
             </span>
           )}
           {unverifiedCount > 0 && (
