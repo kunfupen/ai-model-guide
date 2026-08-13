@@ -40,7 +40,10 @@ export default async function BenchmarksPage() {
         <span className="font-medium text-zinc-500 dark:text-zinc-400">Unverified</span>{" "}
         are illustrative placeholders that have not yet been traced to an official or
         corroborated source — they are shown for completeness, rendered in a lighter
-        bar, and are never eligible for ★ Best. The{" "}
+        bar, and are never eligible for ★ Best. Sections marked{" "}
+        <span className="font-medium text-zinc-500 dark:text-zinc-400">Legacy</span> are
+        saturated: frontier models cluster too tightly on them to separate, so they rank
+        last and are kept only for historical context. The{" "}
         <span className="font-medium text-zinc-500 dark:text-zinc-400">First-party</span>{" "}
         suite is one we run ourselves; see{" "}
         <a
