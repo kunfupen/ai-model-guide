@@ -40,7 +40,11 @@ benchmarks:
 
 ## When to reach for Opus 4.8
 
-Opus 4.8 is Anthropic's current frontier model and the successor to Opus 4.7.
+> Superseded: **Claude Opus 5** (July 24, 2026) is now Anthropic's flagship at the
+> same $5/$25 pricing, and **Claude Fable 5** sits above both. Opus 4.8 remains a
+> capable, widely-deployed option.
+
+Opus 4.8 was Anthropic's frontier model on release, and the successor to Opus 4.7.
 It's the one to reach for when the task is genuinely hard: long-horizon agentic
 work that calls tools across many steps, multi-file refactors, and reasoning that
 has to hold together over a large context.
@@ -58,7 +62,7 @@ has to hold together over a large context.
 - **Stronger agentic coding.** It's roughly four times less likely than Opus 4.7 to
   let flaws in code it wrote pass unremarked, and posts the strongest end-to-end
   scores on Anthropic's internal Super-Agent benchmark.
-- **Same price as 4.7.** $5 / 1M input and $25 / 1M output — with up to 90% savings
+- **Priced at $5 / 1M input and $25 / 1M output** — with up to 90% savings
   via prompt caching and 50% via batch processing.
 - **Faster fast mode and Dynamic workflows.** Opus 4.8 fast mode is ~2.5× quicker,
   and a new Dynamic workflows feature (research preview) lets Claude take on bigger
@@ -68,7 +72,7 @@ has to hold together over a large context.
 
 - **Latency.** Deliberate by design — not the model for autocomplete or ultra-low-latency
   UX. Reach for Haiku 4.5 there.
-- **Cost.** Still the priciest Anthropic tier per token; Sonnet 4.6 is the better
+- **Cost.** A top-tier price per token (Fable 5 is higher at $10/$50); Sonnet 4.6 is the better
   default for the everyday 80%.
 
 ## Notes
