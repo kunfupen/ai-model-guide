@@ -52,6 +52,7 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
         score: b.score,
         max,
         pct: Math.min(100, Math.max(0, (b.score / max) * 100)),
+        verified: b.verified !== false,
       });
       groups.set(b.name, rows);
     }
@@ -73,9 +74,11 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
   return (
     <div className="stagger space-y-16">
       {names.map((name, i) => {
+        // Verified scores rank above unverified placeholders at equal value, so
+        // the top of each list is trustworthy.
         const rows = (groups.get(name) ?? [])
           .slice()
-          .sort((a, b) => b.pct - a.pct);
+          .sort((a, b) => b.pct - a.pct || Number(b.verified) - Number(a.verified));
 
         return (
           <div key={name} style={{ "--i": i * 2 } as React.CSSProperties}>

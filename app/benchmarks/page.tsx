@@ -34,10 +34,22 @@ export default async function BenchmarksPage() {
       </div>
 
       <p className="mt-16 border-t border-zinc-200 pt-6 text-xs leading-6 text-zinc-400 dark:border-zinc-800 dark:text-zinc-500">
-        Scores are indicative and collected from each provider&apos;s published figures
-        and common public leaderboards; methodologies differ between models, so treat
-        these as a directional guide rather than a controlled head-to-head. Always
-        validate on your own tasks. Click any model to see its full card.
+        Scores are collected from each provider&apos;s published figures and common
+        public leaderboards; methodologies differ between models, so treat these as a
+        directional guide rather than a controlled head-to-head. Entries tagged{" "}
+        <span className="font-medium text-zinc-500 dark:text-zinc-400">Unverified</span>{" "}
+        are illustrative placeholders that have not yet been traced to an official or
+        corroborated source — they are shown for completeness, rendered in a lighter
+        bar, and are never eligible for ★ Best. The{" "}
+        <span className="font-medium text-zinc-500 dark:text-zinc-400">First-party</span>{" "}
+        suite is one we run ourselves; see{" "}
+        <a
+          href="https://github.com/kunfupen/ai-model-guide/tree/main/evals"
+          className="underline decoration-zinc-300 underline-offset-4 dark:decoration-zinc-700"
+        >
+          evals/README
+        </a>{" "}
+        for its methodology and limits. Always validate on your own tasks.
       </p>
     </main>
   );

@@ -59,6 +59,7 @@ function buildFrontmatter(spec, slug) {
       lines.push(`    score: ${b.score}`);
       lines.push(`    max: ${b.max ?? 100}`);
       if (b.source) lines.push(`    source: ${b.source}`);
+      if (b.verified === false) lines.push("    verified: false");
     }
   } else {
     lines.push("benchmarks: []");

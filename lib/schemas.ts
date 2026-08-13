@@ -57,6 +57,14 @@ export const ModelFrontmatterSchema = z.object({
         score: z.number().nonnegative(),
         max: z.number().positive().default(100),
         source: z.string().url().optional(),
+        /**
+         * False when the number is an illustrative placeholder rather than a
+         * figure traceable to an official announcement, a provider's own docs,
+         * or a corroborated leaderboard. Unverified scores are shown, but marked
+         * as provisional and excluded from "best on this benchmark" ranking, so
+         * a placeholder can never masquerade as a verified result.
+         */
+        verified: z.boolean().default(true),
       }),
     )
     .default([]),

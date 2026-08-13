@@ -31,9 +31,19 @@ export function BenchmarksTable({ benchmarks }: { benchmarks: Benchmark[] }) {
                     b.name
                   )}
                 </span>
-                <span className="font-mono text-xs tabular-nums text-zinc-500 dark:text-zinc-400">
-                  {b.score}
-                  <span className="text-zinc-400 dark:text-zinc-600"> / {max}</span>
+                <span className="flex items-center gap-2">
+                  {b.verified === false && (
+                    <span
+                      title="Illustrative placeholder — not yet traced to an official or corroborated source"
+                      className="rounded-full border border-dashed border-zinc-300 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-400 dark:border-zinc-600 dark:text-zinc-500"
+                    >
+                      Unverified
+                    </span>
+                  )}
+                  <span className="font-mono text-xs tabular-nums text-zinc-500 dark:text-zinc-400">
+                    {b.score}
+                    <span className="text-zinc-400 dark:text-zinc-600"> / {max}</span>
+                  </span>
                 </span>
               </div>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-900">
