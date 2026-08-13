@@ -29,9 +29,14 @@ export function ModelCard({ frontmatter }: { frontmatter: ModelFrontmatter }) {
   const isPreview = /preview/i.test(frontmatter.name);
   const isNew = !isPreview && isRecent(frontmatter.releaseDate);
   const category = modelCategory(frontmatter);
-  const headline = frontmatter.benchmarks
+  // Prefer a verified score for the card's headline bar — a placeholder should
+  // never be the first number a reader sees. Fall back to an unverified one only
+  // if that's all the model has.
+  const rankedBenchmarks = frontmatter.benchmarks
     .slice()
-    .sort((a, b) => b.score / (b.max ?? 100) - a.score / (a.max ?? 100))[0];
+    .sort((a, b) => b.score / (b.max ?? 100) - a.score / (a.max ?? 100));
+  const headline =
+    rankedBenchmarks.find((b) => b.verified !== false) ?? rankedBenchmarks[0];
 
   return (
     <Link
@@ -86,7 +91,10 @@ export function ModelCard({ frontmatter }: { frontmatter: ModelFrontmatter }) {
       {headline && (
         <div className="mt-5">
           <div className="flex items-center justify-between text-[11px] font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-            <span>{headline.name}</span>
+            <span>
+              {headline.name}
+              {headline.verified === false && " ·  unverified"}
+            </span>
             <span className="font-mono tabular-nums text-zinc-600 dark:text-zinc-300">
               {headline.score}
               <span className="text-zinc-400 dark:text-zinc-600">/{headline.max ?? 100}</span>

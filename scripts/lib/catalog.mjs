@@ -39,30 +39,63 @@ export function normalizeModelKey(nameOrId) {
     .replace(/[^a-z0-9]/g, "");
 }
 
-/** Set of normalized keys covering every model already in the catalog. */
+/** Providers we prefix slugs with; stripped so a wire ID can match a slug. */
+const PROVIDER_PREFIXES = [
+  "anthropic",
+  "openai",
+  "google",
+  "microsoft",
+  "meta",
+  "moonshot",
+  "zhipu",
+  "nvidia",
+  "xai",
+];
+
+/**
+ * Every normalized spelling that should count as "already in the catalog" for a
+ * given entry: its slug, its slug without the provider prefix, and its display
+ * name. Wire IDs like `claude-opus-4-8` land on the same key as the display name
+ * "Claude Opus 4.8", which is what makes exact matching sufficient.
+ */
 export async function knownModelKeys(catalog) {
   const models = catalog ?? (await readCatalog());
   const keys = new Set();
+  const add = (v) => {
+    const k = normalizeModelKey(v);
+    if (k) keys.add(k);
+  };
   for (const m of models) {
-    keys.add(normalizeModelKey(m.slug));
-    if (m.frontmatter?.name) keys.add(normalizeModelKey(m.frontmatter.name));
+    add(m.slug);
+    for (const p of PROVIDER_PREFIXES) {
+      if (m.slug.startsWith(`${p}-`)) add(m.slug.slice(p.length + 1));
+    }
+    if (m.frontmatter?.name) add(m.frontmatter.name);
   }
   return keys;
 }
 
 /**
  * Is this candidate already represented in the catalog?
- * Uses containment in both directions so "gpt-5.6" matches "GPT-5.6 Sol" only
- * when the candidate is at least as specific as the catalog entry.
+ *
+ * EXACT match on the normalized key only — deliberately.
+ *
+ * An earlier version also matched on substring containment in both directions,
+ * which silently swallowed the single most important case this tracker exists to
+ * catch: a point release. `claude-opus-5-1` normalizes to `claudeopus51`, which
+ * *contains* `claudeopus5`, so Claude Opus 5.1 was treated as already-known and
+ * would never have raised an alert. Same for `gpt-5-6-sol-ultra` vs `gpt-5-6-sol`.
+ *
+ * Containment is unsafe in both directions — a longer candidate is a MORE
+ * specific (new) model, and a shorter one is a different model too. Date suffixes
+ * and preview/latest noise are already handled inside normalizeModelKey, so exact
+ * matching is both sufficient and the only safe rule. Erring toward "unknown"
+ * costs a line in a report; erring toward "known" loses a release entirely.
  */
 export function isKnown(candidate, keys) {
   const k = normalizeModelKey(candidate);
   if (!k || k.length < 3) return true; // too vague to be a real signal
-  if (keys.has(k)) return true;
-  for (const known of keys) {
-    if (known.length >= 6 && (k.includes(known) || known.includes(k))) return true;
-  }
-  return false;
+  return keys.has(k);
 }
 
 export function slugFor(provider, name) {

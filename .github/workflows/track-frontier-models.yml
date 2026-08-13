@@ -49,11 +49,25 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
         run: |
+          # Actions runs this with `bash -e`, and the tracker deliberately exits
+          # 10 when it finds something — so disable errexit around the call,
+          # then read the SCRIPT's status out of PIPESTATUS ($? would be tee's).
+          set +e
           node scripts/track-releases.mjs --github ${{ inputs.seed_baseline && '--seed-baseline' || '' }} | tee tracker-report.txt
-          echo "exit=$?" >> "$GITHUB_OUTPUT"
+          code=${PIPESTATUS[0]}
+          set -e
+          echo "exit=$code" >> "$GITHUB_OUTPUT"
+          echo "Tracker exited $code (0 = nothing new, 10 = new model found)"
+          # Anything other than 0/10 is a genuine failure worth surfacing.
+          if [ "$code" -ne 0 ] && [ "$code" -ne 10 ]; then exit "$code"; fi
 
       - name: Persist the observed-ID baseline
+        # Only when the tracker itself succeeded — never bank a baseline built
+        # from a run where sources errored out, or we'd silently absorb IDs we
+        # never really saw.
+        if: steps.track.outputs.exit == '0' || steps.track.outputs.exit == '10'
         run: |
+          git pull --rebase --autostash origin main || true
           if ! git diff --quiet scripts/tracker-state.json; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

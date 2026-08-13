@@ -12,6 +12,8 @@ export type BenchmarkRow = {
   score: number;
   max: number;
   pct: number;
+  /** False for illustrative placeholders awaiting a verification pass. */
+  verified: boolean;
 };
 
 const TOP_N = 5;
@@ -31,7 +33,10 @@ export function BenchmarkSection({
 }) {
   const [expanded, setExpanded] = useState(false);
 
-  const leaderPct = rows[0]?.pct ?? 0;
+  // Only a verified score can hold "best on this benchmark" — an unverified
+  // placeholder must never be presented as the leader.
+  const leaderPct = rows.find((r) => r.verified)?.pct ?? -1;
+  const unverifiedCount = rows.filter((r) => !r.verified).length;
   const hasMore = rows.length > TOP_N;
   const visible = expanded ? rows : rows.slice(0, TOP_N);
   const hiddenCount = rows.length - TOP_N;
@@ -51,6 +56,11 @@ export function BenchmarkSection({
               First-party
             </span>
           )}
+          {unverifiedCount > 0 && (
+            <span className="font-mono text-[11px] tabular-nums text-zinc-400 dark:text-zinc-600">
+              {unverifiedCount} unverified
+            </span>
+          )}
           {typeof totalModels === "number" && (
             <span className="font-mono text-[11px] tabular-nums text-zinc-400 dark:text-zinc-600">
               {rows.length}/{totalModels} models
@@ -64,7 +74,7 @@ export function BenchmarkSection({
 
       <ul className="mt-6 space-y-3.5">
         {visible.map((r, i) => {
-          const isLeader = r.pct === leaderPct;
+          const isLeader = r.verified && r.pct === leaderPct;
           return (
             <li key={r.slug}>
               <div className="flex items-baseline justify-between gap-3 text-sm">
@@ -84,8 +94,20 @@ export function BenchmarkSection({
                       ★ Best
                     </span>
                   )}
+                  {!r.verified && (
+                    <span
+                      title="Illustrative placeholder — not yet traced to an official or corroborated source"
+                      className="shrink-0 rounded-full border border-dashed border-zinc-300 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-400 dark:border-zinc-600 dark:text-zinc-500"
+                    >
+                      Unverified
+                    </span>
+                  )}
                 </Link>
-                <span className="shrink-0 font-mono text-xs tabular-nums text-zinc-500 dark:text-zinc-400">
+                <span
+                  className={`shrink-0 font-mono text-xs tabular-nums ${
+                    r.verified ? "text-zinc-500 dark:text-zinc-400" : "text-zinc-400 dark:text-zinc-600"
+                  }`}
+                >
                   {r.score}
                   <span className="text-zinc-400 dark:text-zinc-600"> / {r.max}</span>
                 </span>
@@ -93,9 +115,11 @@ export function BenchmarkSection({
               <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-900">
                 <div
                   className={`bar-fill h-full rounded-full ${
-                    isLeader
-                      ? "bg-zinc-900 dark:bg-zinc-100"
-                      : "bg-zinc-300 dark:bg-zinc-700"
+                    !r.verified
+                      ? "bg-zinc-200 dark:bg-zinc-800"
+                      : isLeader
+                        ? "bg-zinc-900 dark:bg-zinc-100"
+                        : "bg-zinc-300 dark:bg-zinc-700"
                   }`}
                   style={{
                     width: `${r.pct}%`,
