@@ -14,7 +14,7 @@ export default async function ToolsPage() {
   return (
     <main className="mx-auto max-w-5xl px-6 py-20">
       <section className="max-w-2xl">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
+        <p className="eyebrow-rule text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
           The tooling layer
         </p>
         <h1 className="mt-4 text-5xl font-semibold tracking-tight text-zinc-900 sm:text-6xl dark:text-zinc-50">

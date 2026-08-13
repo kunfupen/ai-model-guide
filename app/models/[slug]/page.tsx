@@ -135,6 +135,15 @@ export default async function ModelPage({
 
       <Reveal as="section" className="mt-12 block">
         <SpecsTable frontmatter={frontmatter} />
+        <Link
+          href={`/compare?models=${frontmatter.slug}`}
+          className="mt-5 inline-flex items-center gap-2 rounded-full border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-600 transition-all hover:-translate-y-0.5 hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-800 dark:text-zinc-400 dark:hover:border-zinc-600 dark:hover:text-zinc-100"
+        >
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <path d="M8 3v18M16 3v18M3 8h18M3 16h18" />
+          </svg>
+          Compare with another model
+        </Link>
       </Reveal>
 
       {frontmatter.benchmarks.length > 0 && (

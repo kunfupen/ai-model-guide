@@ -82,10 +82,17 @@ export default async function Home() {
                 <span aria-hidden>↓</span>
               </a>
               <Link
-                href="/benchmarks"
-                className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-900 transition-colors hover:border-zinc-900 dark:border-zinc-700 dark:text-zinc-100 dark:hover:border-zinc-100"
+                href="/compare"
+                className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-900 transition-all hover:-translate-y-0.5 hover:border-zinc-900 dark:border-zinc-700 dark:text-zinc-100 dark:hover:border-zinc-100"
               >
-                Compare benchmarks
+                Compare models
+                <span aria-hidden>→</span>
+              </Link>
+              <Link
+                href="/benchmarks"
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+              >
+                Benchmarks
                 <span aria-hidden>→</span>
               </Link>
             </div>

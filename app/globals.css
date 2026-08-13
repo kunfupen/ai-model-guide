@@ -378,6 +378,28 @@ summary:focus-visible,
   }
 }
 
+/* Comparison tables: zebra the row labels subtly and lift the winning cell so
+   the eye lands on the answer rather than scanning the whole grid. */
+table tbody tr:hover {
+  background-color: color-mix(in oklch, var(--hairline) 22%, transparent);
+  transition: background-color 0.2s var(--ease-out-soft);
+}
+
+/* A quiet accent rule under major section eyebrows. */
+.eyebrow-rule::after {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  margin-top: 0.75rem;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    color-mix(in oklch, var(--color-accent) 25%, transparent)
+  );
+}
+
 /* Scroll-reveal: starts faded + lowered, transitions in when data-reveal=in. */
 .reveal {
   opacity: 0;
