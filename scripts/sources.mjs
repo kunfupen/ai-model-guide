@@ -124,6 +124,15 @@ export const NOISE = [
   /babbage|davinci|curie|ada/i,
   /gpt-3|gpt-4-0|gpt-4-1106|gpt-35/i,
   /\bmodels\b/i,
+  // Floating aliases and config variants of a model, not distinct releases.
+  // These produced a false alarm (issue #25) reporting three spellings of one
+  // Grok 4.20 build: "...-experimental-beta-latest", "...-multi-agent-...", etc.
+  /[-.]latest$/i,
+  /experimental/i,
+  /[-.]beta\b/i,
+  /[-.]preview$/i,
+  /non-reasoning/i,
+  /[-.]multi-agent\b/i,
 ];
 
 export function isNoise(id) {
