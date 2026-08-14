@@ -1,7 +1,7 @@
 {
   "_comment": "Baseline of every model ID the tracker has ever observed. A new frontier release is an ID that appears in neither this list nor the catalog. Delete this file and re-run with --seed-baseline to rebuild.",
-  "lastCheck": "2026-08-13T19:10:23.975Z",
-  "runs": 17,
+  "lastCheck": "2026-08-14T02:26:06.782Z",
+  "runs": 18,
   "seenIds": [
     "claude-fable-5",
     "claude-fable-53",
@@ -120,7 +120,9 @@
     "gpt-5.4-nano-2026-03-17",
     "gpt-5.4-pro",
     "gpt-5.5",
+    "gpt-5.5-2026-04-23",
     "gpt-5.5-pro",
+    "gpt-5.5-pro-2026-04-23",
     "gpt-5.6",
     "gpt-5.6-cyber",
     "gpt-5.6-luna",
