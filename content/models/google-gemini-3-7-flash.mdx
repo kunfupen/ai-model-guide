@@ -1,0 +1,64 @@
+---
+slug: google-gemini-3-7-flash
+name: Gemini 3.7 Flash
+provider: google
+releaseDate: 2026-08-13
+contextWindow: 1048576
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 1.5
+  outputPer1M: 7.5
+availability: [api, gemini-app, vertex]
+strengths: [coding, agentic-tasks, cost-efficiency]
+officialDocs: https://ai.google.dev/gemini-api/docs/models
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 2.1
+    score: 85.8
+    max: 100
+    source: https://artificialanalysis.ai/models/gemini-3-7-flash
+---
+
+## When to reach for Gemini 3.7 Flash
+
+Gemini 3.7 Flash (GA August 13, 2026) is Google's self-described "most intelligent
+workhorse model yet for coding and agents" — a substantial jump over 3.6 Flash on
+software engineering, web development, and agentic workflows rather than a routine
+refresh.
+
+- Agentic coding at workhorse prices: **85.8 on Terminal-Bench 2.1** puts it above
+  every Claude and Gemini model in this catalog and behind only GPT-5.6 Sol (88.8)
+  and Grok 4.6 (88.4) — both of which cost considerably more.
+- Long-horizon software engineering: 65.3% on DeepSWE v1.1, against 48.6% for
+  3.6 Flash.
+- Long-context retrieval: 97.0% on GDM-MRCR v2 at 128k, effectively near-perfect.
+- High-volume multimodal work — text, image, video, audio and PDF in.
+
+## Specs & cost
+
+- **Context:** 1,048,576 input tokens, up to 65,536 output.
+- **Pricing:** $1.50 / 1M input and $7.50 / 1M output at standard rates — with
+  **introductory pricing of $0.75 / $3.75 through December 31, 2026**. Batch is
+  roughly a quarter of list ($0.1875 / $0.9375).
+- **Availability:** Gemini API / AI Studio, the Gemini app, and Vertex AI.
+
+## Notes
+
+Google shipped this while **Gemini 3.5 Pro remains delayed**, so the Flash line is
+currently carrying Google's frontier story. At standard rates 3.7 Flash lists the
+same as 3.6 Flash, so there is little reason to stay on 3.6; if raw cost dominates,
+**Gemini 3.5 Flash** is still the cheaper tier at $0.30/$2.50.
+
+## Benchmark notes
+
+Terminal-Bench 2.1 (85.8) is from Artificial Analysis, the same harness used for
+the other agentic-coding scores here. DeepSWE, GDM-MRCR and the Artificial
+Analysis Intelligence Index are cited above as context but are **not** in this
+catalog's tracked set, so they are not recorded as benchmark entries. GPQA Diamond
+is omitted — it appears in the index Google reports against, but no standalone
+figure for this model was published.
+
+## Official resources
+
+- [Gemini API model docs](https://ai.google.dev/gemini-api/docs/models)
+- [Artificial Analysis — Gemini 3.7 Flash](https://artificialanalysis.ai/models/gemini-3-7-flash)
