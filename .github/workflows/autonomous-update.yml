@@ -1,0 +1,178 @@
+name: Autonomous model update
+
+# The full loop, unattended:
+#   detect (tracker) -> research (agent + web search) -> ingest (scaffold)
+#   -> validate (build) -> publish (commit to main)
+#
+# Safety here is STRUCTURAL rather than a human gate:
+#   · the agent cannot write to disk or run commands — it only returns a spec
+#   · every spec is re-validated server-side before acceptance
+#   · a benchmark with no source, or one citing a benchmark's definition paper,
+#     is rejected outright
+#   · `pnpm build` (Zod over all frontmatter) must pass before anything is kept
+#   · only HIGH-confidence, cleanly-building specs land on main; anything less
+#     opens a PR instead of publishing
+#   · every step is a plain git commit, so any bad call is one revert away
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      candidate:
+        description: "Research one specific model instead of polling (e.g. claude-opus-6)"
+        type: string
+        required: false
+      force_pr:
+        description: "Open a PR even for high-confidence results"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: autonomous-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - run: pnpm install --frozen-lockfile
+
+      # ---------------------------------------------------------------- detect
+      - name: Detect new models
+        id: detect
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+        run: |
+          if [ -n "${{ inputs.candidate }}" ]; then
+            echo "candidates=${{ inputs.candidate }}" >> "$GITHUB_OUTPUT"
+            echo "found=1" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          set +e
+          node scripts/track-releases.mjs --github | tee tracker-report.txt
+          code=${PIPESTATUS[0]}
+          set -e
+          if [ "$code" -ne 0 ] && [ "$code" -ne 10 ]; then exit "$code"; fi
+
+      - name: Persist tracker baseline
+        if: ${{ !inputs.candidate }}
+        run: |
+          git pull --rebase --autostash origin main || true
+          if ! git diff --quiet scripts/tracker-state.json; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add scripts/tracker-state.json
+            git commit -m "chore: update frontier tracker baseline"
+            git push
+          fi
+
+      # --------------------------------------------------------------- research
+      - name: Research candidates
+        id: research
+        if: steps.detect.outputs.found != '' && steps.detect.outputs.found != '0'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::warning::ANTHROPIC_API_KEY not set — cannot research autonomously."
+            echo "researched=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          added=0
+          summary=""
+          # Cap per run so one noisy day cannot spend unbounded API budget.
+          for candidate in $(echo "${{ steps.detect.outputs.candidates }}" | tr ',' '\n' | head -3); do
+            [ -z "$candidate" ] && continue
+            echo "::group::Researching $candidate"
+            set +e
+            node agents/research-agent.mjs --candidate "$candidate" --json > "agent-$candidate.json"
+            rc=$?
+            set -e
+            cat "agent-$candidate.json"
+            echo "::endgroup::"
+
+            if [ "$rc" -ne 0 ]; then
+              reason=$(node -e "try{console.log(JSON.parse(require('fs').readFileSync('agent-$candidate.json','utf8')).reason||'')}catch{console.log('')}")
+              summary="${summary}- \`$candidate\`: not added — ${reason}"$'\n'
+              continue
+            fi
+
+            conf=$(node -e "console.log(JSON.parse(require('fs').readFileSync('agent-$candidate.json','utf8')).confidence)")
+            node scripts/scaffold-model.mjs --spec agents/out/spec.json
+            added=$((added+1))
+            summary="${summary}- \`$candidate\`: added (confidence ${conf})"$'\n'
+            echo "confidence=$conf" >> "$GITHUB_OUTPUT"
+          done
+          echo "added=$added" >> "$GITHUB_OUTPUT"
+          {
+            echo 'summary<<SUMMARY_EOF'
+            echo "$summary"
+            echo 'SUMMARY_EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      # --------------------------------------------------------------- validate
+      - name: Validate the catalog builds
+        if: steps.research.outputs.added != '' && steps.research.outputs.added != '0'
+        run: pnpm build
+
+      # ---------------------------------------------------------------- publish
+      - name: Publish directly (high confidence, build green)
+        if: |
+          steps.research.outputs.added != '' && steps.research.outputs.added != '0'
+          && steps.research.outputs.confidence == 'high'
+          && !inputs.force_pr
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main || true
+          git add content/models
+          git commit -m "Add newly detected model(s) via autonomous research agent
+
+          ${{ steps.research.outputs.summary }}
+          Researched from official sources, spec validated against the schema, and
+          the full catalog build passed before publishing. Revert this commit if
+          anything looks wrong."
+          git push
+
+      - name: Open a PR instead (lower confidence, or forced)
+        if: |
+          steps.research.outputs.added != '' && steps.research.outputs.added != '0'
+          && (steps.research.outputs.confidence != 'high' || inputs.force_pr)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: auto/model-update-${{ github.run_number }}
+          title: "Autonomous model update (review requested)"
+          commit-message: "Add newly detected model(s) via autonomous research agent"
+          labels: frontier-tracker
+          body: |
+            The research agent produced a spec it is **not** fully confident in, so
+            this is a PR rather than a direct publish.
+
+            ${{ steps.research.outputs.summary }}
+
+            The spec validated and the catalog builds. Check the flagged
+            uncertainties in the run log before merging.
+
+      - name: Report
+        if: always()
+        run: |
+          {
+            echo "## Autonomous update"
+            echo ""
+            echo "${{ steps.research.outputs.summary || 'Nothing new detected.' }}"
+          } >> "$GITHUB_STEP_SUMMARY"

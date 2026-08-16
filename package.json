@@ -11,7 +11,9 @@
     "track:json": "node scripts/track-releases.mjs --json",
     "scaffold": "node scripts/scaffold-model.mjs",
     "eval": "node evals/run-eval.mjs",
-    "eval:self-test": "node evals/run-eval.mjs --self-test"
+    "eval:self-test": "node evals/run-eval.mjs --self-test",
+    "research": "node agents/research-agent.mjs",
+    "research:dry-run": "node agents/research-agent.mjs --candidate demo --dry-run"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
