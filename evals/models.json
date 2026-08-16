@@ -81,6 +81,11 @@
       "provider": "xai",
       "apiModel": "grok-4.6",
       "verified": false
+    },
+    "google-gemini-3-7-flash": {
+      "provider": "google",
+      "apiModel": "gemini-3.7-flash",
+      "verified": false
     }
   }
 }

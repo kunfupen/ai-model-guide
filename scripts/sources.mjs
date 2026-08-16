@@ -10,6 +10,33 @@
 // Sources were verified reachable during research; `extract` turns a payload
 // into candidate model identifiers, which are then diffed against the catalog.
 
+/**
+ * Cross-provider fallback. OpenRouter publishes an unauthenticated catalogue of
+ * models from every major lab, which covers the providers whose own docs block
+ * unattended clients (Google and xAI both return 403).
+ *
+ * Honest caveat: this endpoint could NOT be reached from the sandbox this was
+ * written in, so it is unverified in practice. It costs nothing and degrades
+ * gracefully — a failure is logged like any other source error — but the
+ * dependable fix for Google and xAI remains setting their API keys.
+ */
+const OPENROUTER = {
+  url: "https://openrouter.ai/api/v1/models",
+  // Ids look like "google/gemini-3.7-flash"; capture the part after the slash.
+  extractFor: (prefix, pattern) => (text) => {
+    try {
+      const json = JSON.parse(text);
+      return (json?.data ?? [])
+        .map((m) => String(m.id ?? ""))
+        .filter((id) => id.startsWith(prefix))
+        .map((id) => id.slice(prefix.length))
+        .filter((id) => pattern.test(id));
+    } catch {
+      return [];
+    }
+  },
+};
+
 export const PROVIDER_SOURCES = {
   anthropic: {
     label: "Anthropic",
@@ -85,6 +112,10 @@ export const PROVIDER_SOURCES = {
         url: "https://raw.githubusercontent.com/google-gemini/cookbook/main/README.md",
         pattern: /\bgemini-\d[\d.]*(?:-[a-z]+)*\b/g,
       },
+      {
+        url: OPENROUTER.url,
+        extract: OPENROUTER.extractFor("google/", /^gemini-\d/),
+      },
     ],
   },
 
@@ -101,6 +132,10 @@ export const PROVIDER_SOURCES = {
       {
         url: "https://docs.x.ai/docs/models",
         pattern: /\bgrok-\d[\d.]*(?:-[a-z]+)*\b/g,
+      },
+      {
+        url: OPENROUTER.url,
+        extract: OPENROUTER.extractFor("x-ai/", /^grok-\d/),
       },
     ],
   },

@@ -105,7 +105,9 @@ async function probeProvider(key, spec) {
       errors.push(`${key} ${new URL(src.url).hostname}: ${res.error}`);
       continue;
     }
-    const found = res.text.match(src.pattern) ?? [];
+    // A source supplies either a regex `pattern` over raw text, or an `extract`
+    // function for structured payloads (e.g. the OpenRouter JSON catalogue).
+    const found = src.extract ? src.extract(res.text) : (res.text.match(src.pattern) ?? []);
     for (const raw of found) {
       const id = cleanId(raw);
       if (!id || id.length < 5 || isNoise(id)) continue;
