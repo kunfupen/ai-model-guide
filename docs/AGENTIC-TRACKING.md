@@ -16,20 +16,28 @@ publishing a number we can't stand behind.
   └──────────────────────────┬────────────────────────────────┘
                              │ new ID never seen before
                              ▼
-  ┌─ 2. TRIAGE ──────────────────────────────────────────────┐
-  │  Opens a `frontier-tracker` issue with the evidence.      │
-  │  A human (or Claude in a session) verifies it is a real   │
-  │  release and not an alias / retired model / variant.      │
+  ┌─ 2. RESEARCH (autonomous) ───────────────────────────────┐
+  │  agents/research-agent.mjs — an Anthropic tool-calling    │
+  │  loop with web_search plus read-only catalog tools.       │
+  │  Confirms the release from OFFICIAL sources, drafts a     │
+  │  spec, validates it, then submits or ABANDONS.            │
+  │  Aliases, rumours, retired models and config variants     │
+  │  are abandoned — that is a correct outcome, not a failure.│
   └──────────────────────────┬────────────────────────────────┘
-                             │ confirmed
+                             │ validated spec
                              ▼
   ┌─ 3. INGEST ──────────────────────────────────────────────┐
-  │  scripts/scaffold-model.mjs --spec spec.json              │
+  │  scripts/scaffold-model.mjs --spec agents/out/spec.json   │
   │  → content/models/<slug>.mdx in house style               │
   │  → `pnpm build` validates frontmatter against Zod         │
   └──────────────────────────┬────────────────────────────────┘
-                             │
+                             │ build green
                              ▼
+  ┌─ 3b. PUBLISH ────────────────────────────────────────────┐
+  │  confidence "high"  → commit straight to main             │
+  │  anything lower     → open a PR for review                │
+  └──────────────────────────┬────────────────────────────────┘
+                             │
   ┌─ 4. SCORE ───────────────────────────────────────────────┐
   │  Add the wire ID to evals/models.json, then run the       │
   │  "Run AMG Eval" workflow.                                 │
@@ -127,9 +135,31 @@ section so gaps read as data rather than neglect.
 
 ## Cost and safety notes
 
-- **Detection is free** and runs unattended.
-- **Scoring costs money** (a few cents per model) and is therefore manual /
-  `workflow_dispatch` only — it never fires automatically on detection.
-- **Nothing auto-merges to `main`.** Detection opens an issue; scoring opens a PR.
-  To make scoring automatic on detection, add a `workflow_call` from the tracker —
-  deliberately not wired up by default.
+`.github/workflows/autonomous-update.yml` runs the whole loop every 6 hours with
+no human in it. That is deliberate — the safety is **structural**, not a gate:
+
+- **Detection is free.** Research costs cents; the workflow caps it at 3
+  candidates per run and bounds searches and turns per candidate.
+- **The agent cannot touch the repo.** It has no filesystem or shell access and
+  no network beyond `web_search`. It can only *return a spec*.
+- **Specs are re-validated on submit**, not merely trusted — see `agents/README.md`.
+- **A benchmark with no source, or one citing the benchmark's own definition
+  paper, is rejected.** That is the failure mode that once left 45 placeholder
+  numbers in this repo looking cited.
+- **`pnpm build` must pass** (Zod over every model's frontmatter) before anything
+  is kept.
+- **Confidence gates publication.** Only `high`-confidence specs commit straight
+  to `main`; anything lower opens a PR.
+- **Every change is an ordinary commit**, so a bad call is one `git revert` away.
+
+To put a human back in the loop permanently, set `force_pr: true` as the default
+in the workflow — every update then arrives as a PR instead.
+
+## The rule that survives automation
+
+> **Never publish a number you cannot source. Omit it.**
+
+Every layer enforces this independently: the agent's system prompt states it, the
+validator rejects violations, the scaffolder defaults to no benchmarks, the eval
+runner refuses to record a score from a run with API failures, and the UI marks
+anything unverified and bars it from ranking.
