@@ -23,6 +23,7 @@ const PROVIDER: Record<Provider, { label: string; dot: string }> = {
   nvidia: { label: "NVIDIA", dot: "#84cc16" },
   xai: { label: "xAI", dot: "#71717a" },
   alibaba: { label: "Alibaba", dot: "#f97316" },
+  deepseek: { label: "DeepSeek", dot: "#2563eb" },
 };
 
 function formatContext(tokens: number): string {

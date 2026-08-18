@@ -1,0 +1,58 @@
+---
+slug: moonshot-kimi-k3
+name: Kimi K3
+provider: moonshot
+releaseDate: 2026-07-16
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 3
+  outputPer1M: 15
+availability: [api, open-weights]
+strengths: [reasoning, coding, open-weights]
+officialDocs: https://platform.moonshot.ai/docs
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 2.1
+    score: 88.3
+    max: 100
+    source: https://benchlm.ai/models/kimi-3
+---
+
+## When to reach for Kimi K3
+
+Kimi K3 (July 16, 2026; weights released July 27) is Moonshot AI's frontier model
+and — at **2.8 trillion parameters** — the largest open-weight model shipped to
+date. It is a mixture-of-experts design activating only 16 of 896 experts per
+forward pass, which is how a model this size stays priced like a mid-tier one.
+
+- Frontier-class reasoning and coding you can actually self-host, with an
+  always-on "thinking mode".
+- Long-context multimodal work: 1M tokens with native visual understanding.
+- Independent testing places it fourth among all frontier models — behind Claude
+  Fable 5 and GPT-5.6 Sol, ahead of Claude Opus 4.8 — and it **beats Fable 5
+  outright on the Frontend Code Arena** leaderboard (1,679 Elo).
+
+## Specs & cost
+
+- **Architecture:** 2.8T total parameters, MoE, 16/896 experts active per token.
+- **Context:** 1M tokens.
+- **Pricing:** $3 / 1M input and $15 / 1M output — with cache hits at $0.30 / 1M.
+- **Availability:** Moonshot's API, plus downloadable weights (self-hostable via
+  vLLM with Kimi Delta Attention support).
+
+## Benchmark notes
+
+Terminal-Bench 2.1 (88.3) was measured with Moonshot's KimiCode harness at max
+reasoning effort, so it reflects the model's best configuration rather than its
+default — worth remembering when comparing against rows here measured on other
+harnesses.
+
+Its Artificial Analysis Intelligence Index score (57 vs Fable 5's 60) and the
+Frontend Code Arena Elo are cited above as context but are **not** in this
+catalog's tracked benchmark set, so they are not recorded as entries.
+
+## Official resources
+
+- [Moonshot AI platform docs](https://platform.moonshot.ai/docs)
+- [Kimi](https://kimi.moonshot.cn)

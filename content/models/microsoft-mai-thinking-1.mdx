@@ -1,0 +1,50 @@
+---
+slug: microsoft-mai-thinking-1
+name: MAI-Thinking-1
+provider: microsoft
+releaseDate: 2026-06-02
+contextWindow: 256000
+modalities: [text]
+availability: [azure, api]
+strengths: [reasoning, coding, agentic-tasks]
+officialDocs: https://azure.microsoft.com/en-us/products/ai-foundry
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for MAI-Thinking-1
+
+MAI-Thinking-1 is the reasoning flagship of the **MAI** family Microsoft unveiled
+at Build 2026 (June 2) — seven in-house models that mark its first serious move
+away from depending solely on OpenAI. It is a sparse mixture-of-experts design
+with roughly **35B active parameters out of ~1T total** and a 256K context window.
+
+- Reasoning-heavy work inside the Microsoft/Azure ecosystem, where first-party
+  models simplify procurement and data-residency questions.
+- Teams that care about training provenance: Microsoft states the MAI models were
+  trained on a licensed, "clean" dataset **with no distillation from third-party
+  systems** — an unusual and checkable claim in this generation.
+- Its stablemate **MAI-Code-1-Flash** (5B) ships in GitHub Copilot and reaches 51%
+  on SWE-bench Pro, which is notable for that size.
+
+## Specs
+
+- **Architecture:** sparse MoE, ~1T total parameters, ~35B active per token.
+- **Context:** 256K tokens.
+- **Availability:** Azure AI Foundry and Microsoft's own surfaces (Copilot).
+
+> Pricing is not published in a comparable per-token form, so it is omitted rather
+> than estimated.
+
+## Benchmark notes
+
+Microsoft reports **97.0% on AIME 2025** and describes MAI-Thinking-1 as
+competitive with Claude Opus 4.6 on **SWE-bench Pro**. Neither is recorded here:
+AIME is outside this catalog's tracked set, and SWE-bench Pro is a different,
+harder benchmark than the SWE-bench **Verified** column used elsewhere — no
+standalone Verified figure was published.
+
+## Official resources
+
+- [Azure AI Foundry](https://azure.microsoft.com/en-us/products/ai-foundry)
+- [Microsoft AI](https://microsoft.ai)

@@ -1,0 +1,55 @@
+---
+slug: deepseek-v4-pro
+name: DeepSeek V4-Pro
+provider: deepseek
+releaseDate: 2026-04-24
+contextWindow: 1000000
+modalities: [text]
+pricing:
+  inputPer1M: 0.435
+  outputPer1M: 0.87
+availability: [api, open-weights]
+strengths: [coding, reasoning, cost-efficiency]
+officialDocs: https://api-docs.deepseek.com
+tweetIds: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 80.6
+    max: 100
+    source: https://www.morphllm.com/deepseek-v4
+---
+
+## When to reach for DeepSeek V4-Pro
+
+DeepSeek V4-Pro (April 24, 2026) is the larger half of the V4 family — a
+**1.6-trillion-parameter** mixture-of-experts model activating ~49B per token,
+released under the **MIT licence** with weights on Hugging Face.
+
+Its headline is price-to-performance: **80.6 on SWE-bench Verified**, the highest
+open-weights score in this catalog and level with Gemini 3.1 Pro, at roughly a
+thirtieth of frontier output pricing.
+
+- Serious coding and reasoning where cost dominates — per output token it is
+  ~29× cheaper than Claude Opus 4.8 and ~35× cheaper than GPT-5.5.
+- Self-hosting or on-prem under a genuinely permissive licence.
+- Very long context: 1M tokens with up to 384K output.
+
+For lighter, higher-volume work the sibling **DeepSeek V4-Flash** is cheaper again.
+
+## Specs & cost
+
+- **Architecture:** 1.6T total parameters, MoE, ~49B active per token.
+- **Context:** 1M tokens, up to 384K output.
+- **Pricing:** $0.435 / 1M input and $0.87 / 1M output.
+- **Licence:** MIT (open weights).
+
+## Benchmark notes
+
+The 80.6 SWE-bench Verified figure is reported for the model's **max-effort**
+configuration (published as "V4-Pro-Max"), so it represents the top of its range
+rather than default settings.
+
+## Official resources
+
+- [DeepSeek API docs](https://api-docs.deepseek.com)
+- [DeepSeek](https://deepseek.com)
