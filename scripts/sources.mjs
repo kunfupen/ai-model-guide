@@ -13,7 +13,8 @@
 /**
  * Cross-provider fallback. OpenRouter publishes an unauthenticated catalogue of
  * models from every major lab, which covers the providers whose own docs block
- * unattended clients (Google and xAI both return 403).
+ * unattended clients (Google and xAI both return 403), and gives Alibaba a keyless
+ * path too.
  *
  * Honest caveat: this endpoint could NOT be reached from the sandbox this was
  * written in, so it is unverified in practice. It costs nothing and degrades
@@ -115,6 +116,24 @@ export const PROVIDER_SOURCES = {
       {
         url: OPENROUTER.url,
         extract: OPENROUTER.extractFor("google/", /^gemini-\d/),
+      },
+    ],
+  },
+
+  alibaba: {
+    label: "Alibaba (Qwen)",
+    api: {
+      // Model Studio's OpenAI-compatible models endpoint.
+      url: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/models",
+      envKey: "DASHSCOPE_API_KEY",
+      headers: (key) => ({ authorization: `Bearer ${key}` }),
+      extract: (json) =>
+        (json?.data ?? []).map((m) => ({ id: m.id, name: m.id, released: null })),
+    },
+    open: [
+      {
+        url: OPENROUTER.url,
+        extract: OPENROUTER.extractFor("qwen/", /^qwen/),
       },
     ],
   },
