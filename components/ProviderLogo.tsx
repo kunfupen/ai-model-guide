@@ -70,6 +70,16 @@ const LOGOS: Record<Provider, { node: React.ReactNode; viewBox: string }> = {
       />
     ),
   },
+  alibaba: {
+    // Alibaba Cloud's stylised mark, approximated as a rounded "cloud" glyph.
+    viewBox: "0 0 24 24",
+    node: (
+      <path
+        fill="#FF6A00"
+        d="M7.4 4h9.2c1.9 0 3.4 1.5 3.4 3.4v9.2c0 1.9-1.5 3.4-3.4 3.4H7.4A3.4 3.4 0 0 1 4 16.6V7.4C4 5.5 5.5 4 7.4 4Zm.5 3.6c-.8 0-1.4.6-1.4 1.4v6c0 .8.6 1.4 1.4 1.4h2.2l-.9-2H8.6v-4.8h1.1l.9-2H7.9Zm8.2 0h-2.6l.9 2h1.1v4.8h-1.1l-.9 2h2.6c.8 0 1.4-.6 1.4-1.4V9c0-.8-.6-1.4-1.4-1.4Zm-4.8 0-1.6 8.8h2.6l1.6-8.8h-2.6Z"
+      />
+    ),
+  },
   xai: {
     // xAI's angular "X" mark, approximated with two intersecting slashes.
     viewBox: "0 0 24 24",

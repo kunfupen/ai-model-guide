@@ -13,6 +13,7 @@ const PROVIDER_OPTIONS = [
   { value: "zhipu", label: "Zhipu", dot: "bg-rose-500" },
   { value: "nvidia", label: "NVIDIA", dot: "bg-lime-500" },
   { value: "xai", label: "xAI", dot: "bg-zinc-500" },
+  { value: "alibaba", label: "Alibaba", dot: "bg-orange-500" },
 ];
 
 const MODALITY_OPTIONS = [

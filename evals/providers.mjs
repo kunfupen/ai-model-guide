@@ -58,6 +58,19 @@ export const PROVIDERS = {
     extract: (json) =>
       (json?.candidates?.[0]?.content?.parts ?? []).map((p) => p.text ?? "").join(""),
   },
+  alibaba: {
+    envKey: "DASHSCOPE_API_KEY",
+    // Alibaba Cloud Model Studio exposes an OpenAI-compatible endpoint.
+    endpoint: () => "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions",
+    headers: (key) => ({ "content-type": "application/json", authorization: `Bearer ${key}` }),
+    body: (model, prompt, maxTokens) => ({
+      model,
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0,
+      max_tokens: maxTokens,
+    }),
+    extract: (json) => json?.choices?.[0]?.message?.content ?? "",
+  },
   xai: {
     envKey: "XAI_API_KEY",
     // xAI is OpenAI-compatible.
