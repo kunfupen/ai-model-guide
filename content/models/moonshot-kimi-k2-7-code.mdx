@@ -1,0 +1,51 @@
+---
+slug: moonshot-kimi-k2-7-code
+name: Kimi K2.7 Code
+provider: moonshot
+releaseDate: 2026-06-12
+contextWindow: 262144
+modalities: [text, vision]
+pricing:
+  inputPer1M: 0.95
+  outputPer1M: 4
+availability: [api, open-weights, azure]
+strengths: [coding, agentic-workflows, open-weights, cost-efficiency]
+officialDocs: https://huggingface.co/moonshotai/Kimi-K2.7-Code
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Kimi K2.7 Code
+
+Kimi K2.7 Code (June 12, 2026) is a coding- and agent-specialised branch off
+K2.6, tuned for **token efficiency**: forced thinking mode, but roughly 30%
+fewer thinking tokens than K2.6 for comparable work.
+
+- Agentic coding where the per-task reasoning bill actually matters.
+- Broad hosted distribution — Microsoft Foundry (public preview from July 1,
+  2026), Cloudflare Workers AI and OpenRouter all carry it, which is what
+  confirms it as a real shipped model rather than a variant tag.
+
+> A domain-specialised branch, now superseded by
+> **[Kimi K3](/models/moonshot-kimi-k3)**. Reach for it only if you specifically
+> want the cheap, coding-tuned option.
+
+## Specs & cost
+
+- **Architecture:** 1T total / 32B activated MoE.
+- **Context:** 262,144 tokens.
+- **Pricing:** $0.95 / 1M input, $4.00 / 1M output.
+- **Licence:** Modified MIT.
+
+## Benchmark notes
+
+**No benchmarks are recorded, on purpose.** As of mid-2026 every published score
+for this model came from Moonshot's own suites — Kimi Code Bench v2 and MCP
+Atlas — with no independent SWE-bench Verified, Terminal-Bench or LiveCodeBench
+replication. Rather than record a vendor-only number against a benchmark nothing
+else here is measured on, the array is left empty.
+
+## Official resources
+
+- [Kimi K2.7 Code on Hugging Face](https://huggingface.co/moonshotai/Kimi-K2.7-Code)
+- [Microsoft Foundry announcement](https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/introducing-kimi-k2-7-code-in-microsoft-foundry/4532286)

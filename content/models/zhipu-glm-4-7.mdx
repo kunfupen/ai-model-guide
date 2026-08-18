@@ -1,0 +1,47 @@
+---
+slug: zhipu-glm-4-7
+name: GLM-4.7
+provider: zhipu
+releaseDate: 2025-12-22
+contextWindow: 200000
+modalities: [text]
+availability: [api, open-weights]
+strengths: [coding, agentic-workflows, open-weights]
+officialDocs: https://docs.z.ai/guides/llm/glm-4.7
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for GLM-4.7
+
+GLM-4.7 (December 22, 2025) is the direct successor to GLM-4.6 and the first
+GLM tuned specifically for **multi-file agentic coding** rather than chat.
+
+- MIT-licensed weights with no regional restrictions, on Hugging Face at
+  `zai-org/GLM-4.7`.
+- 200K context with up to 128K output — unusually generous output headroom for
+  a model this size.
+
+> Superseded by **[GLM-5.2](/models/zhipu-glm-5-2)** (open weights) and
+> **[GLM-5.3](/models/zhipu-glm-5-3)** (current flagship, weights pending).
+
+## Specs & licence
+
+- **Architecture:** 355B total / ~32B active MoE.
+- **Context:** 200K tokens, up to 128K max output.
+- **Licence:** MIT.
+
+## Benchmark notes
+
+**No benchmark is recorded.** Z.ai reports **73.8% on SWE-bench Verified** (up
+from 68.0% for GLM-4.6), and the release itself is confirmed by Z.ai's own
+newswire announcements — but the only URL attesting that specific number is a
+third-party technical write-up, not a first-party Z.ai page. Rather than anchor
+a comparison row to that, the figure is stated here in prose only.
+[Vals AI](https://www.vals.ai/models/zai_glm-4.7) carries independent
+evaluations if you want third-party numbers.
+
+## Official resources
+
+- [GLM-4.7 docs](https://docs.z.ai/guides/llm/glm-4.7)
+- [GLM-4.7 on Hugging Face](https://huggingface.co/zai-org/GLM-4.7)
