@@ -138,6 +138,23 @@ export const PROVIDER_SOURCES = {
     ],
   },
 
+  deepseek: {
+    label: "DeepSeek",
+    api: {
+      url: "https://api.deepseek.com/models",
+      envKey: "DEEPSEEK_API_KEY",
+      headers: (key) => ({ authorization: `Bearer ${key}` }),
+      extract: (json) =>
+        (json?.data ?? []).map((m) => ({ id: m.id, name: m.id, released: null })),
+    },
+    open: [
+      {
+        url: OPENROUTER.url,
+        extract: OPENROUTER.extractFor("deepseek/", /^deepseek/),
+      },
+    ],
+  },
+
   xai: {
     label: "xAI (Grok)",
     api: {

@@ -1,0 +1,46 @@
+---
+slug: deepseek-v4-flash
+name: DeepSeek V4-Flash
+provider: deepseek
+releaseDate: 2026-04-24
+contextWindow: 1000000
+modalities: [text]
+pricing:
+  inputPer1M: 0.14
+  outputPer1M: 0.28
+availability: [api, open-weights]
+strengths: [cost-efficiency, speed, open-weights]
+officialDocs: https://api-docs.deepseek.com
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for DeepSeek V4-Flash
+
+DeepSeek V4-Flash (April 24, 2026) is the small half of the V4 family — 284B
+total parameters activating ~13B per token — and among the **cheapest credible
+models anywhere** at $0.14 / $0.28 per million tokens.
+
+- High-volume work where per-token cost is the binding constraint: classification,
+  extraction, routing, bulk summarisation.
+- Long-context jobs on a budget — it keeps the family's 1M-token window, which is
+  unusual at this price.
+- Self-hosting a capable model on modest hardware, under MIT.
+
+Step up to **DeepSeek V4-Pro** when the task needs the extra capability.
+
+## Specs & cost
+
+- **Architecture:** 284B total parameters, MoE, ~13B active per token.
+- **Context:** 1M tokens, up to 384K output.
+- **Pricing:** $0.14 / 1M input and $0.28 / 1M output.
+- **Licence:** MIT (open weights).
+
+> Benchmark scores intentionally omitted — the published V4 figures are for the
+> Pro variant, and carrying them across to Flash would misrepresent a materially
+> smaller model.
+
+## Official resources
+
+- [DeepSeek API docs](https://api-docs.deepseek.com)
+- [DeepSeek](https://deepseek.com)

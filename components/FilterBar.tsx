@@ -14,6 +14,7 @@ const PROVIDER_OPTIONS = [
   { value: "nvidia", label: "NVIDIA", dot: "bg-lime-500" },
   { value: "xai", label: "xAI", dot: "bg-zinc-500" },
   { value: "alibaba", label: "Alibaba", dot: "bg-orange-500" },
+  { value: "deepseek", label: "DeepSeek", dot: "bg-blue-600" },
 ];
 
 const MODALITY_OPTIONS = [

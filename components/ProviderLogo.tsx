@@ -80,6 +80,16 @@ const LOGOS: Record<Provider, { node: React.ReactNode; viewBox: string }> = {
       />
     ),
   },
+  deepseek: {
+    // DeepSeek's whale mark, reduced to a single rounded silhouette.
+    viewBox: "0 0 24 24",
+    node: (
+      <path
+        fill="#4D6BFE"
+        d="M21.6 6.3c-.5-.3-1.1-.1-1.6.2-.7.4-1.3 1-2.1 1.2-1.3.3-2.5-.4-3.8-.6-2.6-.5-5.3.4-7.2 2.2-1.6 1.5-2.6 3.7-2.5 5.9 0 .5.1 1.1.5 1.4.4.3 1 .2 1.4-.1.4-.3.7-.8 1.1-1.1.9-.7 2.2-.6 3.2-.1 1 .5 1.8 1.4 2.8 1.9 1.9 1 4.4.6 5.9-.9 1-1 1.6-2.4 1.9-3.8.3-1.4.3-2.9.7-4.3.2-.6.5-1.2.4-1.8 0-.1-.1-.2-.2-.3Zm-6.1 4.1a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"
+      />
+    ),
+  },
   xai: {
     // xAI's angular "X" mark, approximated with two intersecting slashes.
     viewBox: "0 0 24 24",

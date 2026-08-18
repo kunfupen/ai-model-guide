@@ -91,6 +91,21 @@
       "provider": "alibaba",
       "apiModel": "qwen3.8-max",
       "verified": false
+    },
+    "deepseek-v4-pro": {
+      "provider": "deepseek",
+      "apiModel": "deepseek-v4-pro",
+      "verified": false
+    },
+    "deepseek-v4-flash": {
+      "provider": "deepseek",
+      "apiModel": "deepseek-v4-flash",
+      "verified": false
+    },
+    "moonshot-kimi-k3": {
+      "provider": "moonshot",
+      "apiModel": "kimi-k3",
+      "verified": false
     }
   }
 }

@@ -11,6 +11,7 @@ export const Provider = z.enum([
   "nvidia",
   "xai",
   "alibaba",
+  "deepseek",
 ]);
 export type Provider = z.infer<typeof Provider>;
 

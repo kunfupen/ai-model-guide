@@ -71,6 +71,32 @@ export const PROVIDERS = {
     }),
     extract: (json) => json?.choices?.[0]?.message?.content ?? "",
   },
+  moonshot: {
+    envKey: "MOONSHOT_API_KEY",
+    // Moonshot exposes an OpenAI-compatible endpoint.
+    endpoint: () => "https://api.moonshot.ai/v1/chat/completions",
+    headers: (key) => ({ "content-type": "application/json", authorization: `Bearer ${key}` }),
+    body: (model, prompt, maxTokens) => ({
+      model,
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0,
+      max_tokens: maxTokens,
+    }),
+    extract: (json) => json?.choices?.[0]?.message?.content ?? "",
+  },
+  deepseek: {
+    envKey: "DEEPSEEK_API_KEY",
+    // DeepSeek exposes an OpenAI-compatible chat completions endpoint.
+    endpoint: () => "https://api.deepseek.com/chat/completions",
+    headers: (key) => ({ "content-type": "application/json", authorization: `Bearer ${key}` }),
+    body: (model, prompt, maxTokens) => ({
+      model,
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0,
+      max_tokens: maxTokens,
+    }),
+    extract: (json) => json?.choices?.[0]?.message?.content ?? "",
+  },
   xai: {
     envKey: "XAI_API_KEY",
     // xAI is OpenAI-compatible.

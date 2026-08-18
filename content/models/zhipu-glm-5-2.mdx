@@ -1,0 +1,60 @@
+---
+slug: zhipu-glm-5-2
+name: GLM-5.2
+provider: zhipu
+releaseDate: 2026-06-13
+contextWindow: 1000000
+modalities: [text]
+pricing:
+  inputPer1M: 1.4
+  outputPer1M: 4.4
+availability: [api, open-weights]
+strengths: [coding, open-weights, cost-efficiency]
+officialDocs: https://docs.z.ai
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 2.1
+    score: 81.0
+    max: 100
+    source: https://www.morphllm.com/glm-5-2
+  - name: τ²-bench Telecom
+    score: 99.1
+    max: 100
+    source: https://benchlm.ai/benchmarks/tau2Bench
+---
+
+## When to reach for GLM-5.2
+
+GLM-5.2 (June 13, 2026) is Zhipu's open-weight coding model and, on standard
+coding benchmarks, the **strongest open-weights model available** — a 753B
+mixture-of-experts design activating ~40B parameters per token, released under a
+plain **MIT licence** with no regional restrictions.
+
+- Coding and agentic work at a fraction of frontier pricing ($1.40/$4.40).
+- It currently **leads τ²-bench Telecom (99.1)** in this catalog — ahead of every
+  proprietary model here.
+- Self-hosting without licence friction: MIT is about as permissive as it gets,
+  and the weights are on Hugging Face (`zai-org/GLM-5.2`).
+- 1M-token context with up to 128K output.
+
+## Specs & cost
+
+- **Architecture:** 753B total parameters, MoE, ~40B active per token.
+- **Context:** 1M tokens, up to ~131K output.
+- **Pricing:** $1.40 / 1M input and $4.40 / 1M output. A GLM Coding Plan
+  subscription starts at $18/month.
+- **Licence:** MIT (open weights).
+
+## Benchmark notes
+
+Terminal-Bench 2.1 (81.0) and τ²-bench Telecom (99.1) are recorded.
+
+**SWE-bench Verified is omitted.** Zhipu published SWE-bench **Pro** (62.1) — a
+different, harder benchmark that is not interchangeable with the Verified column
+used elsewhere here. AIME 2026 (99.2) is vendor-reported and outside the tracked
+set, so it is not recorded either.
+
+## Official resources
+
+- [Z.ai docs](https://docs.z.ai)
+- [GLM-5.2 on Hugging Face](https://huggingface.co/zai-org/GLM-5.2)
