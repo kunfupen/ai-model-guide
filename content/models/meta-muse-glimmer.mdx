@@ -1,0 +1,52 @@
+---
+slug: meta-muse-glimmer
+name: Muse Glimmer
+provider: meta
+releaseDate: 2026-08-10
+contextWindow: 131072
+modalities: [text, vision]
+availability: [open-weights, api]
+strengths: [open-weights, agentic-workflows, on-device, cost-efficiency]
+officialDocs: https://developer.meta.com/ai/models/muse-glimmer/
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Muse Glimmer
+
+Muse Glimmer (August 10, 2026) is Meta's return to open weights and its **first
+model under Apache 2.0** — the Llama line shipped under Meta's own community
+licence, which carried usage restrictions Apache does not. At ~29.6B parameters
+it is built to run agentic workloads on a single consumer GPU.
+
+- Local and on-device agents where a 1T-parameter model is not an option.
+- Projects that need a permissive licence with no acceptable-use rider or
+  monthly-active-user clause.
+- A distillation of Muse Spark, so it inherits the flagship's agentic behaviour
+  at a fraction of the footprint.
+
+## Specs & licence
+
+- **Architecture:** ~29.6B total — a ~1.8B ViT-G/14 perception encoder plus a
+  ~28B dense text decoder. Dense, not MoE.
+- **Context:** 131,072 tokens per the model card, vLLM recipes and independent
+  write-ups. Meta's own launch blog says 32,768; the model-card figure is used
+  here, but the discrepancy is unresolved.
+- **Modalities:** interleaved text + image in, text out. Audio is explicitly out
+  of scope; some coverage mentions video input, which the model card does not
+  confirm.
+- **Licence:** Apache 2.0. Weights at `meta-models/Muse-Glimmer-30B` on Hugging
+  Face.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** Meta published SWE-Bench **Pro** (51.2), AIME
+2026 (94.7) and MCP Atlas (75.5), and Artificial Analysis measured an
+Intelligence Index of 35 — none of which belong to this catalog's tracked set.
+SWE-bench Pro in particular is a different, harder benchmark than the SWE-bench
+Verified column used elsewhere here, and the two are not interchangeable.
+
+## Official resources
+
+- [Muse Glimmer model page](https://developer.meta.com/ai/models/muse-glimmer/)
+- [Hugging Face weights](https://huggingface.co/meta-models/Muse-Glimmer-30B)

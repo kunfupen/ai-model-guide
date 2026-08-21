@@ -1,0 +1,57 @@
+---
+slug: moonshot-kimi-k2-5
+name: Kimi K2.5
+provider: moonshot
+releaseDate: 2026-01-27
+contextWindow: 262144
+modalities: [text, vision, video]
+availability: [api, open-weights, bedrock]
+strengths: [multimodal, coding, open-weights]
+officialDocs: https://github.com/MoonshotAI/Kimi-K2.5
+tweetIds: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 76.8
+    max: 100
+    source: https://github.com/MoonshotAI/Kimi-K2.5
+  - name: GPQA Diamond
+    score: 87.6
+    max: 100
+    source: https://github.com/MoonshotAI/Kimi-K2.5
+---
+
+## When to reach for Kimi K2.5
+
+Kimi K2.5 (January 27, 2026) is the **first natively multimodal model in the Kimi
+line** — continued pretraining on roughly 15T mixed vision+text tokens made
+image and video first-class inputs rather than a bolted-on adapter.
+
+- Multimodal work you want to self-host, under a Modified MIT licence.
+- Available on **Amazon Bedrock**, which is useful independent confirmation of
+  general availability rather than a preview drop.
+
+> Superseded by **[Kimi K2.6](/models/moonshot-kimi-k2-6)** and then
+> **[Kimi K3](/models/moonshot-kimi-k3)**.
+
+## Specs & licence
+
+- **Architecture:** 1T total / 32B activated MoE.
+- **Context:** 262,144 tokens.
+- **Modalities:** text, image and video in. Video chat was API-only at launch.
+- **Licence:** Modified MIT. Weights at `moonshotai/Kimi-K2.5`.
+- **Date:** January 27 comes from secondary coverage; the official GitHub repo
+  was created January 30, so the date is accurate to within a few days.
+
+## Benchmark notes
+
+SWE-bench Verified (76.8) and GPQA Diamond (87.6) are recorded. Both are from
+Moonshot's own README and so are vendor-reported.
+
+Moonshot also published **MMLU-Pro (87.1)** and **MMMU-Pro (78.5)**. MMLU-Pro is
+a different benchmark from the MMLU column used elsewhere in this catalog and is
+not a substitute for it, so neither is recorded.
+
+## Official resources
+
+- [Kimi K2.5 on GitHub](https://github.com/MoonshotAI/Kimi-K2.5)
+- [Hugging Face weights](https://huggingface.co/moonshotai/Kimi-K2.5)

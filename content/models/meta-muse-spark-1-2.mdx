@@ -1,0 +1,58 @@
+---
+slug: meta-muse-spark-1-2
+name: Muse Spark 1.2
+provider: meta
+releaseDate: 2026-08-05
+contextWindow: 1048576
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 1.25
+  outputPer1M: 4.25
+availability: [api]
+strengths: [coding, agentic-workflows, long-context, multimodal]
+officialDocs: https://research.meta.ai/blog/introducing-muse-code-and-muse-spark-1-2
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 2.1
+    score: 82.9
+    max: 100
+    source: https://www.constellationr.com/insights/news/meta-releases-open-weight-muse-glimmer-model-open-muse-spark-12-tap
+---
+
+## When to reach for Muse Spark 1.2
+
+Muse Spark 1.2 (August 5, 2026) is **Meta's current flagship** — the model that
+replaced the Llama line, shipped alongside the Muse Code terminal coding agent.
+It is a fully multimodal 1M-context model priced well below the frontier tier.
+
+- Large-codebase agentic work, which is what Muse Code was built around.
+- Genuinely wide input: text, image, video, audio and PDF all go in natively.
+- Cost-sensitive frontier work — $1.25/$4.25 per 1M undercuts every US flagship
+  in this catalog.
+
+> Muse Code is a **CLI product, not a model**, so it is not listed separately
+> here. It runs on Muse Spark 1.2.
+
+## Specs & cost
+
+- **Context:** 1,048,576 tokens.
+- **Pricing:** $1.25 / 1M input, $4.25 / 1M output, $0.15 / 1M cached input, on
+  the standard Meta Model API tier. A cheaper **Contributor** tier
+  ($0.10/$0.20) trades data-usage rights for price — that is a pricing tier on
+  the same model, not a separate model.
+- **Licence:** proprietary. Alexandr Wang announced an intent to release open
+  weights on August 10, 2026, but nothing had shipped as of August 18, so this
+  is recorded as API-only.
+
+## Benchmark notes
+
+Terminal-Bench 2.1 (82.9) is recorded, and is vendor-reported.
+
+Meta also published **DeepSWE 1.1 (59.3)**, and Artificial Analysis measured an
+Intelligence Index of **54** independently. Neither is in this catalog's tracked
+benchmark set, so neither is recorded as an entry.
+
+## Official resources
+
+- [Muse Spark 1.2 announcement](https://research.meta.ai/blog/introducing-muse-code-and-muse-spark-1-2)
+- [Artificial Analysis model page](https://artificialanalysis.ai/models/muse-spark-1-2)

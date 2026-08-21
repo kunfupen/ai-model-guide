@@ -1,0 +1,62 @@
+---
+slug: zhipu-glm-5-3
+name: GLM-5.3
+provider: zhipu
+releaseDate: 2026-08-14
+contextWindow: 1000000
+modalities: [text]
+availability: [api]
+strengths: [coding, agentic-workflows, security]
+officialDocs: https://docs.z.ai/guides/llm/glm-5.3
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 2.1
+    score: 88.2
+    max: 100
+    source: https://www.edenai.co/post/glm-5-3-benchmark-vs-gpt-5-6-sol-claude-fable-5-gemini-3-1-pro
+---
+
+## When to reach for GLM-5.3
+
+GLM-5.3 (August 14, 2026) is Z.ai's current flagship and the strongest model the
+GLM line has shipped. It reuses the same ~743B mixture-of-experts base as
+GLM-5.2 (~40B active per token) — the gains come from extended post-training on
+agentic coding and security work rather than a new pretrain.
+
+- Long-horizon coding agents: it posts the highest Terminal-Bench 2.1 score of
+  any GLM release, and Z.ai claims roughly a 50% coding gain over 5.2.
+- Vulnerability research — Z.ai's own post-training run turned up 1,097 critical
+  bugs and produced exploit chains the team had not designed for.
+- 1M-token context, same as 5.2.
+
+> **Not open weights yet.** Unlike GLM-5.2, which shipped MIT-licensed weights on
+> day one, GLM-5.3 launched **only through the GLM Coding Plan / ZCode** — there
+> is no per-token API rate card and no published checkpoint as of August 18,
+> 2026. Z.ai has said MIT weights follow roughly two weeks after launch
+> (~August 28) pending a safety review. If you need weights today, **GLM-5.2**
+> remains the right pick.
+
+## Specs & cost
+
+- **Architecture:** ~743B total parameters, MoE, ~40B active per token.
+- **Context:** 1M tokens.
+- **Pricing:** no per-token rate card. Access is bundled into the GLM Coding
+  Plan subscription, so it is deliberately **not** listed in this catalog's
+  price comparison.
+- **Licence:** proprietary at launch; MIT weights announced but not shipped.
+
+## Benchmark notes
+
+Terminal-Bench 2.1 (88.2) is recorded. Two caveats worth carrying:
+
+- The figure is **Z.ai-run**, not independently reproduced, and the URL cited is
+  a third-party relay of Z.ai's numbers rather than z.ai's own docs page.
+- Z.ai also published **Terminal-Bench 3.0 (28.3)** and **CyberGym (84.5)**.
+  Terminal-Bench 3.0 is a different, much harder benchmark — the two scores are
+  not comparable to each other, and 3.0 is not part of this catalog's tracked
+  set, so neither is recorded as an entry.
+
+## Official resources
+
+- [GLM-5.3 docs](https://docs.z.ai/guides/llm/glm-5.3)
+- [Z.ai announcement](https://x.com/Zai_org/article/2088280509474320693)
