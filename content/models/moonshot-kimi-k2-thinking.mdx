@@ -1,0 +1,47 @@
+---
+slug: moonshot-kimi-k2-thinking
+name: Kimi K2 Thinking
+provider: moonshot
+releaseDate: 2025-11-06
+contextWindow: 262144
+modalities: [text]
+availability: [api, open-weights]
+strengths: [reasoning, agentic-workflows, open-weights]
+officialDocs: https://huggingface.co/moonshotai/Kimi-K2-Thinking
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Kimi K2 Thinking
+
+Kimi K2 Thinking (November 6, 2025) is the reasoning and agentic sibling of
+Kimi K2, with separately released weights and its own model card — a distinct
+release, not an effort suffix. Moonshot's own K2 repo describes K2-Instruct as
+"a reflex-grade model without long thinking"; this is the model that thinks.
+
+- Very long tool-use chains: it sustains **200–300 sequential tool calls**
+  without human intervention.
+- Native INT4 quantisation, which makes a 1T-parameter model far more tractable
+  to host.
+
+> Superseded by **[Kimi K2.5](/models/moonshot-kimi-k2-5)** onward. Listed for
+> historical depth between Kimi K2 (July 2025) and the K2.5 multimodal turn.
+
+## Specs & licence
+
+- **Architecture:** 1T total / 32B activated MoE, native INT4.
+- **Context:** 262,144 tokens.
+- **Licence:** Modified MIT. Weights at `moonshotai/Kimi-K2-Thinking`.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** The widely cited Humanity's Last Exam score of
+44.9 is a **with-tools vendor figure**, and the independent HLE leaderboard
+placed the model far lower (~23.9) within days of launch. No score for this
+model met this catalog's bar of a URL that attests the figure, so none is shown
+rather than showing one that would mislead.
+
+## Official resources
+
+- [Kimi K2 Thinking on Hugging Face](https://huggingface.co/moonshotai/Kimi-K2-Thinking)
+- [Moonshot announcement](https://www.kimi.com/blog/kimi-k2-thinking)

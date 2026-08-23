@@ -1,0 +1,59 @@
+---
+slug: moonshot-kimi-k2-6
+name: Kimi K2.6
+provider: moonshot
+releaseDate: 2026-04-20
+contextWindow: 262144
+modalities: [text, vision, video]
+availability: [api, open-weights]
+strengths: [coding, agentic-workflows, open-weights]
+officialDocs: https://huggingface.co/moonshotai/Kimi-K2.6
+tweetIds: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 80.2
+    max: 100
+    source: https://www.kimi.com/blog/kimi-k2-6
+---
+
+## When to reach for Kimi K2.6
+
+Kimi K2.6 (April 20, 2026) is the release where Moonshot's agent story got
+serious: a 1T-total / 32B-activated MoE that scales a **coding agent swarm to
+roughly 300 sub-agents across ~4,000 coordinated steps**.
+
+- Long-horizon coding tasks that need to be decomposed across many parallel
+  workers rather than run as one long chain.
+- Open-weight deployment under a Modified MIT licence.
+
+> Superseded by **[Kimi K3](/models/moonshot-kimi-k3)** (July 2026), which is far
+> larger and multimodal at 1M context. K2.6 remains the smaller, cheaper-to-host
+> option in the same family.
+
+## Specs & licence
+
+- **Architecture:** 1T total / 32B activated MoE — 384 experts, 8 active plus 1
+  shared per token.
+- **Context:** 262,144 tokens.
+- **Rollout:** reached subscribers around April 13, 2026 after a short closed
+  beta; open weights landed on Hugging Face April 20, which is the date used
+  here.
+- **Licence:** Modified MIT.
+
+## Benchmark notes
+
+SWE-bench Verified (80.2) is recorded and is a launch-day vendor figure with no
+independent replication at the time.
+
+Moonshot also reported **SWE-bench Pro (58.6)** — a different, harder benchmark
+that is not interchangeable with the Verified column, so it is not recorded. A
+claimed HLE score of 54.0 "with tools" is omitted because the exact benchmark
+variant could not be pinned down.
+
+**Pricing is deliberately blank.** Sources conflict ($0.55/$2.65 vs $0.60/$2.50
+per 1M) and the vendor pricing page could not be reached to settle it.
+
+## Official resources
+
+- [Kimi K2.6 on Hugging Face](https://huggingface.co/moonshotai/Kimi-K2.6)
+- [Moonshot announcement](https://www.kimi.com/blog/kimi-k2-6)

@@ -3,7 +3,7 @@ slug: moonshot-kimi-k3
 name: Kimi K3
 provider: moonshot
 releaseDate: 2026-07-16
-contextWindow: 1000000
+contextWindow: 1048576
 modalities: [text, vision]
 pricing:
   inputPer1M: 3
@@ -16,7 +16,11 @@ benchmarks:
   - name: Terminal-Bench 2.1
     score: 88.3
     max: 100
-    source: https://benchlm.ai/models/kimi-3
+    source: https://github.com/MoonshotAI/Kimi-K3
+  - name: GPQA Diamond
+    score: 93.5
+    max: 100
+    source: https://github.com/MoonshotAI/Kimi-K3
 ---
 
 ## When to reach for Kimi K3
@@ -43,16 +47,26 @@ forward pass, which is how a model this size stays priced like a mid-tier one.
 
 ## Benchmark notes
 
-Terminal-Bench 2.1 (88.3) was measured with Moonshot's KimiCode harness at max
-reasoning effort, so it reflects the model's best configuration rather than its
-default — worth remembering when comparing against rows here measured on other
-harnesses.
+Terminal-Bench 2.1 (88.3) and GPQA Diamond (93.5) are both **vendor-reported**,
+taken from Moonshot's official README. Terminal-Bench was measured with
+Moonshot's KimiCode harness at max reasoning effort, so it reflects the model's
+best configuration rather than its default — worth remembering when comparing
+against rows here measured on other harnesses.
 
-Its Artificial Analysis Intelligence Index score (57 vs Fable 5's 60) and the
-Frontend Code Arena Elo are cited above as context but are **not** in this
-catalog's tracked benchmark set, so they are not recorded as entries.
+**No SWE-bench score is recorded, and that is deliberate.** Moonshot's README
+does not report SWE-bench Verified or SWE-bench Pro for K3 at all. Third-party
+blogs quoting "93.4% SWE-bench Verified" or "76.8% SWE-bench Verified" for K3
+are unreliable — the 76.8 figure is actually
+**[Kimi K2.5's](/models/moonshot-kimi-k2-5)** number.
+
+Moonshot's README additionally reports BrowseComp (91.2), OSWorld-Verified
+(84.8) and DeepSWE (67.5). Those, along with the Artificial Analysis
+Intelligence Index score (57 vs Fable 5's 60) and the Frontend Code Arena Elo
+cited above, are **not** in this catalog's tracked benchmark set, so they are
+not recorded as entries.
 
 ## Official resources
 
 - [Moonshot AI platform docs](https://platform.moonshot.ai/docs)
+- [Kimi K3 on GitHub](https://github.com/MoonshotAI/Kimi-K3)
 - [Kimi](https://kimi.moonshot.cn)

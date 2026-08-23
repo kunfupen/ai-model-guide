@@ -1,0 +1,46 @@
+---
+slug: meta-llama-4-scout
+name: Llama 4 Scout
+provider: meta
+releaseDate: 2025-04-05
+contextWindow: 10000000
+modalities: [text, vision]
+availability: [open-weights, api]
+strengths: [open-weights, long-context, cost-efficiency]
+officialDocs: https://www.llama.com/docs/model-cards-and-prompt-formats/llama4/
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Llama 4 Scout
+
+Scout is the smaller sibling to Llama 4 Maverick, released the same day
+(April 5, 2025): 109B total parameters with 17B active across 16 experts,
+natively multimodal, and carrying a claimed **10M-token context window** that
+was an industry first at the time.
+
+> **Historical.** Meta has since abandoned the Llama line in favour of the Muse
+> family — see **[Muse Spark 1.2](/models/meta-muse-spark-1-2)** for the current
+> flagship and **[Muse Glimmer](/models/meta-muse-glimmer)** for the current
+> open-weight option. Scout is listed for completeness and for anyone still
+> running it.
+
+## Specs & licence
+
+- **Architecture:** 109B total / 17B active, 16 experts, MoE.
+- **Context:** 10M tokens as claimed. In practice this was widely reported as
+  difficult to reproduce — long-context quality degrades well below the headline
+  number, so treat it as a ceiling, not a working figure.
+- **Licence:** Llama 4 Community License (not OSI-approved). Weights at
+  `meta-llama/Llama-4-Scout-17B-16E-Instruct`.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** The vendor-reported Llama 4 numbers were
+disputed within days of launch amid the LMArena and benchmark-contamination
+controversy, and no figure from that period cleared this catalog's sourcing bar.
+
+## Official resources
+
+- [Llama 4 model card](https://www.llama.com/docs/model-cards-and-prompt-formats/llama4/)
+- [Llama 4 announcement](https://ai.meta.com/blog/llama-4-multimodal-intelligence/)
