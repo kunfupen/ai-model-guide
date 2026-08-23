@@ -1,0 +1,48 @@
+---
+slug: google-gemini-3-1-flash-lite
+name: Gemini 3.1 Flash-Lite
+provider: google
+releaseDate: 2026-03-03
+contextWindow: 1000000
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 0.25
+  outputPer1M: 1.5
+availability: [api, vertex]
+strengths: [speed, cost-efficiency, multimodal]
+officialDocs: https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Gemini 3.1 Flash-Lite
+
+Gemini 3.1 Flash-Lite is Google's most cost-efficient Gemini model, part of the
+natively multimodal Gemini 3 series. It entered preview on March 3, 2026 (Gemini
+API in Google AI Studio, and Vertex AI for enterprises), with the stable
+`gemini-3.1-flash-lite` release following on May 7, 2026.
+
+- High-volume, latency-sensitive tasks: translation, classification, extraction.
+- Cost-sensitive LLM traffic where 2.0/2.5 Flash-Lite quality wasn't enough —
+  Google positions it as matching Gemini 2.5 Flash across key capability areas.
+- Multimodal pipelines on a budget: it accepts text, images, audio, and video
+  input with text output.
+
+## Specs
+
+- 1M-token input context window, up to 64k output tokens.
+- $0.25 / 1M input, $1.50 / 1M output.
+- Input: text, image, audio, video. Output: text.
+
+## Tradeoffs
+
+- Not the tier for hard reasoning or long-horizon agents — step up to Gemini 3.1
+  Pro or 3.5 Flash for those.
+- The `gemini-3.1-flash-lite-preview` endpoint was deprecated May 11, 2026 and
+  shut down May 25, 2026; use the stable model ID.
+
+## Official resources
+
+- [Gemini 3.1 Flash-Lite model page](https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite)
+- [Launch announcement](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-flash-lite/)
+- [DeepMind model card](https://deepmind.google/models/model-cards/gemini-3-1-flash-lite/)
