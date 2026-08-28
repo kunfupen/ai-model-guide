@@ -1,7 +1,7 @@
 {
   "_comment": "Baseline of every model ID the tracker has ever observed. A new frontier release is an ID that appears in neither this list nor the catalog. Delete this file and re-run with --seed-baseline to rebuild.",
-  "lastCheck": "2026-08-28T10:54:23.823Z",
-  "runs": 119,
+  "lastCheck": "2026-08-28T21:43:42.597Z",
+  "runs": 120,
   "seenIds": [
     "claude-fable-5",
     "claude-fable-53",
@@ -38,9 +38,11 @@
     "deepseek-v3.2-exp",
     "deepseek-v4-flash",
     "deepseek-v4-flash-0731",
+    "deepseek-v4-flash-0731:batch",
     "deepseek-v4-flash-vision-exp",
     "deepseek-v4-pro",
     "deepseek-v4-pro-0813",
+    "deepseek-v4-pro-0813:batch",
     "gemini-1.5-flash",
     "gemini-1.5-flash-exp",
     "gemini-1.5-flash-latest",
@@ -218,6 +220,7 @@
     "qwen3.5-35b-a3b",
     "qwen3.5-397b-a17b",
     "qwen3.5-9b",
+    "qwen3.5-9b:batch",
     "qwen3.5-flash-02-23",
     "qwen3.5-plus-02-15",
     "qwen3.5-plus-20260420",
@@ -229,6 +232,7 @@
     "qwen3.7-max",
     "qwen3.7-plus",
     "qwen3.8-2.4t-a95b",
+    "qwen3.8-2.4t-a95b:batch",
     "qwen3.8-27b",
     "qwen3.8-flash",
     "qwen3.8-max"
