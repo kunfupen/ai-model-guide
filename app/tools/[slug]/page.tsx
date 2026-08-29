@@ -12,6 +12,7 @@ const CATEGORY_LABEL: Record<ToolFrontmatter["category"], string> = {
   ide: "IDE",
   runner: "Runner",
   "agent-cli": "Agent CLI",
+  "autonomous-agent": "Autonomous agent",
   framework: "Framework",
   hosting: "Hosting",
 };
