@@ -24,10 +24,10 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-zinc-200/70 bg-white/70 backdrop-blur-xl dark:border-zinc-800/70 dark:bg-zinc-950/70">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3.5 sm:px-6">
+      <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-3.5 sm:px-6">
         <Link
           href="/"
-          className="group flex items-center gap-2.5 text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100"
+          className="group flex shrink-0 items-center gap-2.5 text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100"
         >
           <span
             aria-hidden
@@ -35,10 +35,10 @@ export function SiteHeader() {
           >
             AI
           </span>
-          <span>Model Guide</span>
+          <span className="hidden sm:inline">Model Guide</span>
         </Link>
 
-        <nav className="flex items-center gap-0.5 text-sm sm:gap-1">
+        <nav className="flex min-w-0 items-center gap-0 text-sm sm:gap-1">
           <button
             type="button"
             onClick={openCommandPalette}
@@ -73,7 +73,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`relative rounded-full px-2.5 py-1.5 font-medium transition-colors sm:px-3 ${
+                className={`relative shrink-0 rounded-full px-1 py-1.5 text-xs font-medium transition-colors min-[360px]:px-2 min-[360px]:text-[13px] sm:px-3 sm:text-sm ${
                   active
                     ? "text-zinc-900 dark:text-zinc-100"
                     : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
@@ -89,7 +89,7 @@ export function SiteHeader() {
               </Link>
             );
           })}
-          <span aria-hidden className="mx-0.5 h-4 w-px bg-zinc-200 sm:mx-1 dark:bg-zinc-800" />
+          <span aria-hidden className="mx-0.5 hidden h-4 w-px bg-zinc-200 sm:block sm:mx-1 dark:bg-zinc-800" />
           <a
             href="https://github.com/kunfupen/ai-model-guide"
             target="_blank"
