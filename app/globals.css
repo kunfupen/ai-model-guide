@@ -402,12 +402,18 @@ table tbody tr:hover {
 
 /* Scroll-reveal: starts faded + lowered, transitions in when data-reveal=in. */
 .reveal {
-  opacity: 0;
-  transform: translateY(22px);
   transition:
     opacity 0.6s var(--ease-out-soft),
     transform 0.6s var(--ease-out-soft);
   will-change: opacity, transform;
+}
+/* Only hide when scripting can actually reveal it again. Without this guard a
+   JS failure leaves every Reveal-wrapped section permanently at opacity 0. */
+@media (scripting: enabled) {
+  .reveal[data-reveal="out"] {
+    opacity: 0;
+    transform: translateY(22px);
+  }
 }
 .reveal[data-reveal="in"] {
   opacity: 1;

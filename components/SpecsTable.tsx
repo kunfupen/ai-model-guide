@@ -79,7 +79,7 @@ export function SpecsTable({ frontmatter }: { frontmatter: ModelFrontmatter }) {
             {r.label}
           </dt>
           <dd
-            className={`text-sm text-zinc-900 dark:text-zinc-100 ${
+            className={`min-w-0 text-sm break-words text-zinc-900 dark:text-zinc-100 ${
               r.mono ? "font-mono tabular-nums" : ""
             }`}
           >

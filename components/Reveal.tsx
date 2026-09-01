@@ -41,7 +41,10 @@ export function Reveal({
           }
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
+      // threshold MUST stay 0. A fractional threshold is unreachable for any
+      // element taller than root/threshold - the catalog grid is ~6,000px in a
+      // ~900px viewport, so it could never reach 0.15 and stayed invisible.
+      { threshold: 0, rootMargin: "0px 0px -10% 0px" },
     );
     io.observe(el);
     return () => io.disconnect();

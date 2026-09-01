@@ -74,7 +74,7 @@ export function ThemeToggle() {
     return (
       <span
         aria-hidden
-        className="ml-1 grid h-8 w-8 place-items-center rounded-full text-zinc-400"
+        className="ml-0 grid h-8 w-8 sm:ml-1 place-items-center rounded-full text-zinc-400"
       >
         {ICONS.system}
       </span>
@@ -87,7 +87,7 @@ export function ThemeToggle() {
       onClick={cycle}
       title={`Theme: ${LABEL[theme]} (click to change)`}
       aria-label={`Switch theme, currently ${LABEL[theme]}`}
-      className="ml-1 grid h-8 w-8 place-items-center rounded-full text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/80 dark:hover:text-zinc-100"
+      className="ml-0 grid h-8 w-8 sm:ml-1 place-items-center rounded-full text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/80 dark:hover:text-zinc-100"
     >
       {ICONS[theme]}
     </button>

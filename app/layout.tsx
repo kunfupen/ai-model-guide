@@ -101,7 +101,7 @@ export default async function RootLayout({
                   available information from each provider.
                 </p>
               </div>
-              <nav className="grid grid-cols-2 gap-x-12 gap-y-2 text-sm">
+              <nav className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:gap-x-12">
                 <span className="col-span-2 text-xs font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-600">
                   Explore
                 </span>
