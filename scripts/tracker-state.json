@@ -1,7 +1,7 @@
 {
   "_comment": "Baseline of every model ID the tracker has ever observed. A new frontier release is an ID that appears in neither this list nor the catalog. Delete this file and re-run with --seed-baseline to rebuild.",
-  "lastCheck": "2026-09-02T11:01:19.115Z",
-  "runs": 149,
+  "lastCheck": "2026-09-02T15:58:33.058Z",
+  "runs": 150,
   "seenIds": [
     "claude-fable-5",
     "claude-fable-5-1",
@@ -103,6 +103,8 @@
     "gemini-3.6-flash:batch",
     "gemini-3.7-flash",
     "gemini-3.7-flash:batch",
+    "gemini-3.8-flash",
+    "gemini-3.8-flash:batch",
     "gpt-4",
     "gpt-4-turbo",
     "gpt-4-turbo-2024-04-09",
