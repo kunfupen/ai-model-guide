@@ -77,6 +77,7 @@ export const ToolCategory = z.enum([
   "ide",
   "runner",
   "agent-cli",
+  "autonomous-agent",
   "framework",
   "hosting",
 ]);

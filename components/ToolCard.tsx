@@ -5,6 +5,7 @@ const CATEGORY_META: Record<ToolCategory, { label: string; dot: string }> = {
   ide: { label: "IDE", dot: "bg-blue-500" },
   runner: { label: "Runner", dot: "bg-emerald-500" },
   "agent-cli": { label: "Agent CLI", dot: "bg-amber-500" },
+  "autonomous-agent": { label: "Autonomous agent", dot: "bg-fuchsia-500" },
   framework: { label: "Framework", dot: "bg-violet-500" },
   hosting: { label: "Hosting", dot: "bg-rose-500" },
 };
