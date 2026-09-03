@@ -1,0 +1,85 @@
+---
+slug: google-gemini-3-8-flash
+name: Gemini 3.8 Flash
+provider: google
+releaseDate: 2026-09-02
+contextWindow: 1048576
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 1.5
+  outputPer1M: 7.5
+availability: [api, vertex]
+strengths: [coding, agentic-tasks, cost-efficiency]
+officialDocs: https://deepmind.google/models/model-cards/gemini-3-8-flash/
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 2.1
+    score: 90.8
+    max: 100
+    source: https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/
+  - name: Terminal-Bench 4.0
+    score: 19.1
+    max: 100
+    source: https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/
+---
+
+## When to reach for Gemini 3.8 Flash
+
+Gemini 3.8 Flash (September 2, 2026) is Google's most capable Flash-tier model
+and its **third Flash release in six weeks**. Google positions it for
+long-horizon software engineering, autonomous agents, and enterprise workflows.
+
+- It posts **90.8 on Terminal-Bench 2.1 — the highest in this catalog**, ahead
+  of GPT-5.6 Sol (88.8) and Kimi K3 (88.3), at a fraction of their price.
+- Agentic coding on a budget: $0.75 / $3.75 during the introductory period,
+  $1.50 / $7.50 after.
+- Wide multimodal input — text, images, video, audio and PDFs in a single
+  request.
+
+> **Listed at the standard rate.** The frontmatter price is the post-introductory
+> **$1.50 / $7.50**, matching how
+> [Gemini 3.7 Flash](/models/google-gemini-3-7-flash) is recorded, so the
+> comparison table stays apples-to-apples. Both models are currently discounted
+> to **$0.75 / $3.75 through December 31, 2026**; the rate doubles on January 1.
+
+## Specs & cost
+
+- **Model ID:** `gemini-3.8-flash`.
+- **Context:** 1,048,576 tokens in, 65,536 tokens out.
+- **Inputs:** text, image, video, audio and PDF; text output.
+- **Pricing:** $0.75 / $3.75 per 1M through 2026-12-31, then $1.50 / $7.50.
+- **Availability:** Gemini API, Google AI Studio, Antigravity, Android Studio
+  and Gemini Enterprise.
+
+## Benchmark notes
+
+Terminal-Bench 2.1 (90.8) and Terminal-Bench 4.0 (19.1) are recorded, both from
+Google's own launch comparison.
+
+**A caveat on comparing the Terminal-Bench 2.1 column.** Google's comparison puts
+Gemini 3.7 Flash at **81.6**, while this catalog's 3.7 Flash row records **85.8**
+from Artificial Analysis's independent run. Same benchmark name, different
+harnesses — so reading 90.8 against 85.8 as a "+5.0 improvement" mixes two
+measurement sources. Against Google's own baseline the jump is +9.2. The 3.7
+Flash row is left as measured rather than quietly restated.
+
+Terminal-Bench **4.0** is a different and much harder benchmark than **2.1** —
+the 19.1 and 90.8 figures are not comparable to each other. Google also
+published OSWorld-2.0 (59.0), GDPVal-AA v2 (1545 Elo) and BioMysteryBench, none
+of which are in this catalog's tracked set, so they are not recorded. On the
+hardest agentic rows Opus 5 still leads clearly — Terminal-Bench 4.0 51.8 vs
+19.1, OSWorld-2.0 75.4 vs 59.0.
+
+## Gemini 3.8 Flash Cyber
+
+A companion release shares the same underlying model but ships more permissive
+cybersecurity mitigations. It is **not openly deployable** — access is granted
+case by case through Google's Fairwind Program to trusted government
+authorities, critical infrastructure operators and software maintainers. Since
+it cannot be signed up for, it is not listed separately here.
+
+## Official resources
+
+- [Gemini 3.8 Flash model card](https://deepmind.google/models/model-cards/gemini-3-8-flash/)
+- [Introducing Gemini 3.8 Flash and 3.8 Flash Cyber](https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/)
+- [Developer guide](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/guides/gemini-3-8-flash)
