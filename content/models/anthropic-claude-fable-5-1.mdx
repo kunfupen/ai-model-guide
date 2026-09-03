@@ -1,0 +1,91 @@
+---
+slug: anthropic-claude-fable-5-1
+name: Claude Fable 5.1
+provider: anthropic
+releaseDate: 2026-09-01
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 10
+  outputPer1M: 50
+availability: [api, claude-ai, bedrock, vertex, azure]
+strengths: [reasoning, coding, agentic-tasks]
+officialDocs: https://platform.claude.com/docs/en/models/fable-5-1/overview
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 4.0
+    score: 55.8
+    max: 100
+    source: https://www.explainx.ai/blog/claude-fable-5-1-mythos-5-1-launch-benchmarks-pricing-2026
+  - name: Terminal-Bench-Science 0.1
+    score: 52.6
+    max: 100
+    source: https://www.marktechpost.com/2026/09/01/anthropic-releases-claude-fable-5-1-and-claude-mythos-5-1-52-6-on-terminal-bench-science-and-75-cheaper-cache-reads/
+---
+
+## When to reach for Claude Fable 5.1
+
+Claude Fable 5.1 (September 1, 2026) is Anthropic's current top-end model,
+positioned for **demanding reasoning and long-horizon agentic work** — the docs
+recommend it specifically for when your evals on Claude Opus 5 at higher effort
+still fall short.
+
+- The hardest autonomous, multi-hour agentic runs.
+- Heavily cached workloads: the cache-read price is the real story here.
+- Scientific and long-horizon engineering work, where it more than doubles
+  Fable 5's Terminal-Bench-Science score.
+
+For most workloads **[Claude Opus 5](/models/anthropic-claude-opus-5)** remains
+the recommended starting point at half the price, and it still holds this
+catalog's top **SWE-bench Verified** score (97.0).
+
+## The cache-read change
+
+Base rates are unchanged from Fable 5 at **$10 / $50 per 1M**. What changed is
+prompt caching: cache reads cost **$0.25 / 1M — 2.5% of the base input price**,
+where every other Claude model charges 10%. That is a 75% cut on the line item
+that dominates long agentic sessions, which is why reported savings land around
+25% for typical token-billed work and up to ~45% for heavily agentic use.
+
+## Specs & cost
+
+- **Model ID:** `claude-fable-5-1` (same ID on Bedrock as `anthropic.claude-fable-5-1`, Vertex, and Microsoft Foundry).
+- **Context:** 1M tokens, up to 128K output.
+- **Thinking:** adaptive, always on. Default `effort` is `high`.
+- **Knowledge cutoff:** June 2026.
+- **Pricing:** $10 / 1M input, $50 / 1M output, $0.25 / 1M cache read.
+- **Retirement:** not sooner than September 1, 2027.
+
+### Behaviour changes worth knowing
+
+- `tool_choice` accepts only `auto` and `none` — `any` and `tool` now return a
+  400 error.
+- Thinking blocks are readable only by the same model or newer.
+- Generated media carries text watermarks and C2PA Content Credentials.
+- Requires 30-day data retention; **not available under zero data retention.**
+
+## Benchmark notes
+
+**Anthropic's release notes publish no benchmark numbers for 5.1.** The two
+figures recorded here — Terminal-Bench 4.0 (55.8, up from Fable 5's 42.0) and
+Terminal-Bench-Science 0.1 (52.6, up from 24.7) — come from Anthropic's launch
+comparison as relayed by third parties, not from a first-party page.
+
+**No SWE-bench Verified score is recorded, deliberately.** Several write-ups
+attribute **95.0** to Fable 5.1; that is
+**[Fable 5's](/models/anthropic-claude-fable-5)** number, and Anthropic did not
+headline a SWE-bench figure for 5.1. Note also that Terminal-Bench **4.0** is a
+different, much harder benchmark than the Terminal-Bench **2.1** column used
+elsewhere in this catalog — the two are not comparable.
+
+## Mythos 5.1
+
+As with Fable 5 and Mythos 5, **Claude Mythos 5.1** (`claude-mythos-5-1`) is the
+same model under a different safety envelope, available to Project Glasswing
+participants. It is not listed separately here.
+
+## Official resources
+
+- [Claude Fable 5.1 overview](https://platform.claude.com/docs/en/models/fable-5-1/overview)
+- [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview)
+- [Pricing](https://platform.claude.com/docs/en/about-claude/pricing)
