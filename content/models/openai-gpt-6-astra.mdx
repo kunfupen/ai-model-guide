@@ -1,0 +1,86 @@
+---
+slug: openai-gpt-6-astra
+name: GPT-6 Astra
+provider: openai
+releaseDate: 2026-09-03
+contextWindow: 1050000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 10
+  outputPer1M: 50
+availability: [api, chatgpt, bedrock]
+strengths: [reasoning, coding, agentic-tasks, computer-use]
+officialDocs: https://developers.openai.com/api/docs/models/gpt-6-astra
+tweetIds: []
+benchmarks:
+  - name: GPQA Diamond
+    score: 96.0
+    max: 100
+    source: https://officechai.com/ai/gpt-6-astra-benchmarks/
+  - name: Terminal-Bench 4.0
+    score: 57.7
+    max: 100
+    source: https://officechai.com/ai/gpt-6-astra-benchmarks/
+  - name: Terminal-Bench-Science 0.1
+    score: 64.6
+    max: 100
+    source: https://officechai.com/ai/gpt-6-astra-benchmarks/
+---
+
+## When to reach for GPT-6 Astra
+
+GPT-6 Astra (September 3, 2026) is OpenAI's new flagship and the first model of
+the GPT-6 generation. OpenAI positions it for the hardest end-to-end work —
+complex reasoning, coding, research, document creation — and calls it **"the
+world's best computer use model"**, built to drive browsers, spreadsheets and
+desktop applications rather than just emit text.
+
+- It takes the top **GPQA Diamond** score in this catalog at **96.0**, ahead of
+  Claude Fable 5 (95.0) and Claude Mythos 5 (95.0).
+- It leads **Terminal-Bench 4.0** at 57.7, just ahead of
+  [Claude Fable 5.1](/models/anthropic-claude-fable-5-1) (55.8).
+- Computer-use and desktop agent work, where OSWorld 2.0 (72.6) is its
+  strongest published signal.
+
+## Specs & cost
+
+- **Model ID:** `gpt-6-astra` — confirmed in OpenAI's own OpenAPI spec.
+- **Context:** 1,050,000 tokens, up to 128K output.
+- **Modalities:** text and image in, text out. No native audio input.
+- **Knowledge cutoff:** April 30, 2026.
+- **Pricing:** $10 / 1M input, $50 / 1M output — the same rate as
+  [Claude Fable 5.1](/models/anthropic-claude-fable-5-1).
+- **Availability:** ChatGPT Plus, Pro, Business and Enterprise; the OpenAI API;
+  and Amazon Bedrock. Rollout began with enterprise customers in OpenAI's gated
+  **Daybreak** program, so access may lag the announcement depending on tier.
+
+## Benchmark notes
+
+Three figures are recorded: GPQA Diamond (96.0), Terminal-Bench 4.0 (57.7) and
+Terminal-Bench-Science 0.1 (64.6). All are **OpenAI-reported launch numbers**
+with no independent replication yet.
+
+**No SWE-bench Verified score is recorded.** OpenAI did not publish one for
+Astra. Its software-engineering claim rests on **DeepSWE v1.1 (74.1)**, which is
+a different benchmark and not part of this catalog's tracked set — so it is not
+substituted into the SWE-bench column. On that column
+[GPT-5.6 Sol](/models/openai-gpt-5-6-sol) remains OpenAI's measured entry here.
+
+Also published and **not** recorded, being outside the tracked set: FrontierMath
+Tier 4 v2 (97.6), BenchCAD (95.9), OSWorld 2.0 (72.6), ARC-AGI-3 (99.9) and
+ExploitBench (100).
+
+> **Read the cyber numbers carefully.** OpenAI states Astra crossed its
+> **Critical cyber-capability threshold**, that release was delayed for
+> safeguard work, and that the headline cyber evaluation ran on **Daybreak
+> Blue rather than the default production configuration**. The perfect
+> ExploitBench score therefore does not describe the model as most people will
+> call it. It is not recorded here.
+>
+> The ARC-AGI-3 result (99.9) was likewise measured under OpenAI's own provider
+> adapter harness.
+
+## Official resources
+
+- [GPT-6 Astra model docs](https://developers.openai.com/api/docs/models/gpt-6-astra)
+- [OpenAI API models](https://developers.openai.com/api/docs/models)
