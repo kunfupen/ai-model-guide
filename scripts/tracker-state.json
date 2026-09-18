@@ -1,7 +1,7 @@
 {
   "_comment": "Baseline of every model ID the tracker has ever observed. A new frontier release is an ID that appears in neither this list nor the catalog. Delete this file and re-run with --seed-baseline to rebuild.",
-  "lastCheck": "2026-09-17T21:10:48.430Z",
-  "runs": 271,
+  "lastCheck": "2026-09-18T03:15:23.866Z",
+  "runs": 272,
   "seenIds": [
     "claude-fable-5",
     "claude-fable-5-1",
@@ -41,6 +41,7 @@
     "deepseek-v4-flash",
     "deepseek-v4-flash-0731",
     "deepseek-v4-flash-0731:batch",
+    "deepseek-v4-flash-0731:free",
     "deepseek-v4-flash-vision-exp",
     "deepseek-v4-flash-vision-exp:batch",
     "deepseek-v4-pro",
