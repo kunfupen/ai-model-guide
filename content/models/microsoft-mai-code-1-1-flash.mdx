@@ -1,0 +1,74 @@
+---
+slug: microsoft-mai-code-1-1-flash
+name: MAI-Code-1.1-Flash
+provider: microsoft
+releaseDate: 2026-08-11
+contextWindow: 256000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 0.2
+  outputPer1M: 1.2
+availability: [azure, api]
+strengths: [coding, agentic-tasks, cost-efficiency]
+officialDocs: https://microsoft.ai/models/mai-code-1-flash/
+tweetIds: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 72.6
+    max: 100
+    source: https://microsoft.ai/pdf/MAI-Code-1.1-Flash-Model-Card.PDF
+  - name: Terminal-Bench 2.1
+    score: 62.9
+    max: 100
+    source: https://microsoft.ai/pdf/MAI-Code-1.1-Flash-Model-Card.PDF
+---
+
+## When to reach for MAI-Code-1.1-Flash
+
+MAI-Code-1.1-Flash (August 11, 2026) is Microsoft's in-house agentic coding
+model and the one actually serving GitHub Copilot — it **replaced
+MAI-Code-1-Flash**, which was removed from all Copilot experiences on
+September 10, 2026.
+
+- Agentic coding at the bottom of the price curve: **$0.20 / $1.20 per 1M**,
+  which Microsoft puts at roughly 73% below MAI-Code-1-Flash's list price.
+- Token efficiency is the design goal — around 25% fewer tokens for comparable
+  tasks, with token streaming about 25% faster.
+- **Native vision**, new in 1.1: it can read screenshots, mockups and diagrams
+  as part of a coding workflow, which 1-Flash could not.
+
+Against the frontier it is not close on raw capability —
+[Claude Opus 5](/models/anthropic-claude-opus-5) leads SWE-bench Verified at
+97.0 — but it is one to two orders of magnitude cheaper, which is the whole
+argument for it.
+
+## Specs & cost
+
+- **Architecture:** sparse mixture-of-experts, ~137B total parameters with ~5B
+  active per token (carried over from MAI-Code-1-Flash).
+- **Context:** 256K tokens.
+- **Modalities:** text and image in, text out.
+- **Pricing:** $0.20 / 1M input, $0.02 / 1M cached input, $1.20 / 1M output.
+- **Availability:** Microsoft Foundry and GitHub Copilot, plus third-party
+  hosts including OpenRouter, Fireworks AI and Baseten.
+
+## Benchmark notes
+
+SWE-bench Verified (72.6) and Terminal-Bench 2.1 (62.9) are recorded from
+Microsoft's own model card, so both are vendor-reported.
+
+**Be careful not to mix these with MAI-Code-1-Flash's numbers**, which circulate
+alongside them. Microsoft reported **71.6** SWE-bench Verified and **54.8** on
+**Terminal Bench 2** for the original — note that is Terminal-Bench *2*, not the
+*2.1* column used in this catalog, so the two are not interchangeable. Several
+secondary write-ups attribute 1.1's 72.6 / 62.9 to 1-Flash.
+
+Microsoft also published SWE-bench **Pro** (51.2) for MAI-Code-1-Flash. That is a
+different, harder benchmark than SWE-bench Verified and is not substituted into
+that column.
+
+## Official resources
+
+- [MAI-Code-1.1-Flash](https://microsoft.ai/models/mai-code-1-flash/)
+- [Model card (PDF)](https://microsoft.ai/pdf/MAI-Code-1.1-Flash-Model-Card.PDF)
+- [Available in GitHub Copilot](https://github.blog/changelog/2026-08-11-mai-code-1-1-flash-available-in-github-copilot/)
