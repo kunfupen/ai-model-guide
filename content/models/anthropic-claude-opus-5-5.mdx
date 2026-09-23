@@ -1,0 +1,89 @@
+---
+slug: anthropic-claude-opus-5-5
+name: Claude Opus 5.5
+provider: anthropic
+releaseDate: 2026-09-22
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 4
+  outputPer1M: 20
+availability: [api, claude-ai, bedrock, vertex, azure]
+strengths: [coding, agentic-tasks, reasoning, cost-efficiency]
+officialDocs: https://platform.claude.com/docs/en/models/opus-5-5/overview
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 4.0
+    score: 66.4
+    max: 100
+    source: https://www.vellum.ai/blog/claude-opus-5-5-benchmarks-explained
+---
+
+## When to reach for Claude Opus 5.5
+
+Claude Opus 5.5 (September 22, 2026) is Anthropic's new default model — the
+docs now say to **start with Opus 5.5 for most workloads**, and reach for
+[Claude Fable 5.1](/models/anthropic-claude-fable-5-1) only when Opus 5.5 at
+higher effort still falls short.
+
+The pitch is Fable-class results at a lower price than the model it replaces:
+
+- **Cheaper than Opus 5.** $4 / $20 per 1M against Opus 5's $5 / $25 — a 20%
+  cut on both sides, with cache reads at 5% of base input.
+- **Leads Terminal-Bench 4.0 in this catalog at 66.4**, ahead of GPT-6 Astra
+  (57.7) and Fable 5.1 (55.8), and up from Opus 5's 52.3.
+- Long-running agentic coding and knowledge work, which is how Anthropic
+  describes its intended use.
+
+## Before you migrate
+
+Opus 5.5 is not a drop-in swap for Opus 5. Several request shapes that worked
+before now return **400**:
+
+- **Thinking is always on and cannot be disabled.** Both
+  `thinking: {"type": "disabled"}` and `thinking: {"type": "enabled", ...}` are
+  rejected — omit the field and steer depth with `effort` instead.
+- **Default effort is `medium`**, not `high` as on Opus 5. Expect shallower
+  reasoning out of the box unless you raise it.
+- `tool_choice` of `any` or `tool` is rejected; use `auto` with strict tool use.
+- **Computer use** on the Claude API and Google Cloud requires the new
+  `computer_toolset_20260801`; the older `computer_20251124` tool errors there.
+  Amazon Bedrock still accepts the old one.
+
+New: fast mode (research preview), and tools can be defined in mid-conversation
+system messages (beta).
+
+## Specs & cost
+
+- **Model ID:** `claude-opus-5-5` on the Claude API, Google Cloud and
+  Microsoft Foundry; `anthropic.claude-opus-5-5` on Bedrock.
+- **Context:** 1M tokens, up to 128K output (300K via batches with the beta
+  header).
+- **Knowledge cutoff:** June 2026.
+- **Pricing:** $4 / 1M input, $20 / 1M output.
+- **Retirement:** not sooner than September 22, 2027.
+
+## Benchmark notes
+
+Only **Terminal-Bench 4.0 (66.4)** is recorded, from Anthropic's launch
+comparison.
+
+**No SWE-bench Verified score, deliberately.** Anthropic published **SWE-bench
+Pro (89.9)** for Opus 5.5 — a different, harder benchmark — and explicitly did
+not report SWE-bench Verified, GPQA Diamond, τ-bench or ARC-AGI in either the
+announcement or the system card. SWE-bench Pro is not substituted into the
+Verified column.
+
+That leaves an odd-looking result in the comparison table:
+[Claude Opus 5](/models/anthropic-claude-opus-5), now a legacy model, still
+holds this catalog's top SWE-bench Verified score (97.0). That is an artefact of
+what was published, not evidence Opus 5 is stronger at software engineering.
+
+Independently, Opus 5.5 tops the Artificial Analysis Intelligence Index at 58
+(max effort) — outside the tracked set, so not recorded as an entry.
+
+## Official resources
+
+- [Claude Opus 5.5 overview](https://platform.claude.com/docs/en/models/opus-5-5/overview)
+- [Migrating to Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide)
+- [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview)
