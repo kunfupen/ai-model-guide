@@ -1,0 +1,79 @@
+---
+slug: xai-grok-4-7
+name: Grok 4.7
+provider: xai
+releaseDate: 2026-09-21
+contextWindow: 500000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 2
+  outputPer1M: 6
+availability: [api]
+strengths: [coding, agentic-tasks, cost-efficiency]
+officialDocs: https://x.ai/news/grok-4-7
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 4.0
+    score: 38.0
+    max: 100
+    source: https://officechai.com/ai/grok-4-7-benchmarks/
+---
+
+## When to reach for Grok 4.7
+
+Grok 4.7 (September 21, 2026) is xAI's new flagship, which it calls its most
+capable model yet for coding and knowledge work. The design change is
+behavioural: it spends longer on hard problems and **double-checks its own
+answers more often** than Grok 4.6 — the issue Musk cited when he delayed the
+launch, saying the model was stopping difficult tasks too early.
+
+- **Same price as 4.6.** $2 / $6 per 1M is unchanged, which makes it one of
+  the cheapest frontier-adjacent models in this catalog.
+- Long-running coding agents: CursorBench 4.0 rose to 46.3 from 40.4, and
+  DeepSWE v1.1 to 71.0 from 65.2 (high effort).
+- Legal and professional work, where xAI reports a large lead on Harvey's
+  Legal Agent Benchmark.
+
+It is **not a frontier leader.** On independent measurement it scores 46 on the
+Artificial Analysis Intelligence Index, well behind
+[Claude Opus 5.5](/models/anthropic-claude-opus-5-5) at 58, and on Terminal-Bench
+4.0 it sits far below Opus 5.5 (66.4) and
+[GPT-6 Astra](/models/openai-gpt-6-astra) (57.7). The case for it is price.
+
+## Specs & cost
+
+- **Model ID:** `grok-4.7`.
+- **Context:** 500K tokens; text and image in, text out, no text output limit.
+- **Pricing:** $2 / 1M input, $6 / 1M output.
+- **Availability:** xAI API, Grok Build, Cursor, and GitHub Copilot (rolling
+  out from September 21), plus third-party coding harnesses and clouds.
+
+## Benchmark notes
+
+**Terminal-Bench 4.0 (38.0)** is recorded — xAI's headline figure, run on
+SpaceXAI's **internal harness**.
+
+**Be aware xAI published two different Terminal-Bench 4.0 numbers.** The 38.0
+comes from its internal harness; the same benchmark run **through Grok Build**
+scored **33**. Same model, same benchmark, five points apart purely from the
+harness. The headline figure is recorded here, but the gap is a useful reminder
+that every Terminal-Bench 4.0 row in this catalog is vendor-run on the vendor's
+own setup.
+
+**No SWE-bench Verified, GPQA Diamond or Terminal-Bench 2.1 score is
+recorded** — xAI published none of them. Its coding claims rest on CursorBench
+4.0 (46.3), DeepSWE v1.1 (71.0) and EEBench (66.0), none of which are in the
+tracked set.
+
+## Release history
+
+Grok 4.7 slipped repeatedly before shipping. Musk said "10 days" on September 2,
+then that it "needs a few more days to cook" on September 11; on September 13 he
+announced a larger **Grok 4.8** (2.5T parameters), which briefly looked like it
+had superseded 4.7 entirely. 4.7 then shipped on September 21. Grok 4.8 has no
+release date, price or specs, and is not listed.
+
+## Official resources
+
+- [Introducing Grok 4.7](https://x.ai/news/grok-4-7)
+- [xAI models & pricing](https://docs.x.ai/developers/models)
