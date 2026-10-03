@@ -1,7 +1,7 @@
 {
   "_comment": "Baseline of every model ID the tracker has ever observed. A new frontier release is an ID that appears in neither this list nor the catalog. Delete this file and re-run with --seed-baseline to rebuild.",
-  "lastCheck": "2026-10-02T22:02:21.230Z",
-  "runs": 381,
+  "lastCheck": "2026-10-03T03:50:24.910Z",
+  "runs": 382,
   "seenIds": [
     "claude-fable-5",
     "claude-fable-5-1",
