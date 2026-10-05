@@ -1,0 +1,47 @@
+---
+slug: openai-gpt-6-luna
+name: GPT-6 Luna
+provider: openai
+releaseDate: 2026-09-22
+contextWindow: 1050000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 0.1
+  outputPer1M: 0.5
+availability: [api, chatgpt, azure]
+strengths: [speed, cost-efficiency]
+officialDocs: https://developers.openai.com/api/docs/models/gpt-6-luna
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for GPT-6 Luna
+
+GPT-6 Luna (September 22, 2026) is the fast, cost-efficient tier of OpenAI's
+GPT-6 series, positioned below [GPT-6.1 Sol](/models/openai-gpt-6-1-sol) and
+built for high-volume, latency-sensitive work.
+
+- Classification, extraction, routing and other jobs run millions of times.
+- The first hop of an agent pipeline, escalating to Sol or Astra only when
+  needed.
+- At **$0.10 / $0.50 per 1M** it is the cheapest model in this catalog from any
+  of the major US labs.
+
+## Specs & cost
+
+- **Model ID:** `gpt-6-luna` — confirmed in OpenAI's own OpenAPI spec.
+- **Context:** 1,050,000 tokens, up to 128K output.
+- **Knowledge cutoff:** May 18, 2026 — later than Sol's April 30.
+- **Pricing:** $0.10 / 1M input, $0.50 / 1M output, $0.01 / 1M cached input.
+  **Requests above 272K input tokens are billed at $0.20 / $0.75** — worth
+  knowing before you lean on the full context window.
+- **Availability:** the OpenAI API, ChatGPT and Codex, and Microsoft Foundry.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** OpenAI says Luna outperforms its predecessor on
+its own tests but published no figure on a benchmark this catalog tracks.
+
+## Official resources
+
+- [GPT-6 Luna model docs](https://developers.openai.com/api/docs/models/gpt-6-luna)

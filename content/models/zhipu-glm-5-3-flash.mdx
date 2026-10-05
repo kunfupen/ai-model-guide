@@ -1,0 +1,46 @@
+---
+slug: zhipu-glm-5-3-flash
+name: GLM-5.3-Flash
+provider: zhipu
+releaseDate: 2026-08-26
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 0.15
+  outputPer1M: 0.5
+availability: [api, open-weights]
+strengths: [open-weights, cost-efficiency, coding]
+officialDocs: https://docs.z.ai
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for GLM-5.3-Flash
+
+GLM-5.3-Flash (August 26, 2026) is the small, cheap member of Z.ai's GLM-5.3
+family — and, unusually, it ships under a **plain, unmodified MIT licence**,
+while its larger sibling [GLM-5.3](/models/zhipu-glm-5-3) does not.
+
+- Self-hosting a capable multimodal model with no licence strings attached.
+- High-volume work at $0.15 / $0.50 per 1M.
+- Deployments where the GLM-5.3 licence's revenue condition is a problem.
+
+## Specs & cost
+
+- **Architecture:** 320B-parameter mixture-of-experts, ~18B active per token.
+- **Context:** 1M tokens per Artificial Analysis and DeepInfra; OpenRouter
+  lists 1,310,720. The lower figure is recorded.
+- **Modalities:** text and image in, text out. Some listings also mention
+  video, which is not corroborated.
+- **Pricing:** $0.15 / 1M input, $0.50 / 1M output at Z.ai's standard rate.
+  Third-party hosts range from roughly half that to double.
+- **Licence:** MIT.
+
+## Benchmark notes
+
+**No benchmarks are recorded** — no figure on a tracked benchmark could be
+attributed to a first-party source.
+
+## Official resources
+
+- [Z.ai docs](https://docs.z.ai)

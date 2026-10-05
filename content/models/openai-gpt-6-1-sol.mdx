@@ -1,0 +1,62 @@
+---
+slug: openai-gpt-6-1-sol
+name: GPT-6.1 Sol
+provider: openai
+releaseDate: 2026-09-29
+contextWindow: 1050000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 2
+  outputPer1M: 10
+availability: [api, chatgpt]
+strengths: [coding, agentic-tasks, computer-use, cost-efficiency]
+officialDocs: https://developers.openai.com/api/docs/models/gpt-6.1-sol
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 4.0
+    score: 55.05
+    max: 100
+    source: https://www.vals.ai/models/openai_gpt-6.1-sol
+---
+
+## When to reach for GPT-6.1 Sol
+
+GPT-6.1 Sol (September 29, 2026) is OpenAI's mid-priced GPT-6 model. OpenAI
+says it **nearly matches [GPT-6 Astra](/models/openai-gpt-6-astra) on agentic
+coding, computer use and professional work at one-fifth of Astra's token
+prices** — and the launch data mostly backs that up.
+
+- Agentic coding: 75.2% on DeepSWE v1.1 at high effort for about **$0.65 per
+  task**, against Astra's 74.1% for $4.43.
+- Computer use: 71.4% on OSWorld 2.0 for $1.27 per task, against Astra's 73.5%
+  for $9.44.
+- Anything you were going to run on Astra where the last two points don't
+  justify a 5× bill.
+
+It replaced **GPT-6 Sol**, which shipped on September 22 at the same price and
+was superseded a week later. That model is not listed separately.
+
+## Specs & cost
+
+- **Model ID:** `gpt-6.1-sol` — confirmed in OpenAI's own OpenAPI spec.
+- **Context:** 1,050,000 tokens, up to 128K output.
+- **Knowledge cutoff:** April 30, 2026.
+- **Pricing:** $2 / 1M input, $10 / 1M output, $0.10 / 1M cached input.
+- **Availability:** the OpenAI API, ChatGPT and Codex.
+
+## Benchmark notes
+
+**Terminal-Bench 4.0 (55.05)** is recorded from **Vals AI's independent run**
+(±1.82). That is a different kind of source from the other rows in that column,
+which are all vendor-run on each lab's own harness — so read small gaps there
+with care. A figure of 56.1 also circulates for 6.1 Sol with no clear origin;
+it is not used.
+
+**No SWE-bench Verified or GPQA Diamond score is recorded** — none was
+published. DeepSWE v1.1 and OSWorld 2.0, OpenAI's headline numbers, are outside
+this catalog's tracked set.
+
+## Official resources
+
+- [GPT-6.1 Sol model docs](https://developers.openai.com/api/docs/models/gpt-6.1-sol)
+- [Vals AI evaluation](https://www.vals.ai/models/openai_gpt-6.1-sol)

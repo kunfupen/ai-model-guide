@@ -5,7 +5,7 @@ provider: zhipu
 releaseDate: 2026-08-14
 contextWindow: 1000000
 modalities: [text]
-availability: [api]
+availability: [api, open-weights]
 strengths: [coding, agentic-workflows, security]
 officialDocs: https://docs.z.ai/guides/llm/glm-5.3
 tweetIds: []
@@ -29,12 +29,15 @@ agentic coding and security work rather than a new pretrain.
   bugs and produced exploit chains the team had not designed for.
 - 1M-token context, same as 5.2.
 
-> **Not open weights yet.** Unlike GLM-5.2, which shipped MIT-licensed weights on
-> day one, GLM-5.3 launched **only through the GLM Coding Plan / ZCode** — there
-> is no per-token API rate card and no published checkpoint as of August 18,
-> 2026. Z.ai has said MIT weights follow roughly two weeks after launch
-> (~August 28) pending a safety review. If you need weights today, **GLM-5.2**
-> remains the right pick.
+> **Weights shipped August 28 — but not under MIT.** GLM-5.3 launched
+> Coding-Plan-only on August 14; Z.ai held the ~753B checkpoint for a safety
+> review and published it on Hugging Face two weeks later. Despite earlier
+> signals, it uses a **bespoke `glm-5.3` licence**: MIT-style permissions, with
+> one condition — Model-as-a-Service operators above **$10B in trailing
+> 12-month revenue** must pass a Z.ai security review before commercial use.
+> For most teams that changes nothing. If you need a plain MIT GLM, use
+> **[GLM-5.2](/models/zhipu-glm-5-2)** or
+> **[GLM-5.3-Flash](/models/zhipu-glm-5-3-flash)**.
 
 ## Specs & cost
 
@@ -43,7 +46,9 @@ agentic coding and security work rather than a new pretrain.
 - **Pricing:** no per-token rate card. Access is bundled into the GLM Coding
   Plan subscription, so it is deliberately **not** listed in this catalog's
   price comparison.
-- **Licence:** proprietary at launch; MIT weights announced but not shipped.
+- **Licence:** bespoke `glm-5.3` licence (MIT-style, plus a security-review
+  condition for MaaS operators above $10B revenue). Weights on Hugging Face
+  since August 28, 2026.
 
 ## Benchmark notes
 
