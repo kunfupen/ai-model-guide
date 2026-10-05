@@ -1,0 +1,54 @@
+---
+slug: meta-muse-spark-1-3
+name: Muse Spark 1.3
+provider: meta
+releaseDate: 2026-09-02
+contextWindow: 1048576
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 1.25
+  outputPer1M: 4.25
+availability: [api]
+strengths: [coding, agentic-tasks, long-context, multimodal]
+officialDocs: https://research.meta.ai/
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Muse Spark 1.3
+
+Muse Spark 1.3 (September 2, 2026) is Meta's current flagship from Meta
+Superintelligence Labs — a multimodal reasoning model aimed at long-running
+agentic, multi-agent and coding work. It replaces
+[Muse Spark 1.2](/models/meta-muse-spark-1-2) at the same price.
+
+- Long agentic runs: in Meta's own engineer comparisons it used **~20% fewer
+  tool calls and ~25% fewer tokens** than 1.2, and follows long instructions
+  more reliably.
+- Long-context retrieval, where it scores in the high 90s on million-token
+  retrieval tests.
+- Wide multimodal input — text, image, video, audio and PDF.
+
+## Specs & cost
+
+- **Context:** 1,048,576 tokens.
+- **Pricing:** $1.25 / 1M input, $4.25 / 1M output, $0.15 / 1M cache read —
+  unchanged from 1.2. A **Contributor** tier at $0.10 / $0.20 trades away data
+  rights: Meta uses those prompts and completions to improve its products.
+- **Availability:** the Meta Model API and Muse Code.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** Artificial Analysis scores it 61–62 on its
+Intelligence Index v4.1.1, which is outside the tracked set — and a different
+index version from figures quoted elsewhere in this catalog, so not directly
+comparable.
+
+**Two claims are not used.** Some coverage reports a **2M context window** and
+**open weights**; neither is corroborated. The majority of sources give 1M, and
+Meta's roadmap lists a Muse Spark open-weights release with no version or date.
+The model is recorded as API-only until weights actually ship.
+
+## Official resources
+
+- [Meta AI research](https://research.meta.ai/)

@@ -1,0 +1,80 @@
+---
+slug: anthropic-claude-sonnet-5-5
+name: Claude Sonnet 5.5
+provider: anthropic
+releaseDate: 2026-09-28
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 2
+  outputPer1M: 10
+availability: [api, claude-ai, bedrock, vertex, azure]
+strengths: [coding, agentic-tasks, speed, cost-efficiency]
+officialDocs: https://platform.claude.com/docs/en/models/sonnet-5-5/overview
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Claude Sonnet 5.5
+
+Claude Sonnet 5.5 (September 28, 2026) is Anthropic's mid-tier model — "the
+best combination of speed and intelligence" — and the direct replacement for
+[Claude Sonnet 5](/models/anthropic-claude-sonnet-5), which is now legacy.
+
+- High-volume production work where Opus-class reasoning is more than you need.
+- Agentic coding and multistep tool use at a fifth of
+  [Fable 5.1](/models/anthropic-claude-fable-5-1)'s price.
+- Anything currently on Sonnet 5: the price is identical, so the upgrade costs
+  nothing per token.
+
+For the hardest work, [Claude Opus 5.5](/models/anthropic-claude-opus-5-5) is
+Anthropic's recommended default at $4/$20.
+
+## Before you migrate
+
+**Same price, but not a drop-in swap.** Anthropic lists five breaking changes
+from Sonnet 5:
+
+- **`thinking: {"type": "disabled"}` now returns 400.** To turn off up-front
+  thinking, send `{"type": "between_tools"}` instead — accepted at `low`,
+  `medium` and `high` effort, rejected at `xhigh` and `max`.
+- **Forced tool use is gone.** `tool_choice` of `any` or `tool` returns 400;
+  use `auto` with strict tool use.
+- **Thinking blocks are bound to the conversation.** For accounts created on or
+  after August 31, 2026, replaying a thinking block after editing earlier
+  history (system prompt, tools or messages) returns 400. Keep conversations
+  append-only.
+- **Computer use** needs `computer_toolset_20260801` on the Claude API and
+  Google Cloud; the older `computer_20251124` is rejected there.
+- **The advisor tool** rejects Opus 4.8, Opus 4.7 and Sonnet 5 as advisors.
+
+One silent change catches streaming UIs: notes longer than a sentence or two
+**between tool calls now arrive as `thinking` blocks**, empty by default — so an
+app that streams them to users goes quiet with no error until it sets a
+`display` value.
+
+Anthropic also says **effort levels are recalibrated** — the same level no
+longer produces the same amount of thinking as on Sonnet 5, so re-run your
+effort sweep rather than carrying a setting over.
+
+## Specs & cost
+
+- **Model ID:** `claude-sonnet-5-5` (`anthropic.claude-sonnet-5-5` on Bedrock).
+- **Context:** 1M tokens, up to 128K output.
+- **Thinking:** adaptive, on by default. Default effort `high`.
+- **Knowledge cutoff:** June 2026.
+- **Pricing:** $2 / 1M input, $10 / 1M output — identical to Sonnet 5,
+  including caching and batch rates. Minimum cacheable prompt drops to 512
+  tokens, from 1,024.
+- **Retirement:** not sooner than September 28, 2027.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** Anthropic's release notes and its "what's new"
+page publish no benchmark figures for Sonnet 5.5.
+
+## Official resources
+
+- [Claude Sonnet 5.5 overview](https://platform.claude.com/docs/en/models/sonnet-5-5/overview)
+- [What's new in Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5)
+- [Migration guide](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide)

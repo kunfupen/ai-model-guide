@@ -1,0 +1,55 @@
+---
+slug: deepseek-v4-1-flash
+name: DeepSeek V4.1 Flash
+provider: deepseek
+releaseDate: 2026-09-10
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 0.3
+  outputPer1M: 1.2
+availability: [api, open-weights]
+strengths: [open-weights, cost-efficiency, coding]
+officialDocs: https://api-docs.deepseek.com
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for DeepSeek V4.1 Flash
+
+DeepSeek V4.1 Flash (September 10, 2026) is DeepSeek's current main model, and
+on the Vals Index the **strongest open-weight model available** — narrowly
+ahead of [Kimi K3](/models/moonshot-kimi-k3) at roughly one-twentieth the cost
+per test.
+
+- Open-weight deployment where you want frontier-adjacent quality.
+- Bulk work priced near the floor of the market, especially off-peak.
+- Image-in workloads: native image input is new in this generation.
+
+> **It has quietly replaced V4 Flash.** The legacy IDs `deepseek-v4-flash` and
+> `deepseek-v4-flash-vision-exp` are still accepted, but **every request to them
+> is now served by V4.1 Flash and billed at V4.1 Flash's prices.** If you pinned
+> V4 Flash, you are already on this model.
+
+## Specs & cost
+
+- **Model ID:** `deepseek-flash` going forward.
+- **Architecture:** 552B-parameter mixture-of-experts on DeepSeek's new causal
+  encoder–decoder design, with ~8B parameters active for input and ~16B for
+  output.
+- **Context:** 1M tokens.
+- **Pricing:** **$0.30 / $1.20 per 1M at peak**, which is what is recorded here
+  as the standard rate. Off-peak is half that — $0.15 / $0.60, with cache hits at
+  $0.003. Peak hours are 01:00–04:00 and 06:00–10:00 UTC on weekdays, so most of
+  the week is off-peak.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** Its headline independent result is the Vals
+Index (57.86), which is outside this catalog's tracked set. DeepSeek says it
+beats both V4 Flash and the V4 Pro tier, but published no figure on a tracked
+benchmark.
+
+## Official resources
+
+- [DeepSeek API docs](https://api-docs.deepseek.com)
