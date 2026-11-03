@@ -1,7 +1,7 @@
 {
   "_comment": "Baseline of every model ID the tracker has ever observed. A new frontier release is an ID that appears in neither this list nor the catalog. Delete this file and re-run with --seed-baseline to rebuild.",
-  "lastCheck": "2026-11-03T13:56:22.909Z",
-  "runs": 596,
+  "lastCheck": "2026-11-03T22:54:58.646Z",
+  "runs": 597,
   "seenIds": [
     "claude-fable-5",
     "claude-fable-5-1",
@@ -214,7 +214,9 @@
     "grok-4.5",
     "grok-4.5-latest",
     "grok-4.6",
+    "grok-4.6:batch",
     "grok-4.7",
+    "grok-4.7:batch",
     "grok-46",
     "grok-47",
     "qwen-2.5-72b-instruct",
