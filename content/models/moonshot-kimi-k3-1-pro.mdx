@@ -1,0 +1,52 @@
+---
+slug: moonshot-kimi-k3-1-pro
+name: Kimi K3.1 Pro
+provider: moonshot
+releaseDate: 2026-10-23
+contextWindow: 1048576
+modalities: [text, vision]
+pricing:
+  inputPer1M: 2
+  outputPer1M: 10
+availability: [api]
+strengths: [reasoning, coding, agentic-tasks]
+officialDocs: https://platform.moonshot.ai/docs
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Kimi K3.1 Pro
+
+Kimi K3.1 Pro (October 23, 2026) is Moonshot AI's new flagship — a post-trained
+successor to [Kimi K3](/models/moonshot-kimi-k3) on the same ~2.8T-parameter
+mixture-of-experts base (~104B active). It always thinks.
+
+- **Cheaper than K3:** $2 / $10 per 1M against K3's $3 / $15.
+- A big capability jump: Artificial Analysis scores it 55 on its Intelligence
+  Index, 11 points above K3.
+- A faster **Highspeed** variant shipped the same day at $4 / $20.
+
+> **Weights not confirmed yet.** Moonshot said the full weights would be
+> released by November 4, 2026; as of October 31 they were not out, and their
+> release could not be confirmed for this update. It is listed as API-only until
+> they are verified — for downloadable Kimi weights today, use
+> [Kimi K3](/models/moonshot-kimi-k3).
+
+## Specs & cost
+
+- **Architecture:** sparse MoE, ~2.8T total parameters (Moonshot calls it
+  "3T-class"), ~104B active per token.
+- **Context:** 1,048,576 tokens.
+- **Pricing:** $2 / 1M input, $0.20 / 1M cached input, $10 / 1M output.
+  Third-party hosts list different rates.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** A Terminal-Bench 4.0 score of 65.7 is reported
+by one source and appears to come from Moonshot's own runs; it could not be
+corroborated, so it is not used. Its Artificial Analysis Intelligence Index
+score (55) is outside this catalog's tracked set.
+
+## Official resources
+
+- [Moonshot AI platform docs](https://platform.moonshot.ai/docs)

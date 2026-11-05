@@ -50,6 +50,9 @@ const PROVIDER_PREFIXES = [
   "zhipu",
   "nvidia",
   "xai",
+  "alibaba",
+  "deepseek",
+  "mistral",
 ];
 
 /**

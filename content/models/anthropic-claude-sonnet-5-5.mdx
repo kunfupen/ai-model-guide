@@ -12,7 +12,11 @@ availability: [api, claude-ai, bedrock, vertex, azure]
 strengths: [coding, agentic-tasks, speed, cost-efficiency]
 officialDocs: https://platform.claude.com/docs/en/models/sonnet-5-5/overview
 tweetIds: []
-benchmarks: []
+benchmarks:
+  - name: Terminal-Bench 4.0
+    score: 70.6
+    max: 100
+    source: https://www.anthropic.com/claude-sonnet-5-5
 ---
 
 ## When to reach for Claude Sonnet 5.5
@@ -22,7 +26,8 @@ best combination of speed and intelligence" — and the direct replacement for
 [Claude Sonnet 5](/models/anthropic-claude-sonnet-5), which is now legacy.
 
 - High-volume production work where Opus-class reasoning is more than you need.
-- Agentic coding and multistep tool use at a fifth of
+- Agentic coding: Anthropic reports **70.6 on Terminal-Bench 4.0**, and on an
+  independent run it essentially ties Opus 5.5 — at half the price, and a fifth of
   [Fable 5.1](/models/anthropic-claude-fable-5-1)'s price.
 - Anything currently on Sonnet 5: the price is identical, so the upgrade costs
   nothing per token.
@@ -70,8 +75,19 @@ effort sweep rather than carrying a setting over.
 
 ## Benchmark notes
 
-**No benchmarks are recorded.** Anthropic's release notes and its "what's new"
-page publish no benchmark figures for Sonnet 5.5.
+**Terminal-Bench 4.0 (70.6)** is from Anthropic's launch announcement — up from
+Sonnet 5's 10.3. It puts Sonnet 5.5 at the top of this catalog's Terminal-Bench
+4.0 column, **above [Opus 5.5](/models/anthropic-claude-opus-5-5) (66.4)**.
+
+Read that lead with care. On **Vals AI's independent run** the two are
+effectively tied, with Opus slightly ahead: **Opus 5.5 65.15, Sonnet 5.5 64.14**.
+Both vendor figures are Anthropic's own, and Anthropic's Opus results are
+reported at the highest effort setting. What the independent number does show
+is that Sonnet 5.5 delivers Opus-class terminal-agent results at **half the
+price** — which makes it the better-value choice for most agentic coding.
+
+Anthropic's docs pages ("what's new" and the release notes) list no
+benchmarks; the figure is only in the announcement.
 
 ## Official resources
 
