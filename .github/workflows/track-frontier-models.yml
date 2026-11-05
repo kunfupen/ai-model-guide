@@ -20,6 +20,8 @@ permissions:
   issues: write
 
 concurrency:
+  # Shared with autonomous-update.yml — both run on the same schedule and
+  # commit the same baseline file.
   group: frontier-tracker
   cancel-in-progress: false
 
@@ -59,29 +61,16 @@ jobs:
           # Anything other than 0/10 is a genuine failure worth surfacing.
           if [ "$code" -ne 0 ] && [ "$code" -ne 10 ]; then exit "$code"; fi
 
-      - name: Persist the observed-ID baseline
-        # Only when the tracker itself succeeded — never bank a baseline built
-        # from a run where sources errored out, or we'd silently absorb IDs we
-        # never really saw.
-        if: steps.track.outputs.exit == '0' || steps.track.outputs.exit == '10'
-        run: |
-          git pull --rebase --autostash origin main || true
-          if ! git diff --quiet scripts/tracker-state.json; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add scripts/tracker-state.json
-            git commit -m "chore: update frontier tracker baseline"
-            git push
-          fi
-
       - name: Open an issue for new models
         if: steps.track.outputs.found != '' && steps.track.outputs.found != '0'
         uses: actions/github-script@v7
+        env:
+          MODELS: ${{ steps.track.outputs.models }}
         with:
           script: |
             const fs = require('fs');
             const report = fs.readFileSync('tracker-report.txt', 'utf8');
-            const models = '${{ steps.track.outputs.models }}'.split(',').filter(Boolean);
+            const models = (process.env.MODELS || '').split(',').filter(Boolean);
             const title = `New frontier model(s) detected: ${models.slice(0, 3).join(', ')}${models.length > 3 ? '…' : ''}`;
 
             // Don't spam — reuse an open issue for the same models if one exists.
@@ -118,3 +107,19 @@ jobs:
                 title, body, labels: ['frontier-tracker'],
               });
             }
+
+      - name: Persist the observed-ID baseline
+        # After the issue step on purpose: if the issue could not be opened,
+        # this is skipped and the next run reports the same models again.
+        # Only when the tracker itself succeeded — never bank a baseline built
+        # from a run where sources errored out.
+        if: steps.track.outputs.exit == '0' || steps.track.outputs.exit == '10'
+        run: |
+          git pull --rebase --autostash origin main || true
+          if ! git diff --quiet scripts/tracker-state.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add scripts/tracker-state.json
+            git commit -m "chore: update frontier tracker baseline"
+            git push
+          fi

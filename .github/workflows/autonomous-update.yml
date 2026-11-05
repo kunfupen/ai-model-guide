@@ -13,6 +13,12 @@ name: Autonomous model update
 #   · only HIGH-confidence, cleanly-building specs land on main; anything less
 #     opens a PR instead of publishing
 #   · every step is a plain git commit, so any bad call is one revert away
+#
+# Nothing is ever dropped silently. A candidate is either added (commit or PR)
+# or written up in a `frontier-tracker` issue saying why it wasn't — and the
+# observed-ID baseline is only committed AFTER that has happened. Committing it
+# first is how releases used to vanish: once an ID is in the baseline, no later
+# run reports it again.
 on:
   schedule:
     - cron: "0 */6 * * *"
@@ -33,7 +39,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: autonomous-update
+  group: frontier-tracker
   cancel-in-progress: false
 
 jobs:
@@ -57,7 +63,7 @@ jobs:
           XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
         run: |
           if [ -n "${{ inputs.candidate }}" ]; then
-            echo "candidates=${{ inputs.candidate }}" >> "$GITHUB_OUTPUT"
+            echo "models=${{ inputs.candidate }}" >> "$GITHUB_OUTPUT"
             echo "found=1" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -67,35 +73,37 @@ jobs:
           set -e
           if [ "$code" -ne 0 ] && [ "$code" -ne 10 ]; then exit "$code"; fi
 
-      - name: Persist tracker baseline
-        if: ${{ !inputs.candidate }}
-        run: |
-          git pull --rebase --autostash origin main || true
-          if ! git diff --quiet scripts/tracker-state.json; then
-            git config user.name  "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add scripts/tracker-state.json
-            git commit -m "chore: update frontier tracker baseline"
-            git push
-          fi
-
       # --------------------------------------------------------------- research
       - name: Research candidates
         id: research
         if: steps.detect.outputs.found != '' && steps.detect.outputs.found != '0'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # The tracker writes the comma-separated list as `models`.
+          MODELS: ${{ steps.detect.outputs.models }}
         run: |
-          if [ -z "$ANTHROPIC_API_KEY" ]; then
-            echo "::warning::ANTHROPIC_API_KEY not set — cannot research autonomously."
-            echo "researched=0" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
+          # Every candidate ends up either added or in unhandled.tsv with a
+          # reason; the issue step below reports the latter.
+          : > unhandled.tsv
+          : > summary.md
           added=0
-          summary=""
-          # Cap per run so one noisy day cannot spend unbounded API budget.
-          for candidate in $(echo "${{ steps.detect.outputs.candidates }}" | tr ',' '\n' | head -3); do
+          confidence=high
+          n=0
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::warning::ANTHROPIC_API_KEY not set — candidates will be reported in an issue instead of researched."
+          fi
+          for candidate in $(echo "$MODELS" | tr ',' '\n'); do
             [ -z "$candidate" ] && continue
+            n=$((n+1))
+            if [ -z "$ANTHROPIC_API_KEY" ]; then
+              printf '%s\t%s\n' "$candidate" "not researched: the ANTHROPIC_API_KEY repo secret is not set" >> unhandled.tsv
+              continue
+            fi
+            # Cap per run so one noisy day cannot spend unbounded API budget.
+            if [ "$n" -gt 3 ]; then
+              printf '%s\t%s\n' "$candidate" "not researched: per-run cap of 3 reached" >> unhandled.tsv
+              continue
+            fi
             echo "::group::Researching $candidate"
             set +e
             node agents/research-agent.mjs --candidate "$candidate" --json > "agent-$candidate.json"
@@ -105,22 +113,23 @@ jobs:
             echo "::endgroup::"
 
             if [ "$rc" -ne 0 ]; then
-              reason=$(node -e "try{console.log(JSON.parse(require('fs').readFileSync('agent-$candidate.json','utf8')).reason||'')}catch{console.log('')}")
-              summary="${summary}- \`$candidate\`: not added — ${reason}"$'\n'
+              reason=$(node -e "try{console.log(JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')).reason||'')}catch{console.log('')}" "agent-$candidate.json")
+              printf '%s\t%s\n' "$candidate" "research agent did not add it (exit $rc): ${reason:-no reason given}" >> unhandled.tsv
+              printf -- "- \`%s\`: not added — %s\n" "$candidate" "${reason:-no reason given}" >> summary.md
               continue
             fi
 
-            conf=$(node -e "console.log(JSON.parse(require('fs').readFileSync('agent-$candidate.json','utf8')).confidence)")
+            conf=$(node -e "console.log(JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')).confidence)" "agent-$candidate.json")
             node scripts/scaffold-model.mjs --spec agents/out/spec.json
             added=$((added+1))
-            summary="${summary}- \`$candidate\`: added (confidence ${conf})"$'\n'
-            echo "confidence=$conf" >> "$GITHUB_OUTPUT"
+            printf -- "- \`%s\`: added (confidence %s)\n" "$candidate" "$conf" >> summary.md
+            # One less-than-high spec sends the whole batch to a PR.
+            [ "$conf" = "high" ] || confidence=low
           done
-          echo "added=$added" >> "$GITHUB_OUTPUT"
           {
-            echo 'summary<<SUMMARY_EOF'
-            echo "$summary"
-            echo 'SUMMARY_EOF'
+            echo "added=$added"
+            echo "confidence=$confidence"
+            echo "unhandled=$(wc -l < unhandled.tsv | tr -d ' ')"
           } >> "$GITHUB_OUTPUT"
 
       # --------------------------------------------------------------- validate
@@ -139,13 +148,32 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull --rebase --autostash origin main || true
           git add content/models
-          git commit -m "Add newly detected model(s) via autonomous research agent
-
-          ${{ steps.research.outputs.summary }}
-          Researched from official sources, spec validated against the schema, and
-          the full catalog build passed before publishing. Revert this commit if
-          anything looks wrong."
+          {
+            echo "Add newly detected model(s) via autonomous research agent"
+            echo
+            cat summary.md
+            echo
+            echo "Researched from official sources, spec validated against the schema,"
+            echo "and the full catalog build passed before publishing. Revert this"
+            echo "commit if anything looks wrong."
+          } > commit-msg.txt
+          git commit -F commit-msg.txt
           git push
+
+      - name: Write PR body
+        if: |
+          steps.research.outputs.added != '' && steps.research.outputs.added != '0'
+          && (steps.research.outputs.confidence != 'high' || inputs.force_pr)
+        run: |
+          {
+            echo "The research agent produced a spec it is **not** fully confident in, so"
+            echo "this is a PR rather than a direct publish."
+            echo
+            cat summary.md
+            echo
+            echo "The spec validated and the catalog builds. Check the flagged"
+            echo "uncertainties in the run log before merging."
+          } > pr-body.md
 
       - name: Open a PR instead (lower confidence, or forced)
         if: |
@@ -157,20 +185,84 @@ jobs:
           title: "Autonomous model update (review requested)"
           commit-message: "Add newly detected model(s) via autonomous research agent"
           labels: frontier-tracker
-          body: |
-            The research agent produced a spec it is **not** fully confident in, so
-            this is a PR rather than a direct publish.
+          add-paths: content/models
+          body-path: pr-body.md
 
-            ${{ steps.research.outputs.summary }}
+      # ------------------------------------------------------------ escalate
+      - name: Open an issue for candidates that were not added
+        if: steps.research.outputs.unhandled != '' && steps.research.outputs.unhandled != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const rows = fs.readFileSync('unhandled.tsv', 'utf8').trim().split('\n')
+              .filter(Boolean).map((l) => l.split('\t'));
+            const ids = rows.map(([id]) => id);
+            const title = `New frontier model(s) need review: ${ids.slice(0, 3).join(', ')}${ids.length > 3 ? '…' : ''}`;
+            const report = fs.existsSync('tracker-report.txt') ? fs.readFileSync('tracker-report.txt', 'utf8').trim() : '';
+            const body = [
+              'The autonomous updater detected these models but did **not** add them:',
+              '',
+              '| Model ID | Why it was not added |',
+              '|---|---|',
+              ...rows.map(([id, why]) => `| \`${id}\` | ${why} |`),
+              '',
+              'They are now in the observed baseline, so **this issue is the only record** — no later run will report them again.',
+              '',
+              report && '<details><summary>Tracker output</summary>\n\n```\n' + report + '\n```\n</details>\n',
+              '### To add a confirmed release',
+              '1. Verify against the provider\'s official docs — a docs page can mention an alias, a retired model, or a variant.',
+              '2. `node scripts/scaffold-model.mjs --spec spec.json` (see `docs/AGENTIC-TRACKING.md`), or re-run this workflow with the `candidate` input once `ANTHROPIC_API_KEY` is set.',
+              '3. `pnpm build` to validate the frontmatter.',
+              '',
+              '> Never invent benchmark numbers. Omit a score rather than guess it.',
+            ].filter((l) => l !== false).join('\n');
 
-            The spec validated and the catalog builds. Check the flagged
-            uncertainties in the run log before merging.
+            const open = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: 'frontier-tracker', per_page: 100,
+            });
+            const dupe = open.find((i) => i.title === title);
+            if (dupe) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: dupe.number, body: 'Detected again on a later run.\n\n' + body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title, body, labels: ['frontier-tracker'],
+              });
+            }
+
+      # -------------------------------------------------------------- baseline
+      # Last on purpose: only bank the new IDs once every candidate has been
+      # added, PR'd, or written up above. If any earlier step failed, this is
+      # skipped and the next run detects the same models again.
+      - name: Persist tracker baseline
+        if: ${{ !inputs.candidate }}
+        run: |
+          git pull --rebase --autostash origin main || true
+          if ! git diff --quiet scripts/tracker-state.json; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add scripts/tracker-state.json
+            git commit -m "chore: update frontier tracker baseline"
+            git push
+          fi
 
       - name: Report
         if: always()
         run: |
+          # shellcheck disable=SC2016 # backticks in the sed replacement are literal markdown
           {
             echo "## Autonomous update"
             echo ""
-            echo "${{ steps.research.outputs.summary || 'Nothing new detected.' }}"
+            if [ -s summary.md ]; then cat summary.md; fi
+            if [ -s unhandled.tsv ]; then
+              echo ""
+              echo "Reported in an issue instead of added:"
+              sed 's/^\([^\t]*\)\t\(.*\)$/- `\1`: \2/' unhandled.tsv
+            fi
+            if [ ! -s summary.md ] && [ ! -s unhandled.tsv ]; then echo "Nothing new detected."; fi
           } >> "$GITHUB_STEP_SUMMARY"
