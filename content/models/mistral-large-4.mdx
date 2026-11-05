@@ -1,0 +1,51 @@
+---
+slug: mistral-large-4
+name: Mistral Large 4
+provider: mistral
+releaseDate: 2026-10-29
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 0.7
+  outputPer1M: 2.1
+availability: [api, open-weights]
+strengths: [open-weights, coding, cost-efficiency, security]
+officialDocs: https://mistral.ai/news/mistral-large-4-oss/
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Mistral Large 4
+
+Mistral Large 4 (nicknamed "Le Chonk") is Mistral AI's flagship: a
+**1-trillion-parameter**, natively multimodal mixture-of-experts model. It went
+into public API preview on October 6, 2026, and Mistral released an improved
+version **with open weights on October 29** — the date used here.
+
+- The strongest open-weight model from **outside China**, per one Artificial
+  Analysis-based comparison (leading Chinese open models still score higher).
+- Coding and **defensive security** work, where Mistral claims it leads open
+  models.
+- Very low API pricing for its size: $0.70 / $2.10 per 1M.
+- A European option for teams that prefer an EU-based provider.
+
+## Specs & cost
+
+- **Architecture:** 1T total parameters, MoE. Active parameters are reported as
+  ~52B (also seen as 49B); not confirmed here.
+- **Context:** 1M tokens.
+- **Pricing:** $0.70 / 1M input, $0.07 / 1M cached input, $2.10 / 1M output,
+  per Mistral's announcement. Pre-release pages list $1.36 / $4.18 — outdated.
+- **Licence:** the **Mistral Ecosystem Open-Weight License**, a modified MIT
+  licence. Businesses offering the model to third parties as a hosted service
+  need a separate commercial licence.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** Mistral did not publish a full benchmark table
+that could be checked, and the third-party figures in circulation are not
+consistent enough to quote.
+
+## Official resources
+
+- [Mistral Large 4 is now open weight](https://mistral.ai/news/mistral-large-4-oss/)

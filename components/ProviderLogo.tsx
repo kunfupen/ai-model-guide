@@ -100,6 +100,27 @@ const LOGOS: Record<Provider, { node: React.ReactNode; viewBox: string }> = {
       />
     ),
   },
+  mistral: {
+    // Mistral's pixel "M", one row per step of its yellow-to-red gradient.
+    viewBox: "0 0 24 24",
+    node: (
+      <>
+        <rect x="2" y="2" width="4" height="4" fill="#FFD800" />
+        <rect x="18" y="2" width="4" height="4" fill="#FFD800" />
+        <rect x="2" y="6" width="4" height="4" fill="#FFAF00" />
+        <rect x="6" y="6" width="4" height="4" fill="#FFAF00" />
+        <rect x="14" y="6" width="4" height="4" fill="#FFAF00" />
+        <rect x="18" y="6" width="4" height="4" fill="#FFAF00" />
+        <rect x="2" y="10" width="4" height="4" fill="#FF8205" />
+        <rect x="10" y="10" width="4" height="4" fill="#FF8205" />
+        <rect x="18" y="10" width="4" height="4" fill="#FF8205" />
+        <rect x="2" y="14" width="4" height="4" fill="#FA500F" />
+        <rect x="18" y="14" width="4" height="4" fill="#FA500F" />
+        <rect x="2" y="18" width="4" height="4" fill="#E10500" />
+        <rect x="18" y="18" width="4" height="4" fill="#E10500" />
+      </>
+    ),
+  },
 };
 
 export function ProviderLogo({

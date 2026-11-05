@@ -1,0 +1,78 @@
+---
+slug: anthropic-claude-haiku-5-5
+name: Claude Haiku 5.5
+provider: anthropic
+releaseDate: 2026-10-07
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 0.1
+  outputPer1M: 0.5
+availability: [api, bedrock, vertex, azure]
+strengths: [speed, cost-efficiency, agentic-tasks]
+officialDocs: https://platform.claude.com/docs/en/models/haiku-5-5/overview
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 4.0
+    score: 39.2
+    max: 100
+    source: https://www.datacamp.com/blog/claude-haiku-5-5
+---
+
+## When to reach for Claude Haiku 5.5
+
+Claude Haiku 5.5 (October 7, 2026) is Anthropic's fastest model, built for
+high-volume, latency-sensitive work: classification, routing, extraction, and
+**subagent tasks** inside larger agent systems. It replaces
+[Claude Haiku 4.5](/models/anthropic-claude-4-5-haiku), which is now legacy.
+
+- Cheap, fast steps in an agent pipeline, escalating to
+  [Sonnet 5.5](/models/anthropic-claude-sonnet-5-5) or
+  [Opus 5.5](/models/anthropic-claude-opus-5-5) only when needed.
+- Much more capable than the Haiku it replaces: Terminal-Bench 4.0 rose from
+  0.0 to 39.2 (max effort), and Anthropic reports OSWorld 2.1 at 72.4 against
+  Haiku 4.5's 15.7.
+- It now matches [GPT-6 Luna](/models/openai-gpt-6-luna) on headline price,
+  $0.10 / $0.50 — and beats it on Anthropic's agentic benchmarks.
+
+## The price has a cliff at 100K tokens
+
+The headline rate only applies to **prompts up to 100,000 tokens**. Above that,
+the **whole request** is billed at 5×: $0.50 / 1M input and $2.50 / 1M output.
+Cache reads go from $0.01 to $0.05 the same way.
+
+For subagent work that keeps prompts short, this is the cheapest capable model
+Anthropic has shipped — Anthropic estimates about 75% cheaper than Haiku 4.5 on
+average, up to 90% under 100K. For long-context jobs, price it at the higher
+tier.
+
+> **Token counts go up ~30%.** Haiku 5.5 uses the newer tokenizer introduced
+> with Claude Opus 4.7, so the same text counts as roughly 30% more tokens than
+> on Haiku 4.5. Factor that into any cost comparison.
+
+## Specs & cost
+
+- **Model ID:** `claude-haiku-5-5` (`anthropic.claude-haiku-5-5` on Bedrock).
+- **Context:** 1M tokens (up from Haiku 4.5's 200K), up to 128K output.
+- **Thinking:** adaptive, with `effort` — default `medium`. Omit `temperature`,
+  `top_p` and `top_k`.
+- **Knowledge cutoff:** June 2026.
+- **Pricing:** $0.10 / $0.50 per 1M up to 100K-token prompts; $0.50 / $2.50
+  above. Batch is 50% off; minimum cacheable prompt is 512 tokens.
+- **Retirement:** not sooner than October 7, 2027.
+
+## Benchmark notes
+
+**Terminal-Bench 4.0 (39.2)** is from Anthropic's launch table and is a
+**maximum-effort** figure. At the default `medium` effort it scores about 20, and
+Artificial Analysis measured 33 in its own harness — so expect well below 39 out
+of the box.
+
+Anthropic published no SWE-bench Verified score for Haiku 5.5; figures
+attributed to it elsewhere are not Anthropic's.
+
+## Official resources
+
+- [Claude Haiku 5.5 overview](https://platform.claude.com/docs/en/models/haiku-5-5/overview)
+- [What's new in Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/whats-new-haiku-5-5)
+- [Migration guide](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide)

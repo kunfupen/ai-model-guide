@@ -1,0 +1,63 @@
+---
+slug: google-gemini-4-argon
+name: Gemini 4 Argon
+provider: google
+releaseDate: 2026-10-13
+contextWindow: 1048576
+modalities: [text, vision, audio, video]
+pricing:
+  inputPer1M: 4
+  outputPer1M: 20
+availability: [api]
+strengths: [reasoning, coding, agentic-tasks, long-context]
+officialDocs: https://ai.google.dev/gemini-api/docs/models/gemini-4-argon
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Gemini 4 Argon
+
+Gemini 4 Argon is the first model of Google's **Gemini 4** generation — a
+reasoning model for long, multi-step work such as software engineering, legal
+and financial analysis, and cyber defence. Google announced it on September 30,
+2026 for its Fairwind cyber-defender program first; it became **generally
+available on the paid Gemini API on October 13**, which is the date used here.
+
+- Long agentic tasks over large inputs: one 1M-token window shared by input,
+  thinking and output.
+- Very long generations: with long decode, a single response can run close to
+  1M tokens.
+- Wide multimodal input — text, image, video, audio and PDF.
+
+Independent testing puts it roughly level with
+[GPT-6 Astra](/models/openai-gpt-6-astra).
+
+## Specs & cost
+
+- **Model ID:** `gemini-4-argon`.
+- **Context:** 1,048,576 tokens, shared between input, thinking and output.
+  Default output cap is 65,536 tokens; long decode lifts it towards the full
+  window.
+- **Pricing:** listed at the standard **$4 / $20 per 1M**. Google is charging an
+  introductory **$2 / $10 through November 30, 2026**; cached input is 95% off at
+  both rates, and output pricing includes thinking tokens.
+- **Availability:** paid Gemini API tier only — not on the free tier.
+- **Knowledge cutoff:** reported as March 2026 by third parties; not confirmed
+  on Google's own page.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** A Terminal-Bench 4.0 figure of 57.1 circulates
+on comparison sites, but its origin is unclear — the same sites list a GPT-6.1
+Sol figure that matches neither OpenAI's nor Vals AI's — so it is not used.
+
+## Gemini 4 Carbon
+
+Google announced **Gemini 4 Carbon**, a stronger model, on October 28. It is
+limited to selected cyber defenders, with no public model ID, model card or
+release date, so it is not listed.
+
+## Official resources
+
+- [Gemini 4 Argon model page](https://ai.google.dev/gemini-api/docs/models/gemini-4-argon)
+- [What's new in Gemini 4 Argon](https://ai.google.dev/gemini-api/docs/latest-model)
