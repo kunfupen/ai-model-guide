@@ -44,6 +44,11 @@ async function loadState() {
 
 async function saveState(state, allObserved) {
   const merged = new Set([...state.seenIds, ...allObserved]);
+  // Only rewrite the file when the baseline actually gains an ID. Rewriting it
+  // on every run (just to bump lastCheck/runs) produced a commit, and a deploy,
+  // every few hours with nothing in it. `lastCheck` therefore records the last
+  // time the baseline changed, and `runs` counts baseline updates.
+  if (state.runs > 0 && merged.size === state.seenIds.size) return merged;
   const payload = {
     _comment:
       "Baseline of every model ID the tracker has ever observed. A new frontier release is an ID that appears in neither this list nor the catalog. Delete this file and re-run with --seed-baseline to rebuild.",
