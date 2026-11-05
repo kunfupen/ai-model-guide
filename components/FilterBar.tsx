@@ -81,6 +81,9 @@ export function FilterBar() {
           />
         ))}
       </Group>
+      <Group label="Status">
+        <FilterChip paramKey="legacy" value="1" label="Include legacy models" />
+      </Group>
     </div>
   );
 }

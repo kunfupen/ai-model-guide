@@ -45,11 +45,17 @@ function orderBenchmarks(names: string[]): string[] {
 
 export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] }) {
   // Group every model's score under each benchmark (task).
+  // Superseded models are kept out of the rankings (and ★ Best) — a retired model
+  // "winning" only because its successor doesn't publish that benchmark is
+  // misleading. They stay one click away in each section.
   const groups = new Map<string, BenchmarkRow[]>();
+  const legacyGroups = new Map<string, BenchmarkRow[]>();
+  const currentCount = models.filter((m) => !m.supersededBy).length;
   for (const m of models) {
+    const target = m.supersededBy ? legacyGroups : groups;
     for (const b of m.benchmarks) {
       const max = b.max ?? 100;
-      const rows = groups.get(b.name) ?? [];
+      const rows = target.get(b.name) ?? [];
       rows.push({
         slug: m.slug,
         model: m.name,
@@ -58,14 +64,17 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
         max,
         pct: Math.min(100, Math.max(0, (b.score / max) * 100)),
         verified: b.verified !== false,
+        reportedBy: b.reportedBy,
       });
-      groups.set(b.name, rows);
+      target.set(b.name, rows);
     }
   }
 
-  const names = orderBenchmarks(Array.from(groups.keys()));
+  const names = orderBenchmarks(
+    Array.from(new Set([...groups.keys(), ...legacyGroups.keys()])),
+  );
   const unbenchmarked = models
-    .filter((m) => m.benchmarks.length === 0)
+    .filter((m) => m.benchmarks.length === 0 && !m.supersededBy)
     .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
 
   if (names.length === 0) {
@@ -81,9 +90,10 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
       {names.map((name, i) => {
         // Verified scores rank above unverified placeholders at equal value, so
         // the top of each list is trustworthy.
-        const rows = (groups.get(name) ?? [])
-          .slice()
-          .sort((a, b) => b.pct - a.pct || Number(b.verified) - Number(a.verified));
+        const byScore = (a: BenchmarkRow, b: BenchmarkRow) =>
+          b.pct - a.pct || Number(b.verified) - Number(a.verified);
+        const rows = (groups.get(name) ?? []).slice().sort(byScore);
+        const legacyRows = (legacyGroups.get(name) ?? []).slice().sort(byScore);
 
         return (
           <div key={name} style={{ "--i": i * 2 } as React.CSSProperties}>
@@ -91,7 +101,8 @@ export function BenchmarksComparison({ models }: { models: ModelFrontmatter[] })
               name={name}
               blurb={BENCHMARK_BLURB[name]}
               rows={rows}
-              totalModels={models.length}
+              legacyRows={legacyRows}
+              totalModels={currentCount}
               firstParty={FIRST_PARTY.has(name)}
               legacy={LEGACY.has(name)}
             />

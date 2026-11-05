@@ -27,7 +27,7 @@ function isRecent(iso: string, days = 75): boolean {
 export function ModelCard({ frontmatter }: { frontmatter: ModelFrontmatter }) {
   const ctx = formatContext(frontmatter.contextWindow);
   const isPreview = /preview/i.test(frontmatter.name);
-  const isNew = !isPreview && isRecent(frontmatter.releaseDate);
+  const isNew = !isPreview && !frontmatter.supersededBy && isRecent(frontmatter.releaseDate);
   const category = modelCategory(frontmatter);
   // Prefer a verified score for the card's headline bar — a placeholder should
   // never be the first number a reader sees. Fall back to an unverified one only
@@ -78,6 +78,14 @@ export function ModelCard({ frontmatter }: { frontmatter: ModelFrontmatter }) {
             className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ring-1 ring-inset ${category.className}`}
           >
             {category.label}
+          </span>
+        )}
+        {frontmatter.supersededBy && (
+          <span
+            title="Superseded by a newer model from the same lab"
+            className="inline-flex items-center rounded-full bg-zinc-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500 ring-1 ring-inset ring-zinc-500/20 dark:text-zinc-400"
+          >
+            Legacy
           </span>
         )}
       </div>

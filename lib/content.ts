@@ -51,7 +51,29 @@ export async function getModelBySlug(slug: string): Promise<Model> {
 
 export async function getAllModels(): Promise<Model[]> {
   const slugs = await getAllModelSlugs();
-  return Promise.all(slugs.map(getModelBySlug));
+  const models = await Promise.all(slugs.map(getModelBySlug));
+  validateSupersession(models);
+  return models;
+}
+
+/**
+ * Fail the build on a broken "superseded by" chain: the target must exist, must
+ * not be the model itself, and must be current (not legacy) — so a legacy page
+ * always points readers straight at the model to use instead.
+ */
+function validateSupersession(models: Model[]): void {
+  const bySlug = new Map(models.map((m) => [m.frontmatter.slug, m.frontmatter]));
+  const problems: string[] = [];
+  for (const { frontmatter: m } of models) {
+    const target = m.supersededBy;
+    if (!target) continue;
+    const t = bySlug.get(target);
+    if (target === m.slug) problems.push(`${m.slug}: supersededBy points at itself`);
+    else if (!t) problems.push(`${m.slug}: supersededBy "${target}" is not a model in the catalog`);
+    else if (t.supersededBy)
+      problems.push(`${m.slug}: supersededBy "${target}" is itself legacy (→ ${t.supersededBy}); point at the current model`);
+  }
+  if (problems.length) throw new Error(`Invalid supersededBy:\n  - ${problems.join("\n  - ")}`);
 }
 
 export async function getAllToolSlugs(): Promise<string[]> {

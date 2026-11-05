@@ -14,7 +14,32 @@ export type BenchmarkRow = {
   pct: number;
   /** False for illustrative placeholders awaiting a verification pass. */
   verified: boolean;
+  /** Who produced the number; undefined when the source's provenance is unclear. */
+  reportedBy?: "vendor" | "independent";
 };
+
+/** Small tag saying who measured a score. Exported for the model page too. */
+export function SourceTag({ reportedBy }: { reportedBy?: "vendor" | "independent" }) {
+  if (reportedBy === "vendor")
+    return (
+      <span
+        title="Self-reported: the model's own lab published this number (its docs, launch table or README)"
+        className="shrink-0 rounded-full bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-700 ring-1 ring-inset ring-amber-500/20 dark:text-amber-400"
+      >
+        Self-reported
+      </span>
+    );
+  if (reportedBy === "independent")
+    return (
+      <span
+        title="Independent: a third party ran this benchmark itself (e.g. Vals AI, Artificial Analysis)"
+        className="shrink-0 rounded-full bg-sky-500/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-sky-700 ring-1 ring-inset ring-sky-500/20 dark:text-sky-400"
+      >
+        Independent
+      </span>
+    );
+  return null;
+}
 
 const TOP_N = 5;
 
@@ -22,19 +47,24 @@ export function BenchmarkSection({
   name,
   blurb,
   rows,
+  legacyRows = [],
   totalModels,
   firstParty = false,
   legacy = false,
 }: {
   name: string;
   blurb?: string;
+  /** Scores from current models — the only ones ranked and eligible for ★ Best. */
   rows: BenchmarkRow[];
+  /** Scores from superseded models, shown on request, never ranked as Best. */
+  legacyRows?: BenchmarkRow[];
   totalModels?: number;
   firstParty?: boolean;
   /** Saturated benchmark kept for historical context only. */
   legacy?: boolean;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const [showLegacy, setShowLegacy] = useState(false);
 
   // Only a verified score can hold "best on this benchmark" — an unverified
   // placeholder must never be presented as the leader.
@@ -74,7 +104,7 @@ export function BenchmarkSection({
           )}
           {typeof totalModels === "number" && (
             <span className="font-mono text-[11px] tabular-nums text-zinc-400 dark:text-zinc-600">
-              {rows.length}/{totalModels} models
+              {rows.length}/{totalModels} current models
             </span>
           )}
         </div>
@@ -82,6 +112,12 @@ export function BenchmarkSection({
           <span className="text-xs text-zinc-400 dark:text-zinc-500">{blurb}</span>
         )}
       </div>
+
+      {rows.length === 0 && (
+        <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">
+          No current model has a score here — only superseded ones.
+        </p>
+      )}
 
       <ul className="mt-6 space-y-3.5">
         {visible.map((r, i) => {
@@ -91,7 +127,7 @@ export function BenchmarkSection({
               <div className="flex items-baseline justify-between gap-3 text-sm">
                 <Link
                   href={`/models/${r.slug}`}
-                  className="group flex min-w-0 items-center gap-2"
+                  className="group flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1"
                 >
                   <span className="w-5 shrink-0 font-mono text-xs tabular-nums text-zinc-300 dark:text-zinc-600">
                     {String(i + 1).padStart(2, "0")}
@@ -113,6 +149,7 @@ export function BenchmarkSection({
                       Unverified
                     </span>
                   )}
+                  {r.verified && <SourceTag reportedBy={r.reportedBy} />}
                 </Link>
                 <span
                   className={`shrink-0 font-mono text-xs tabular-nums ${
@@ -167,6 +204,54 @@ export function BenchmarkSection({
             <path d="m6 9 6 6 6-6" />
           </svg>
         </button>
+      )}
+
+      {legacyRows.length > 0 && (
+        <div className="mt-4">
+          <button
+            type="button"
+            onClick={() => setShowLegacy((v) => !v)}
+            aria-expanded={showLegacy}
+            className="text-xs font-medium text-zinc-500 underline decoration-zinc-300 underline-offset-4 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:decoration-zinc-700 dark:hover:text-zinc-100"
+          >
+            {showLegacy
+              ? "Hide legacy models"
+              : `Show ${legacyRows.length} legacy model${legacyRows.length === 1 ? "" : "s"}`}
+          </button>
+          {showLegacy && (
+            <ul className="mt-4 space-y-3 border-l-2 border-dashed border-zinc-200 pl-4 dark:border-zinc-800">
+              {legacyRows.map((r) => (
+                <li key={r.slug}>
+                  <div className="flex items-baseline justify-between gap-3 text-sm">
+                    <Link href={`/models/${r.slug}`} className="group flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
+                      <ProviderChip provider={r.provider} />
+                      <span className="truncate text-zinc-500 group-hover:underline group-hover:decoration-zinc-300 group-hover:underline-offset-4 dark:text-zinc-400">
+                        {r.model}
+                      </span>
+                      <span className="shrink-0 rounded-full bg-zinc-500/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500 ring-1 ring-inset ring-zinc-500/20 dark:text-zinc-400">
+                        Legacy
+                      </span>
+                      {!r.verified ? (
+                        <span className="shrink-0 rounded-full border border-dashed border-zinc-300 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-400 dark:border-zinc-600 dark:text-zinc-500">
+                          Unverified
+                        </span>
+                      ) : (
+                        <SourceTag reportedBy={r.reportedBy} />
+                      )}
+                    </Link>
+                    <span className="shrink-0 font-mono text-xs tabular-nums text-zinc-400 dark:text-zinc-600">
+                      {r.score}
+                      <span> / {r.max}</span>
+                    </span>
+                  </div>
+                  <div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-900">
+                    <div className="h-full rounded-full bg-zinc-200 dark:bg-zinc-800" style={{ width: `${r.pct}%` }} aria-hidden />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       )}
     </section>
   );

@@ -1,4 +1,5 @@
 import type { ModelFrontmatter } from "@/lib/schemas";
+import { SourceTag } from "./BenchmarkSection";
 
 type Benchmark = ModelFrontmatter["benchmarks"][number];
 
@@ -40,6 +41,7 @@ export function BenchmarksTable({ benchmarks }: { benchmarks: Benchmark[] }) {
                       Unverified
                     </span>
                   )}
+                  {b.verified !== false && <SourceTag reportedBy={b.reportedBy} />}
                   <span className="font-mono text-xs tabular-nums text-zinc-500 dark:text-zinc-400">
                     {b.score}
                     <span className="text-zinc-400 dark:text-zinc-600"> / {max}</span>
