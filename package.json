@@ -11,6 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "check:render": "node scripts/check-rendering.mjs",
     "track": "node scripts/track-releases.mjs",
     "track:json": "node scripts/track-releases.mjs --json",
     "scaffold": "node scripts/scaffold-model.mjs",
@@ -35,6 +36,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "playwright-core": "1.65.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
