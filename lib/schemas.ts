@@ -52,6 +52,12 @@ export const ModelFrontmatterSchema = z.object({
   availability: z.array(Availability).min(1),
   strengths: z.array(z.string()).default([]),
   officialDocs: z.string().url(),
+  /**
+   * Slug of the current model that replaces this one. Set => the model is
+   * legacy: badged, hidden from the catalog by default, and excluded from
+   * benchmark rankings. Must name an existing model that is not itself legacy.
+   */
+  supersededBy: z.string().regex(/^[a-z0-9-]+$/, "supersededBy must be a model slug").optional(),
   tweetIds: z.array(z.string().regex(/^\d+$/, "tweet IDs are numeric")).default([]),
   benchmarks: z
     .array(
@@ -68,6 +74,15 @@ export const ModelFrontmatterSchema = z.object({
          * a placeholder can never masquerade as a verified result.
          */
         verified: z.boolean().default(true),
+        /**
+         * Who produced the number. "vendor": the model's own lab (its docs,
+         * launch table or README, including articles that relay that table).
+         * "independent": a third party that ran the benchmark itself (e.g. Vals
+         * AI, Artificial Analysis). Left unset when the source is an aggregator
+         * or blog whose provenance isn't clear — the UI shows no tag rather than
+         * a guess.
+         */
+        reportedBy: z.enum(["vendor", "independent"]).optional(),
       }),
     )
     .default([]),

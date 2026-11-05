@@ -7,6 +7,8 @@ export type FilterQuery = {
   provider?: Provider[];
   modality?: Modality[];
   availability?: Availability[];
+  /** Include superseded models. Off by default; a search turns it on. */
+  legacy?: boolean;
   sort?: SortKey;
 };
 
@@ -29,6 +31,7 @@ export function parseQuery(searchParams: URLSearchParams): FilterQuery {
     provider: arr<Provider>("provider"),
     modality: arr<Modality>("modality"),
     availability: arr<Availability>("availability"),
+    legacy: searchParams.get("legacy") === "1",
     sort,
   };
 }
@@ -38,7 +41,10 @@ export function filterAndSort(
   q: FilterQuery,
 ): ModelFrontmatter[] {
   const needle = q.q?.toLowerCase();
+  // Searching for a name should find it even if it's legacy.
+  const includeLegacy = q.legacy || Boolean(needle);
   const filtered = models.filter((m) => {
+    if (m.supersededBy && !includeLegacy) return false;
     if (needle) {
       const haystack = [
         m.name,

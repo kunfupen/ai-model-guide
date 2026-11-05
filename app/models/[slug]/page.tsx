@@ -54,7 +54,7 @@ function relatedModels(
   limit = 3,
 ): ModelFrontmatter[] {
   return all
-    .filter((m) => m.slug !== current.slug)
+    .filter((m) => m.slug !== current.slug && !m.supersededBy)
     .map((m) => {
       let score = 0;
       if (m.provider === current.provider) score += 3;
@@ -87,6 +87,9 @@ export default async function ModelPage({
     frontmatter,
     allModels.map((m) => m.frontmatter),
   );
+  const successor = frontmatter.supersededBy
+    ? allModels.find((m) => m.frontmatter.slug === frontmatter.supersededBy)?.frontmatter
+    : undefined;
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-16">
@@ -122,6 +125,14 @@ export default async function ModelPage({
               {category.label}
             </span>
           )}
+          {successor && (
+            <span
+              title="Superseded by a newer model from the same lab"
+              className="inline-flex items-center rounded-full bg-zinc-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500 ring-1 ring-inset ring-zinc-500/20 dark:text-zinc-400"
+            >
+              Legacy
+            </span>
+          )}
         </div>
         <h1 className="mt-5 text-5xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
           {frontmatter.name.replace(/\s*\(preview\)/i, "")}
@@ -129,6 +140,18 @@ export default async function ModelPage({
         {frontmatter.strengths.length > 0 && (
           <p className="mt-4 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
             Best for {frontmatter.strengths.join(" · ")}.
+          </p>
+        )}
+        {successor && (
+          <p className="mt-5 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-400">
+            This is a legacy model. Its replacement is{" "}
+            <Link
+              href={`/models/${successor.slug}`}
+              className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900 dark:text-zinc-100 dark:decoration-zinc-700 dark:hover:decoration-zinc-100"
+            >
+              {successor.name}
+            </Link>
+            . It is kept out of the catalog&apos;s default view and the benchmark rankings.
           </p>
         )}
       </header>

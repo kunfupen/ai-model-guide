@@ -19,7 +19,11 @@ export function CatalogClient({ models }: { models: ModelFrontmatter[] }) {
     );
   }, [models, searchParams]);
 
-  const total = models.length;
+  const query = parseQuery(new URLSearchParams(searchParams.toString()));
+  const legacyShown = query.legacy || Boolean(query.q);
+  const legacyCount = models.filter((m) => m.supersededBy).length;
+  // "Total" is what the current view can contain: legacy only counts when shown.
+  const total = legacyShown ? models.length : models.length - legacyCount;
   const showing = filtered.length;
   const isFiltered = showing !== total;
   const pad = (n: number) => String(n).padStart(2, "0");
@@ -47,7 +51,8 @@ export function CatalogClient({ models }: { models: ModelFrontmatter[] }) {
             </Link>
           )}
           <p className="font-mono text-xs tabular-nums text-zinc-400 dark:text-zinc-600">
-            {isFiltered ? `${pad(showing)} of ${pad(total)}` : `${pad(total)} total`}
+            {isFiltered ? `${pad(showing)} of ${pad(total)}` : `${pad(total)} ${legacyShown ? "total" : "current"}`}
+            {!legacyShown && legacyCount > 0 && ` · ${legacyCount} legacy hidden`}
           </p>
           <SortMenu />
         </div>
