@@ -1,0 +1,107 @@
+---
+slug: anthropic-claude-fable-5-2
+name: Claude Fable 5.2
+provider: anthropic
+releaseDate: 2026-11-09
+contextWindow: 1000000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 8
+  outputPer1M: 40
+availability: [api, claude-ai, bedrock, vertex, azure]
+strengths: [reasoning, coding, agentic-tasks]
+officialDocs: https://platform.claude.com/docs/en/models/fable-5-2/overview
+tweetIds: []
+benchmarks:
+  - name: Terminal-Bench 4.0
+    score: 65.15
+    max: 100
+    source: https://www.vals.ai/models/anthropic_claude-fable-5-2
+    reportedBy: independent
+  - name: Terminal-Bench-Science 0.1
+    score: 74.6
+    max: 100
+    source: https://www.datacamp.com/blog/claude-fable-5-2-and-mythos-5-2
+    reportedBy: vendor
+---
+
+## When to reach for Claude Fable 5.2
+
+Claude Fable 5.2 (November 9, 2026) is Anthropic's top-end model, for demanding
+reasoning and long-horizon agentic work — agent sessions that run for hours,
+multistep deep research, and analysis carried through to a finished document,
+spreadsheet or deck. It replaces
+[Claude Fable 5.1](/models/anthropic-claude-fable-5-1).
+
+- **Cheaper and faster than 5.1.** $8 / $40 per 1M against 5.1's $10 / $50 — a
+  20% cut on both sides — and Anthropic says responses arrive about 30% faster
+  across effort levels. Its comparative latency moves from "slower" to
+  "moderate", level with Opus 5.5.
+- **Scientific and long-horizon work**, where it posts the top
+  Terminal-Bench-Science score in this catalog (74.6, Anthropic's figure).
+- Anthropic reports it beats Claude Opus 5.5 on almost all the capabilities it
+  evaluated.
+
+Anthropic's docs still say to **start with
+[Claude Opus 5.5](/models/anthropic-claude-opus-5-5)** at half the price, and move
+to Fable 5.2 only when Opus 5.5 at higher effort falls short.
+
+## Before you migrate from Fable 5.1
+
+Four changes can break existing code:
+
+- **Editing earlier turns invalidates thinking blocks on every account.** If
+  anything before a Fable 5.2 thinking block changes — the system prompt, the
+  tools or an earlier message — replaying it returns 400. On 5.1 this only
+  applied to accounts created after August 31, 2026, so code that worked on an
+  older account can break on the switch. Keep conversations append-only.
+- **Only Fable 5.2 and Mythos 5.2 can read its thinking blocks.** Routing a
+  conversation from Fable 5.2 to any other model — including Opus 5.5 and Fable
+  5.1 — loses the reasoning for those turns.
+- **Computer use** needs `computer_toolset_20260801`; the older
+  `computer_20251124` tool errors everywhere except Amazon Bedrock.
+- **The advisor tool** only accepts Fable 5.2 or Mythos 5.2 as the advisor for a
+  Fable 5.2 executor.
+
+Unchanged from 5.1: thinking is always on (`disabled` and manual budgets return
+400), forced tool use is rejected, sampling parameters must be omitted, and it
+is not available under zero data retention.
+
+One behaviour change shows up without errors: at `medium` effort and above, a
+prompt line asking it to "answer directly" no longer stops it from thinking. Use
+a lower effort level for easy turns instead.
+
+## Specs & cost
+
+- **Model ID:** `claude-fable-5-2` (`anthropic.claude-fable-5-2` on Bedrock).
+- **Context:** 1M tokens, up to 128K output.
+- **Thinking:** adaptive, always on. Default effort `high`; `xhigh` and `max`
+  are available for the hardest work.
+- **Knowledge cutoff:** June 2026.
+- **Pricing:** $8 / 1M input, $40 / 1M output, $0.20 / 1M cache reads (2.5% of
+  input). Batch is half price. **Fast mode** is $16 / $80.
+- **Retirement:** not sooner than November 9, 2027.
+
+## Benchmark notes
+
+- **Terminal-Bench 4.0 (65.15)** is Vals AI's independent run, which puts it
+  level with Opus 5.5 on the same harness. A 67.6 figure also circulates from a
+  different harness.
+- **Terminal-Bench-Science 0.1 (74.6)** is Anthropic's own figure. On Vals AI's
+  independent run, GPT-6 Astra comes out ahead instead.
+
+No SWE-bench Verified or GPQA Diamond score is recorded; none was published.
+Anthropic's SWE-bench Pro figure is not recorded either, since vendors run that
+benchmark on their own task sets and harnesses.
+
+## Mythos 5.2
+
+**Claude Mythos 5.2** (`claude-mythos-5-2`) is the same model, with the same
+specs and prices, for organizations verified through Anthropic's programs such
+as the Cyber Verification Program. It is not listed separately.
+
+## Official resources
+
+- [Claude Fable 5.2 overview](https://platform.claude.com/docs/en/models/fable-5-2/overview)
+- [What's new in Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2)
+- [Announcement](https://www.anthropic.com/claude-fable-and-mythos-5-2)

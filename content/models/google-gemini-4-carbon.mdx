@@ -1,0 +1,57 @@
+---
+slug: google-gemini-4-carbon
+name: Gemini 4 Carbon
+provider: google
+releaseDate: 2026-11-10
+contextWindow: 1048576
+modalities: [text, vision, video]
+pricing:
+  inputPer1M: 4
+  outputPer1M: 20
+availability: [api, gemini-app]
+strengths: [reasoning, coding, agentic-tasks, long-context]
+officialDocs: https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Gemini 4 Carbon
+
+Gemini 4 Carbon is Google DeepMind's strongest model and the second of the
+Gemini 4 generation, above [Gemini 4 Argon](/models/google-gemini-4-argon).
+Google announced it on October 28 for selected cyber defenders; it became
+**generally available on November 10, 2026** to every paying developer on the
+Gemini API, which is the date used here.
+
+- The hardest long-horizon reasoning and agentic work in the Gemini line.
+- Agent systems built on Google's Antigravity platform, where Carbon launched
+  with a preview "swarm" feature for coordinating many agents.
+- Consumers: it is rolling out to Google AI Ultra subscribers in the Gemini app,
+  Antigravity and AI Mode in Search. Argon stays available from AI Pro up.
+
+## Specs & cost
+
+- **Model ID:** reported as `gemini-4-carbon`, following Argon's naming.
+- **Context:** 1,048,576 tokens, with output up to the full window.
+- **Inputs:** text, image and video, with text output. Two of three listings
+  also report audio and file input.
+- **Pricing:** listed at the standard **$4 / $20 per 1M**. The introductory rate
+  is **$2 / $10**, the same as Argon's. Carbon is **not on the free tier**, and it
+  uses more reasoning tokens per task — billed as output — so matching Argon's
+  per-token price does not mean matching its per-task cost.
+
+> **The context window and input types come from third parties.** Google's launch
+> post doesn't state them, and its model card could not be read from here. The
+> figures above are where Artificial Analysis, Vals AI and OpenRouter all agree;
+> they match Argon. The model ID is likewise reported rather than read from
+> Google's docs.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** Every figure found is outside this catalog's
+tracked set — for example Artificial Analysis's Intelligence Index (60) and the
+Vals Index (70.45) — and they use different methodologies.
+
+## Official resources
+
+- [Gemini 4 Carbon is now available](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/)
