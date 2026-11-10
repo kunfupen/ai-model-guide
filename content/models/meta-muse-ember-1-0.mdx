@@ -1,0 +1,54 @@
+---
+slug: meta-muse-ember-1-0
+name: Muse Ember 1.0
+provider: meta
+releaseDate: 2026-11-09
+contextWindow: 1048576
+modalities: [text, vision]
+pricing:
+  inputPer1M: 0.1
+  outputPer1M: 0.5
+availability: [api, vertex]
+strengths: [speed, cost-efficiency, agentic-tasks, long-context]
+officialDocs: https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/meta/muse-ember-1-0
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Muse Ember 1.0
+
+Muse Ember 1.0 (November 9, 2026) is the smallest model in Meta's Muse family,
+built for high-volume agent work: tool calls, coding subtasks, routing,
+extraction and long-document parsing. Meta says it is the first model trained
+with Muse Wonder Full, its largest model.
+
+- The cheap, fast step in an agent pipeline. At **$0.10 / $0.50 per 1M** it
+  matches [Claude Haiku 5.5](/models/anthropic-claude-haiku-5-5) and
+  [GPT-6 Luna](/models/openai-gpt-6-luna) on headline price.
+- It scores the same as Haiku 5.5 on the Artificial Analysis Intelligence Index
+  (36), at an estimated $0.14 per task against Haiku's $0.41.
+- Long inputs on a budget: a 1M-token context, with up to 512K output tokens.
+
+## Specs & cost
+
+- **Model ID:** `muse-ember-1.0`.
+- **Context:** 1,048,576 tokens in, 524,288 out.
+- **Inputs:** text and image, with text output, per Google Cloud's listing.
+  Meta's own messaging also mentions audio and video input, which isn't
+  confirmed in the platform listings.
+- **Pricing:** $0.10 / 1M input, $0.50 / 1M output; a cached-input rate of about
+  $0.004 / 1M is reported.
+- **Availability:** the Meta Model API and Muse Code, Google Cloud, and Oracle
+  Cloud. **No open weights**, and no parameter count is disclosed.
+
+It is a different model from [Muse Glimmer](/models/meta-muse-glimmer), Meta's
+small *open-weight* model, and doesn't replace it.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** Its Artificial Analysis Intelligence Index score
+(36) is outside this catalog's tracked set.
+
+## Official resources
+
+- [Muse Ember 1.0 on Google Cloud](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/meta/muse-ember-1-0)
