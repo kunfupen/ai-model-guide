@@ -1,0 +1,52 @@
+---
+slug: alibaba-qwen-4-max
+name: Qwen4-Max
+provider: alibaba
+releaseDate: 2026-11-16
+contextWindow: 1000000
+modalities: [text, vision]
+availability: [api]
+strengths: [reasoning, coding, long-context]
+officialDocs: https://www.alibabacloud.com/help/en/model-studio
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Qwen4-Max
+
+Qwen4-Max (November 16, 2026) is the first model of Alibaba's Qwen 4 series and
+its new flagship. It replaces [Qwen3.8-Max](/models/alibaba-qwen-3-8-max). It
+became generally available after a limited preview that started on
+November 11.
+
+- Alibaba's strongest hosted model for reasoning and coding, with a context
+  window of up to one million tokens.
+- Workloads where token efficiency matters: Alibaba says it uses fewer tokens
+  than Qwen3.8-Max on comparable tasks.
+- Image input is built in.
+
+It is **not open weights**. Alibaba says smaller open-weight Qwen 4 models will
+follow, with no date given. Until then,
+[Qwen3.8-27B](/models/alibaba-qwen-3-8-27b) is the run-it-yourself option.
+
+## Specs & cost
+
+- **Architecture:** mixture-of-experts, 2.4 trillion total parameters.
+- **Context:** up to 1,000,000 tokens.
+- **Availability:** QwenCloud, plus Alibaba's QwenWork and QwenStudio.
+- **Pricing:** not recorded. Launch coverage quotes $1.50 / $4.50 per 1M tokens,
+  but at least one report says that figure is unconfirmed, so it is left out
+  until Alibaba's own price list can be checked.
+
+> **These specs come from launch coverage of Alibaba's announcement.** Alibaba's
+> own pages could not be checked from the environment that wrote this page, and
+> the API model ID is not recorded for the same reason.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** No figure could be traced to Alibaba's own
+launch table.
+
+## Official resources
+
+- [Alibaba Cloud Model Studio](https://www.alibabacloud.com/help/en/model-studio)

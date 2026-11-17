@@ -1,0 +1,62 @@
+---
+slug: google-gemini-4-hydrogen
+name: Gemini 4 Hydrogen
+provider: google
+releaseDate: 2026-11-12
+contextWindow: 1048576
+modalities: [text, vision]
+pricing:
+  inputPer1M: 1.5
+  outputPer1M: 7.5
+availability: [api, gemini-app]
+strengths: [coding, agentic-tasks, cost-efficiency, long-context]
+officialDocs: https://deepmind.google/models/model-cards/gemini-4-hydrogen/
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Gemini 4 Hydrogen
+
+Gemini 4 Hydrogen (November 12, 2026) is the fast, low-cost model of Google's
+Gemini 4 generation. It replaces [Gemini 3.8 Flash](/models/google-gemini-3-8-flash)
+as Google's everyday workhorse. Google calls it a daily driver for agentic work
+and says it finishes tasks **2.5× faster than Gemini 3.8 Flash** at its default
+reasoning setting.
+
+- Repository coding and debugging, interactive web development, and multimodal
+  workflows where speed and cost matter more than peak capability.
+- Running alongside [Gemini 4 Carbon](/models/google-gemini-4-carbon) or
+  [Gemini 4 Argon](/models/google-gemini-4-argon) as the cheap sub-agent tier.
+- Tuning cost per task: four thinking levels, from low up to a new xhigh.
+
+According to Google's model card, Hydrogen is adapted from Gemini 4 Carbon. It
+is rolling out across the Gemini API, AI Studio, Gemini for business, the
+Gemini app and Google Search.
+
+## Specs & cost
+
+- **Model ID:** `gemini-4-hydrogen`, as reported by launch coverage and API
+  listings.
+- **Context:** 1,048,576 tokens.
+- **Pricing:** $1.50 / 1M input, $7.50 / 1M output, $0.075 / 1M cached input.
+  That matches Gemini 3.8 Flash's standard rate. Batch and Flex run at half the
+  standard rate.
+- **Knowledge cutoff:** reported as March 2026.
+
+> **These specs come from third parties.** Google's blog and docs could not be
+> reached from the environment that wrote this page. The model ID, context
+> window and price above are where several independent listings agree. Output
+> limits conflict between listings (65,536 against the full window), so none is
+> given here.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** Google's model card compares Hydrogen with
+Gemini 3.8 Flash, but that table could not be read from here. The figures in
+circulation trace to blogs without a clear source. Artificial Analysis rates it
+54 on its Intelligence Index at xhigh effort, which is not a tracked benchmark.
+
+## Official resources
+
+- [Gemini 4 Hydrogen model card](https://deepmind.google/models/model-cards/gemini-4-hydrogen/)
+- [Introducing Gemini 4 Hydrogen](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/)
