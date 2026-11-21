@@ -1,0 +1,59 @@
+---
+slug: openai-gpt-6-2-sol
+name: GPT-6.2 Sol
+provider: openai
+releaseDate: 2026-11-17
+contextWindow: 1050000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 2
+  outputPer1M: 10
+availability: [api, chatgpt]
+strengths: [coding, agentic-tasks, computer-use, cost-efficiency]
+officialDocs: https://developers.openai.com/api/docs/models/gpt-6.2-sol
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for GPT-6.2 Sol
+
+GPT-6.2 Sol (November 17, 2026) is OpenAI's mid-priced GPT-6 model. It
+replaces [GPT-6.1 Sol](/models/openai-gpt-6-1-sol) at the same price. OpenAI's
+pitch is that it lands **within half a point of
+[GPT-6.2 Astra](/models/openai-gpt-6-2-astra) on FrontierCode 2.0 at about
+one-fifth of the cost**.
+
+- Day-to-day agentic coding and computer use where Astra's extra headroom
+  isn't worth a 4× token bill.
+- Codex and ChatGPT users: Sol is the default everyday model. On the Pro plan
+  it also gets OpenAI's Ultrafast mode.
+- For lighter agent work, [GPT-6.1 Terra](/models/openai-gpt-6-1-terra) is
+  half the price again.
+
+## Specs & cost
+
+- **Model ID:** `gpt-6.2-sol` — confirmed in OpenAI's own OpenAPI spec.
+- **Context:** 1,050,000 tokens (922K max input), up to 128K output.
+- **Pricing:** $2 / 1M input, $10 / 1M output, $0.10 / 1M cached input, the
+  same as GPT-6.1 Sol. Above 272K input tokens it rises to $4 / $15.
+- **Availability:** the OpenAI API, plus ChatGPT and Codex for Plus, Pro,
+  Enterprise and Edu users.
+
+> **The price and context figures are from launch coverage, not read directly
+> from OpenAI.** OpenAI's docs and pricing pages could not be reached from the
+> environment that wrote this page. Several independent reports agree on them.
+> Only the model ID was checked against an OpenAI source.
+
+## Benchmark notes
+
+**No benchmarks are recorded yet.** OpenAI's headline FrontierCode 2.0 (43.8)
+and BenchCAD 2.1 Core (73.1) figures are outside this catalog's tracked set.
+Coverage of them is also inconsistent: one site gives FrontierCode 2.0 as 57
+on a different scale. Vals AI ranks it #9 of 41 on the Vals Index (66.06),
+which is not a tracked benchmark. Its Terminal-Bench 4.0 run could not be
+read from here.
+
+## Official resources
+
+- [GPT-6.2 Sol model docs](https://developers.openai.com/api/docs/models/gpt-6.2-sol)
+- [OpenAI API models](https://developers.openai.com/api/docs/models)

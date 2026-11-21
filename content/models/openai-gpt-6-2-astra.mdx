@@ -1,0 +1,63 @@
+---
+slug: openai-gpt-6-2-astra
+name: GPT-6.2 Astra
+provider: openai
+releaseDate: 2026-11-17
+contextWindow: 1050000
+modalities: [text, vision]
+pricing:
+  inputPer1M: 8
+  outputPer1M: 40
+availability: [api, chatgpt]
+strengths: [reasoning, coding, agentic-tasks, computer-use]
+officialDocs: https://developers.openai.com/api/docs/models/gpt-6.2-astra
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for GPT-6.2 Astra
+
+GPT-6.2 Astra (November 17, 2026) is OpenAI's new flagship. It replaces
+[GPT-6 Astra](/models/openai-gpt-6-astra), at **20% lower token prices**.
+OpenAI skipped a public GPT-6.1 Astra: it pulled that release in late
+September after safety concerns were raised.
+
+- The hardest reasoning, coding and computer-use work in OpenAI's line-up.
+- OpenAI says it scores 5.2 points higher than GPT-6 Astra on Agents' Last Exam
+  while costing less than a third as much per task.
+- For most everyday agentic coding,
+  [GPT-6.2 Sol](/models/openai-gpt-6-2-sol) gets close at about one-fifth of
+  the cost. Check Sol before paying for Astra.
+
+OpenAI says GPT-6.2 Astra is its first externally released model to reach the
+**High** threshold for AI self-improvement under its Preparedness Framework.
+It ships with tighter safeguards on higher-risk cybersecurity requests.
+
+## Specs & cost
+
+- **Model ID:** `gpt-6.2-astra` — confirmed in OpenAI's own OpenAPI spec.
+- **Context:** 1,050,000 tokens (922K max input), up to 128K output.
+- **Modalities:** text and image in, text out.
+- **Pricing:** $8 / 1M input, $40 / 1M output, $0.40 / 1M cached input. Above
+  272K input tokens the whole request is billed at 2× input and 1.5× output.
+- **Availability:** the OpenAI API, plus ChatGPT and Codex for Plus, Pro,
+  Enterprise and Edu users.
+
+> **The price and context figures are from launch coverage, not read directly
+> from OpenAI.** OpenAI's docs and pricing pages could not be reached from the
+> environment that wrote this page. Several independent reports agree on them,
+> and the context window matches GPT-6 Astra's. Only the model ID was checked
+> against an OpenAI source.
+
+## Benchmark notes
+
+**No benchmarks are recorded yet.** OpenAI's headline launch claims, Agents'
+Last Exam and FrontierCode 2.0, are outside this catalog's tracked set. The
+GPQA Diamond figures in circulation conflict: 96 and 97 are both attributed to
+Astra, with no clear origin. Artificial Analysis gives it 62 on its
+Intelligence Index at max effort, which is not a tracked benchmark.
+
+## Official resources
+
+- [GPT-6.2 Astra model docs](https://developers.openai.com/api/docs/models/gpt-6.2-astra)
+- [OpenAI API models](https://developers.openai.com/api/docs/models)

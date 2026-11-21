@@ -1,0 +1,58 @@
+---
+slug: google-gemini-4-neon
+name: Gemini 4 Neon
+provider: google
+releaseDate: 2026-11-18
+contextWindow: 1048576
+modalities: [text, vision]
+pricing:
+  inputPer1M: 3
+  outputPer1M: 15
+availability: [api, gemini-app]
+strengths: [reasoning, coding, agentic-tasks, long-context]
+officialDocs: https://ai.google.dev/gemini-api/docs/models
+tweetIds: []
+benchmarks: []
+---
+
+## When to reach for Gemini 4 Neon
+
+Gemini 4 Neon (November 18, 2026) is the middle model of Google's Gemini 4
+generation. It sits between the low-cost
+[Gemini 4 Hydrogen](/models/google-gemini-4-hydrogen) and the top-end
+[Gemini 4 Carbon](/models/google-gemini-4-carbon). Google pitches it as a
+cheaper frontier model for coding and enterprise workloads. It is the
+generation's fourth model in about a month.
+
+- Coding and agentic work that needs more than Hydrogen, at a lower token price
+  than Carbon or [Gemini 4 Argon](/models/google-gemini-4-argon) ($4 / $20).
+- Long-context jobs across a 1M-token window.
+- Gemini app and Antigravity users on paid plans, where it is rolling out
+  alongside the API.
+
+Google has not said it replaces Argon or Carbon, so both stay current here.
+
+## Specs & cost
+
+- **Model ID:** `gemini-4-neon`, as reported by API listings and launch
+  coverage.
+- **Context:** 1,048,576 tokens. Listings give up to 65,536 output tokens.
+- **Pricing:** $3 / 1M input, $15 / 1M output (thinking tokens bill as output),
+  $0.15 / 1M implicitly cached input. No free API tier. Batch and long-context
+  rates are not confirmed yet.
+- **Availability:** the Gemini API in Google AI Studio, Gemini for business, and
+  the Gemini app and Antigravity for paid subscribers.
+
+> **These specs come from third parties.** Google's blog and docs can't be
+> reached from the environment that wrote this page. The model ID, context
+> window and price above are where several independent listings agree.
+
+## Benchmark notes
+
+**No benchmarks are recorded.** Its Artificial Analysis Intelligence Index
+score (61) is not a tracked benchmark, and no Google launch table could be read
+from here.
+
+## Official resources
+
+- [Gemini API models](https://ai.google.dev/gemini-api/docs/models)
